@@ -1,0 +1,247 @@
+{"0": {
+    "doc": "About",
+    "title": "About",
+    "content": "InContext is a working reference on the craft of context for AI. The premise: large models don’t fail because they’re stupid. They fail because they’re working with the wrong context — too little, too much, the wrong shape, the wrong order, or the right material buried under noise. The skill of getting useful work out of an AI is, increasingly, the skill of curating what it sees. This site is a place to write that down. Not a blog, not a book — a reference. Pages stand alone, get edited as understanding sharpens, and link sideways to whatever’s related. Built with Jekyll and the Just the Docs theme. Source on GitHub — corrections and additions welcome. ",
+    "url": "/about/",
+    
+    "relUrl": "/about/"
+  },"1": {
+    "doc": "AGENTS.md and the convergence",
+    "title": "AGENTS.md and the convergence",
+    "content": ". | Should you use it? | What goes in it | The pattern that’s emerging | . For a while, every agentic coding tool wanted its own context file. Cursor had .cursorrules, then .cursor/rules/. Claude Code introduced CLAUDE.md. Aider had its own thing. Continue had its own thing. If you used more than one, you maintained three or four near-duplicate files. AGENTS.md is the convergence. It’s a deliberately tool-agnostic file — same idea as CLAUDE.md but framed as a shared standard rather than one vendor’s format. A growing number of agent runners read it, and the trajectory is toward more. ",
+    "url": "/docs/per-tool/agents-md/",
+    
+    "relUrl": "/docs/per-tool/agents-md/"
+  },"2": {
+    "doc": "AGENTS.md and the convergence",
+    "title": "Should you use it?",
+    "content": "If you’re working in a single tool exclusively, the tool-native file is fine. CLAUDE.md for Claude Code, Cursor rules for Cursor. If you’re working across tools, or want your project to be portable for collaborators using different setups, AGENTS.md at the repo root is the lower-friction choice. Some tools will read both, with the tool-native file taking precedence — meaning you can put the shared baseline in AGENTS.md and put tool-specific overrides in CLAUDE.md or .cursor/rules/. ",
+    "url": "/docs/per-tool/agents-md/#should-you-use-it",
+    
+    "relUrl": "/docs/per-tool/agents-md/#should-you-use-it"
+  },"3": {
+    "doc": "AGENTS.md and the convergence",
+    "title": "What goes in it",
+    "content": "Everything from the CLAUDE.md guidance applies. Stack, commands, conventions, gotchas. The cross-tool framing is mostly about what to leave out: avoid instructions that only make sense for one tool’s UI or workflow, since AGENTS.md will be read by tools that don’t have those affordances. ",
+    "url": "/docs/per-tool/agents-md/#what-goes-in-it",
+    
+    "relUrl": "/docs/per-tool/agents-md/#what-goes-in-it"
+  },"4": {
+    "doc": "AGENTS.md and the convergence",
+    "title": "The pattern that’s emerging",
+    "content": "The interesting thing about AGENTS.md isn’t the file format — it’s barely a format at all, just markdown. It’s the implicit acknowledgment that the context resource is now part of the project, the same way a Makefile or a .editorconfig is. It’s a piece of the repo that exists to make tooling work, and it’s expected to be there. Five years ago this category didn’t exist. Today it’s converging on a name. Worth paying attention to. ",
+    "url": "/docs/per-tool/agents-md/#the-pattern-thats-emerging",
+    
+    "relUrl": "/docs/per-tool/agents-md/#the-pattern-thats-emerging"
+  },"5": {
+    "doc": "Crafting a CLAUDE.md",
+    "title": "Crafting a CLAUDE.md",
+    "content": ". | The shape that works | What to leave out | A useful pattern: scope by directory | Keeping it alive | A starter template | Related | . CLAUDE.md is a markdown file Claude Code reads automatically when it starts working in a directory. Its job is simple: tell the model the things it would otherwise have to guess about your project. This page is about how to write one well. The format and behavior evolve. When something here disagrees with Anthropic’s official docs, trust theirs. ",
+    "url": "/docs/per-tool/claude-md/",
+    
+    "relUrl": "/docs/per-tool/claude-md/"
+  },"6": {
+    "doc": "Crafting a CLAUDE.md",
+    "title": "The shape that works",
+    "content": "A CLAUDE.md is not a manifesto. It’s a working document the model reads on every run, which means every line you add costs you something on every run forever. The discipline is brutal subtraction. A good CLAUDE.md typically covers: . | What this project is. One or two sentences. The model can usually figure this out from the code, but stating it directly removes ambiguity for free. | Stack and conventions. Language, package manager, test runner, formatter. The non-obvious choices. | Directory map, only where it’s non-obvious. Don’t recreate tree. Do flag things like “schemas live in db/schema/ and are the source of truth for migrations.” | Commands the model should use. pnpm test, make lint, the deploy script — whatever the model would otherwise re-derive every time. | Standing rules. “Never edit generated files in dist/.” “All new endpoints go in routes/v2/.” Things that are true across tasks. | Known gotchas. The thing that bit you last week and will bite the model next week. | . ",
+    "url": "/docs/per-tool/claude-md/#the-shape-that-works",
+    
+    "relUrl": "/docs/per-tool/claude-md/#the-shape-that-works"
+  },"7": {
+    "doc": "Crafting a CLAUDE.md",
+    "title": "What to leave out",
+    "content": ". | Anything obvious from looking at the repo. If the model can see package.json, it doesn’t need to be told you use TypeScript. | Aspirational rules. If you don’t actually follow it, the model shouldn’t either — it’ll produce confused output that mixes the rule with the actual codebase. | Marketing copy or backstory. The README is for humans. CLAUDE.md is for the model. | Long examples. If you need an example, point at a real file in the repo. | . ",
+    "url": "/docs/per-tool/claude-md/#what-to-leave-out",
+    
+    "relUrl": "/docs/per-tool/claude-md/#what-to-leave-out"
+  },"8": {
+    "doc": "Crafting a CLAUDE.md",
+    "title": "A useful pattern: scope by directory",
+    "content": "Claude Code reads CLAUDE.md files at multiple levels of the tree, with closer files taking precedence. This means you can put repo-wide rules at the root and put narrower rules deeper. A CLAUDE.md in frontend/ can talk about React conventions without bloating the root file for backend work. This is the single most underused feature of the format. Most people put everything in the root file and watch it grow into an unreadable wall. ",
+    "url": "/docs/per-tool/claude-md/#a-useful-pattern-scope-by-directory",
+    
+    "relUrl": "/docs/per-tool/claude-md/#a-useful-pattern-scope-by-directory"
+  },"9": {
+    "doc": "Crafting a CLAUDE.md",
+    "title": "Keeping it alive",
+    "content": "The failure mode for CLAUDE.md is the same as for any documentation: it goes stale, the project moves, and now the model is being told things that aren’t true anymore. Two habits help: . | Treat staleness as a bug. When you change a convention, change the file in the same commit. | Re-read it quarterly. Out loud, ideally. Anything you flinch at — outdated, aspirational, redundant — cut it. | . ",
+    "url": "/docs/per-tool/claude-md/#keeping-it-alive",
+    
+    "relUrl": "/docs/per-tool/claude-md/#keeping-it-alive"
+  },"10": {
+    "doc": "Crafting a CLAUDE.md",
+    "title": "A starter template",
+    "content": "# &lt;Project name&gt; &lt;One-sentence description of what this is.&gt; ## Stack - &lt;Language + version&gt; - &lt;Package manager&gt; - &lt;Test runner&gt; - &lt;Anything else non-obvious&gt; ## Commands - `&lt;command&gt;` — &lt;what it does&gt; - `&lt;command&gt;` — &lt;what it does&gt; ## Conventions - &lt;Rule&gt; - &lt;Rule&gt; ## Gotchas - &lt;Thing that will bite you&gt; . Start there. Add only when you’ve watched the model do the wrong thing twice and can articulate the rule that would have prevented it. Resist the urge to pre-populate. ",
+    "url": "/docs/per-tool/claude-md/#a-starter-template",
+    
+    "relUrl": "/docs/per-tool/claude-md/#a-starter-template"
+  },"11": {
+    "doc": "Crafting a CLAUDE.md",
+    "title": "Related",
+    "content": ". | AGENTS.md and the convergence | Context is a budget | . ",
+    "url": "/docs/per-tool/claude-md/#related",
+    
+    "relUrl": "/docs/per-tool/claude-md/#related"
+  },"12": {
+    "doc": "Context is a budget, not a bucket",
+    "title": "Context is a budget, not a bucket",
+    "content": ". | What a context window actually is | What this means in practice | . The first thing people notice about modern models is that the context window has gotten huge. Two hundred thousand tokens. A million. The natural reaction is: stop curating, just dump everything in. Let the model figure out what matters. This is wrong, and it’s wrong in a way that matters more the bigger the window gets. ",
+    "url": "/docs/foundations/context-is-a-budget/",
+    
+    "relUrl": "/docs/foundations/context-is-a-budget/"
+  },"13": {
+    "doc": "Context is a budget, not a bucket",
+    "title": "What a context window actually is",
+    "content": "A context window is a budget, not a bucket. Every token you add does three things: . | Costs money and latency. Linear in tokens, sometimes worse. | Competes for attention with every other token. The model’s attention is a finite resource being divided across what you put in front of it. Adding irrelevant material doesn’t sit politely in a corner — it pulls attention away from the relevant material. | Adds opportunities for confusion. Every additional document is another chance for the model to anchor on the wrong thing, follow a stale instruction, or pattern-match to the wrong example. | . The naive “just dump it all in” intuition treats context like RAM — neutral storage that the model queries. It’s not. Context is more like a meeting agenda. A meeting with twelve agenda items isn’t twice as productive as one with six. It’s usually less productive, because attention fragments and the important items get rushed. ",
+    "url": "/docs/foundations/context-is-a-budget/#what-a-context-window-actually-is",
+    
+    "relUrl": "/docs/foundations/context-is-a-budget/#what-a-context-window-actually-is"
+  },"14": {
+    "doc": "Context is a budget, not a bucket",
+    "title": "What this means in practice",
+    "content": ". | Cut before you add. Default to less. The question isn’t “could this be useful?” but “is this load-bearing for the task at hand?” | Order matters. Models attend more strongly to the start and end of context. Put the instruction at the top, the critical reference material near the bottom, and the bulk in the middle where it can be skimmed. | Repetition is a tool, not a smell. If something is genuinely critical, restating it at the end is cheap insurance. | A clean 8K context usually beats a messy 80K one. | . This last rule surprises people most and is the most worth internalizing. The shift from “engineering prompts” to “engineering context” is real, but the underlying skill is the same: figure out what the model needs, give it that, and stop. When you’re tempted to add another document to the context, ask: would I add a fifteenth slide to a ten-slide deck for the same reason? Usually the answer is no. ",
+    "url": "/docs/foundations/context-is-a-budget/#what-this-means-in-practice",
+    
+    "relUrl": "/docs/foundations/context-is-a-budget/#what-this-means-in-practice"
+  },"15": {
+    "doc": "Reference",
+    "title": "Reference",
+    "content": "Quick lookups. Format cheat sheets, directives that work, common failure modes. Less prose, more tables. Pages to come: . | Front matter cheat sheet — what each tool’s context file expects at the top | Directives that work — phrasings that reliably change model behavior | Failure modes — the small set of ways context resources go wrong, and the symptoms | . ",
+    "url": "/docs/reference/",
+    
+    "relUrl": "/docs/reference/"
+  },"16": {
+    "doc": "Foundations",
+    "title": "Foundations",
+    "content": "The vocabulary and the underlying ideas. Read these first if anything in the rest of the site doesn’t make sense — most of the per-tool and pattern pages assume the framing here. ",
+    "url": "/docs/foundations/",
+    
+    "relUrl": "/docs/foundations/"
+  },"17": {
+    "doc": "Patterns",
+    "title": "Patterns",
+    "content": "Recurring shapes that work across tools and models. Each pattern here is a way of organizing context that has earned its keep on real problems. Pattern pages will be filled in as the catalog grows. Candidates currently in the queue: . | Scope by directory — let the file system carry the layering | Layered context — global → project → task, with overrides | Role + task + constraints — the three-part frame for system prompts | Retrieve before generate — when to add a retrieval step instead of stuffing context | Cite, don’t summarize — when to point at a file vs. paraphrase it | Negative examples — using counter-examples to define behavior | . ",
+    "url": "/docs/patterns/",
+    
+    "relUrl": "/docs/patterns/"
+  },"18": {
+    "doc": "Per-tool",
+    "title": "Per-tool",
+    "content": "Practical references for the specific context artifacts in use today. Each page covers what the file is, what to put in it, what to leave out, and how to keep it from going stale. These pages assume you’ve read What is a context resource? and Context is a budget — the recommendations here lean on those ideas. ",
+    "url": "/docs/per-tool/",
+    
+    "relUrl": "/docs/per-tool/"
+  },"19": {
+    "doc": "Home",
+    "title": "InContext",
+    "content": "A working reference on the craft of context for AI — the files, patterns, and small choices that decide whether a model is useful or useless on your problem. Start with foundations View on GitHub . ",
+    "url": "/#incontext",
+    
+    "relUrl": "/#incontext"
+  },"20": {
+    "doc": "Home",
+    "title": "What’s here",
+    "content": "Foundations — the vocabulary and the underlying ideas. What a context resource is, why context behaves like a budget rather than a bucket, what models actually attend to. Per-tool — practical references for the artifacts in use today. CLAUDE.md, AGENTS.md, Cursor rules, system prompts. Patterns — recurring shapes that work across tools and models. Scope-by-directory, layered context, role + task + constraints, retrieval before generation. Reference — quick lookups. Format cheat sheets, directives that work, common failure modes. ",
+    "url": "/#whats-here",
+    
+    "relUrl": "/#whats-here"
+  },"21": {
+    "doc": "Home",
+    "title": "How to use this site",
+    "content": "Search (top of the page) or browse the sidebar. Pages are written to stand alone — landing on a deep page should make sense without reading anything before it. Where useful, pages link sideways to related material. Nothing here is theoretical. Every recommendation comes from watching models succeed or fail at real tasks. ",
+    "url": "/#how-to-use-this-site",
+    
+    "relUrl": "/#how-to-use-this-site"
+  },"22": {
+    "doc": "Home",
+    "title": "Home",
+    "content": " ",
+    "url": "/",
+    
+    "relUrl": "/"
+  },"23": {
+    "doc": "Long-context degradation",
+    "title": "Long-context degradation",
+    "content": ". | The short version | Where the term comes from | What it means in practice | What’s changed since 2023 | Related | Sources | . ",
+    "url": "/docs/foundations/long-context-degradation/",
+    
+    "relUrl": "/docs/foundations/long-context-degradation/"
+  },"24": {
+    "doc": "Long-context degradation",
+    "title": "The short version",
+    "content": "Modern models advertise context windows of 200K, 1M, even 2M tokens. Performance does not stay flat across that window. Information placed in the middle of a long context is used worse than information placed at the beginning or the end — sometimes dramatically worse. This is the most-cited failure mode of long context, and the most important one to internalize before you start “just dumping it all in.” . ",
+    "url": "/docs/foundations/long-context-degradation/#the-short-version",
+    
+    "relUrl": "/docs/foundations/long-context-degradation/#the-short-version"
+  },"25": {
+    "doc": "Long-context degradation",
+    "title": "Where the term comes from",
+    "content": "The phrase “lost in the middle” comes from a 2023 paper by Nelson Liu and colleagues at Stanford: Lost in the Middle: How Language Models Use Long Contexts. Co-authors included Kevin Lin, John Hewitt, Ashwin Paranjape, Michele Bevilacqua, Fabio Petroni, and Percy Liang. The contribution wasn’t the intuition — researchers had suspected long contexts behaved unevenly — but the experimental design that made it concrete. The team placed a single relevant document at different positions in a long context and asked the model questions whose answers depended on that document. They varied only the position of the relevant document. The result was a clean U-shape. Accuracy was high when the relevant material sat near the start of the context, high when it sat near the end, and noticeably lower when it sat in the middle. Same model, same question, same supporting material — only the position changed. That U-shaped curve became the reference image for the problem, and “lost in the middle” became the standard shorthand. ",
+    "url": "/docs/foundations/long-context-degradation/#where-the-term-comes-from",
+    
+    "relUrl": "/docs/foundations/long-context-degradation/#where-the-term-comes-from"
+  },"26": {
+    "doc": "Long-context degradation",
+    "title": "What it means in practice",
+    "content": "A few rules of thumb that fall out of this finding: . | Front-load the instruction. What you want the model to do goes at the top. | Repeat the critical bit at the end. If something is essential to getting the right answer, restating it after the bulk material is cheap insurance. | Don’t bury the lede. If you have a 50-page document and the key paragraph is on page 27, the model will struggle to use it even with the full document in context. Lift the key paragraph out and place it explicitly. | Order retrieved chunks by relevance, not by document order. If your retrieval layer is returning 8 chunks, putting the highest-scoring one in the middle is the worst position. | . When in doubt, treat your context like a sandwich: instruction on top, critical reference at the bottom, bulk material in the middle where it can be skimmed but isn’t load-bearing. ",
+    "url": "/docs/foundations/long-context-degradation/#what-it-means-in-practice",
+    
+    "relUrl": "/docs/foundations/long-context-degradation/#what-it-means-in-practice"
+  },"27": {
+    "doc": "Long-context degradation",
+    "title": "What’s changed since 2023",
+    "content": "The U-shape has been replicated repeatedly across newer and larger-context models. It’s gotten less severe in some cases — frontier models in 2025 and 2026 show flatter curves than the 2023 generation — but it has not gone away. Anyone telling you long-context attention is “solved” is selling something. There’s no consensus on the underlying cause. Candidate explanations include: . | Positional encoding artifacts (the math the model uses to track where tokens are in the sequence) | Training-data distribution effects (in natural text, important information clusters near the start and end of documents, so the model has more practice attending there) | Attention head specialization (some heads track recency, some track the start, fewer track the middle) | Some interaction of all three | . The practical upshot is the same regardless: position in context is a real variable, and you should design context resources with that in mind. ",
+    "url": "/docs/foundations/long-context-degradation/#whats-changed-since-2023",
+    
+    "relUrl": "/docs/foundations/long-context-degradation/#whats-changed-since-2023"
+  },"28": {
+    "doc": "Long-context degradation",
+    "title": "Related",
+    "content": ". | Context is a budget, not a bucket — the broader argument for treating context as a scarce resource | What is a context resource? — the vocabulary | . ",
+    "url": "/docs/foundations/long-context-degradation/#related",
+    
+    "relUrl": "/docs/foundations/long-context-degradation/#related"
+  },"29": {
+    "doc": "Long-context degradation",
+    "title": "Sources",
+    "content": ". | Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., &amp; Liang, P. (2023). Lost in the Middle: How Language Models Use Long Contexts. arXiv:2307.03172. | . ",
+    "url": "/docs/foundations/long-context-degradation/#sources",
+    
+    "relUrl": "/docs/foundations/long-context-degradation/#sources"
+  },"30": {
+    "doc": "What is a context resource?",
+    "title": "What is a context resource?",
+    "content": ". | The short version | The common examples | Why the category matters | Related | . ",
+    "url": "/docs/foundations/what-is-a-context-resource/",
+    
+    "relUrl": "/docs/foundations/what-is-a-context-resource/"
+  },"31": {
+    "doc": "What is a context resource?",
+    "title": "The short version",
+    "content": "A context resource is any artifact you write or maintain whose primary purpose is to be read by an AI model — usually before or alongside whatever real task you’ve asked it to do. It is not the user’s question. It is not the model’s training data. It sits in between: material you’ve curated specifically to shape the model’s behavior on this project, in this tool, for this kind of task. ",
+    "url": "/docs/foundations/what-is-a-context-resource/#the-short-version",
+    
+    "relUrl": "/docs/foundations/what-is-a-context-resource/#the-short-version"
+  },"32": {
+    "doc": "What is a context resource?",
+    "title": "The common examples",
+    "content": ". | CLAUDE.md — the project file Claude Code reads on every run. | AGENTS.md — the increasingly common cross-tool equivalent. Cursor, Aider, Continue, and several others read this now. | .cursor/rules/ — Cursor’s per-project rule files, broken up by scope. | System prompts — the top-level frame for chat-style use. | RAG sources — the documents your retrieval layer surfaces to the model. | . What unites these is that they’re all deliberate context: material you’ve curated specifically to shape the model’s behavior. ",
+    "url": "/docs/foundations/what-is-a-context-resource/#the-common-examples",
+    
+    "relUrl": "/docs/foundations/what-is-a-context-resource/#the-common-examples"
+  },"33": {
+    "doc": "What is a context resource?",
+    "title": "Why the category matters",
+    "content": "Three years ago “prompt engineering” covered all of this. The phrase has aged poorly because the work is no longer mostly about cleverly worded prompts. The work is about deciding what context to make available, in what shape, for what scope, with what lifecycle. That’s a different skill — closer to information architecture than to copywriting. Once you start treating these artifacts as a category, useful questions appear: . | What’s the right size? (Almost always: smaller than your first instinct.) | What scope — repo, directory, task, session? | How does it interact with other context the model is seeing? | How do you keep it from going stale as the project changes? | How do you test that it’s actually doing something? | . The rest of this site works through those questions, one resource type at a time. ",
+    "url": "/docs/foundations/what-is-a-context-resource/#why-the-category-matters",
+    
+    "relUrl": "/docs/foundations/what-is-a-context-resource/#why-the-category-matters"
+  },"34": {
+    "doc": "What is a context resource?",
+    "title": "Related",
+    "content": ". | Context is a budget, not a bucket | Crafting a CLAUDE.md | . ",
+    "url": "/docs/foundations/what-is-a-context-resource/#related",
+    
+    "relUrl": "/docs/foundations/what-is-a-context-resource/#related"
+  }
+}
