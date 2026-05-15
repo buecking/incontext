@@ -7,7 +7,7 @@ description: >-
   A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md,
   Cursor rules, prompt scaffolds, and the patterns that make models
   actually work on real problems.
-url: ""                       # set after first deploy, e.g. https://YOUR-USER.github.io
+url: "https://incontext.info"
 baseurl: ""
 repository: "buecking/incontext"
 
@@ -16,6 +16,13 @@ defaults:
       path: ""
     values:
       layout: default
+  # Serve SKILL.md files at their original .md URL, not the prettified path.
+  # Keeps the in-tree SKILL.md frontmatter portable (only `name` + `description`).
+  - scope:
+      path: "skills"
+    values:
+      permalink: "/:path/:basename.md"
+      sitemap: false
 
 # Theme
 remote_theme: just-the-docs/just-the-docs

@@ -24,6 +24,8 @@ A working reference on the craft of context for AI — the files, patterns, and 
 
 **[Patterns](/docs/patterns/)** — recurring shapes that work across tools and models. Scope-by-directory, layered context, role + task + constraints, retrieval before generation.
 
+**[Skills](/docs/skills/)** — the small set of named, reusable workflows worth keeping installed. Headlined by an XP-style fixed loop for shipping with an agent.
+
 **[Reference](/docs/reference/)** — quick lookups. Format cheat sheets, directives that work, common failure modes.
 
 ---
