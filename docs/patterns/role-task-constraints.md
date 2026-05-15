@@ -58,7 +58,7 @@ The role does two useful things:
 - **Scopes the work.** "Coding assistant for a Jekyll site" tells the model what kind of files to expect, what conventions to assume, what tools are likely in play.
 - **Sets the tone.** "Tax preparer," "five-year-old's tutor," "legal contract drafter" produce different output styles.
 
-What role *does not* reliably do, on current frontier models: **boost factual accuracy via claimed expertise**. Zheng et al. 2024 ([arXiv:2311.10054](https://arxiv.org/abs/2311.10054)) evaluated 162 personas across 4 LLMs on MMLU-style benchmarks and found *no consistent gain*. See [directives §6](/docs/reference/directives/#6-role--persona-prompts--for-style-not-for-capability) for the full story.
+What role *does not* reliably do, on current frontier models: **boost factual accuracy via claimed expertise**. Zheng et al. 2024 ([arXiv:2311.10054](https://arxiv.org/abs/2311.10054)) evaluated 162 personas across 4 LLM families on 2,410 factual questions and found *no consistent gain*. See [directives §6](/docs/reference/directives/#6-role--persona-prompts--for-style-not-for-capability) for the full story.
 
 The practical rule:
 

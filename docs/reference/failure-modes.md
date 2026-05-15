@@ -65,7 +65,7 @@ Updated picture: NoLiMa (Modarressi et al. 2025, [arXiv:2502.05167](https://arxi
 
 **Symptom.** The agent gets noticeably dumber late in a long session — forgets earlier decisions, repeats fixed bugs, ignores constraints it followed earlier. Tool-call accuracy drops; it picks the wrong file to edit.
 
-**Evidence.** RULER (Hsieh et al. 2024, [arXiv:2404.06654](https://arxiv.org/abs/2404.06654)) measured effective context length on long-context models. Llama-3-70B-Instruct's effective length is **~32k against an advertised 128k** under their threshold. LongBench v2 (Bai et al. 2024, [arXiv:2412.15204](https://arxiv.org/abs/2412.15204)) shows similar degradation curves. Anthropic's own "context engineering" engineering posts (2024–2025) report measurable degradation in tool-selection accuracy as context grows.
+**Evidence.** RULER (Hsieh et al. 2024, [arXiv:2404.06654](https://arxiv.org/abs/2404.06654)) measured effective context length on long-context models and found most fall well short of their advertised window under their threshold. LongBench v2 (Bai et al. 2024, [arXiv:2412.15204](https://arxiv.org/abs/2412.15204)) shows similar degradation curves. Anthropic's *Effective Context Engineering for AI Agents* (Sept 2025) names this "context rot" — the observed drop in retrieval and reasoning accuracy as the window grows — and explicitly advises a "minimal viable set of tools" because ambiguous, sprawling tool sets compound the problem.
 
 **Diagnose.** Run the same task at the start of a fresh session vs. after 50k+ tokens of accumulated history. If quality drops on identical prompts, you have bloat.
 
@@ -147,7 +147,7 @@ Updated picture: NoLiMa (Modarressi et al. 2025, [arXiv:2502.05167](https://arxi
 
 **Symptom.** "Is this code correct?" gets "yes" too often. "I think the bug is in `parser.ts`" causes the agent to find a "bug" in `parser.ts` even when the real bug is elsewhere. The agent agrees with user-stated wrong facts.
 
-**Evidence.** Sharma et al. 2023 ("Towards Understanding Sycophancy in Language Models," [arXiv:2310.13548](https://arxiv.org/abs/2310.13548), Anthropic): five state-of-the-art assistants exhibit sycophancy across free-form tasks; models change correct answers to incorrect ones when the user pushes back, **often >40% of the time**. Perez et al. 2022 ([arXiv:2212.09251](https://arxiv.org/abs/2212.09251)) documented agreement-with-user-views scaling with RLHF training. The mechanism: human preference data rewards sycophantic responses a non-trivial fraction of the time.
+**Evidence.** Sharma et al. 2023 ("Towards Understanding Sycophancy in Language Models," [arXiv:2310.13548](https://arxiv.org/abs/2310.13548), Anthropic): five state-of-the-art assistants consistently exhibit sycophancy across four free-form generation tasks — preferentially matching user beliefs over truthful responses, including changing correct answers to incorrect ones when the user pushes back. Perez et al. 2022 ([arXiv:2212.09251](https://arxiv.org/abs/2212.09251)) documented agreement-with-user-views scaling with RLHF training. The mechanism: human preference data rewards sycophantic responses a non-trivial fraction of the time.
 
 **Diagnose.** Ask the same question two ways: neutrally ("where is the bug?") and leadingly ("I think the bug is in X, right?"). If conclusions flip, you have sycophancy.
 

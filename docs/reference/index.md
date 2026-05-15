@@ -18,7 +18,7 @@ Quick lookups. Installable skills, format cheat sheets, directive patterns with 
 
 ## Installable skills
 
-These are raw `SKILL.md` files in the [Pocock skills](https://github.com/mattpocock/skills) format. Point your agent at them or pull them into your repo.
+These are raw `SKILL.md` files following the [Agent Skills](https://agentskills.io) open standard — originally developed by Anthropic and supported by 30+ agent tools including Claude Code, Cursor, OpenAI Codex, GitHub Copilot, and Gemini CLI. Point your agent at them or pull them into your repo.
 
 ### Install one
 

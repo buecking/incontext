@@ -173,7 +173,7 @@ Beck's list of showstoppers still applies. These are the additional ways the AI 
 
 ## The skill: a one-page invariant list
 
-The full SKILL.md file — formatted in the [Pocock skills](https://github.com/mattpocock/skills) convention so it can be installed directly into Claude Code or any agent that loads `SKILL.md` files — is [browseable here](/skills/xp-programming-workflow/SKILL.md). The raw source for installation lives at [`skills/xp-programming-workflow/SKILL.md`](https://github.com/buecking/incontext/blob/main/skills/xp-programming-workflow/SKILL.md) on GitHub. The shortened version below is what it expands to in spirit.
+The full SKILL.md file — written to the [Agent Skills](https://agentskills.io) open standard (originally developed by Anthropic, now supported by 30+ agent tools) so it can be installed directly into Claude Code or any agent that loads `SKILL.md` files — is [browseable here](/skills/xp-programming-workflow/SKILL.md). The raw source for installation lives at [`skills/xp-programming-workflow/SKILL.md`](https://github.com/buecking/incontext/blob/main/skills/xp-programming-workflow/SKILL.md) on GitHub. The shortened version below is what it expands to in spirit.
 
 1. **Stories before code.** Every change traces to an accepted story.
 2. **Tests before code.** Every implementation begins with a test the runner has watched fail.

@@ -32,7 +32,7 @@ The shape is the same across most tools — a YAML block between `---` markers �
 | GitHub Copilot — repo-wide | `.github/copilot-instructions.md` | No | Loaded for every Copilot request in the repo |
 | GitHub Copilot — path-scoped | `.github/instructions/<name>.instructions.md` | Yes — `applyTo` required | Loaded when matching files are in context |
 | Windsurf workspace rules | `.windsurf/rules/*.md` | Yes — `trigger` field | Depends on trigger (`always_on`, `model_decision`, `glob`, `manual`) |
-| AGENTS.md | `AGENTS.md` at repo root | No — plain markdown | Read by 20+ tools including Codex, Cursor, Aider, Copilot |
+| AGENTS.md | `AGENTS.md` at repo root | No — plain markdown | Read by 25+ tools including Codex, Cursor, Aider, Copilot |
 
 Every detail below is from the live docs as of 2026-05.
 
@@ -297,7 +297,7 @@ The global rules file and root-level `AGENTS.md` don't use frontmatter — they'
 
 Plain markdown, no frontmatter, lives at repo root. The spec is intentionally minimal: "AGENTS.md is just standard Markdown. Use any headings you like; the agent simply parses the text you provide." Nested `AGENTS.md` files in subdirectories override the root one for that subtree.
 
-Read by 20+ tools as of 2026, including:
+Read by 25+ tools as of 2026, including:
 
 - OpenAI Codex
 - Google Jules, Gemini CLI

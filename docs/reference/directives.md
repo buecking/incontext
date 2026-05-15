@@ -31,7 +31,7 @@ Strong: Respond in under 4 sentences. Call assertEquals
         from org.junit.jupiter.api.Assertions, not Hamcrest matchers.
 ```
 
-**Evidence.** The most consistent finding in the prompt-engineering literature. Sclar et al. 2023 ("Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design," [arXiv:2310.11324](https://arxiv.org/abs/2310.11324)) showed prompt-format choices alone swing GPT-3.5 accuracy by up to **76 percentage points** on classification tasks. Auto-prompt-optimization papers (APE — Zhou et al. 2022, [arXiv:2211.01910](https://arxiv.org/abs/2211.01910); Promptbreeder — Fernando et al. 2023, [arXiv:2309.16797](https://arxiv.org/abs/2309.16797)) consistently rediscover numeric constraints over qualitative adjectives.
+**Evidence.** The most consistent finding in the prompt-engineering literature. Sclar et al. 2023 ("Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design," [arXiv:2310.11324](https://arxiv.org/abs/2310.11324)) showed prompt-format choices alone swing accuracy by up to **76 percentage points** on LLaMA-2-13B across classification tasks — and substantial variation across all open-source LLMs they evaluated. Auto-prompt-optimization papers (APE — Zhou et al. 2022, [arXiv:2211.01910](https://arxiv.org/abs/2211.01910); Promptbreeder — Fernando et al. 2023, [arXiv:2309.16797](https://arxiv.org/abs/2309.16797)) consistently rediscover numeric constraints over qualitative adjectives.
 
 **Failure modes.** Hard numeric caps ("exactly 200 words") get within 10–20% on current models, not exact. Prefer ranges or upper bounds.
 
@@ -104,7 +104,7 @@ What happened next:
 
 **Pattern.** "You are a senior backend engineer with 15 years of experience."
 
-**Evidence.** This is the directive with the **weakest modern evidence**. Zheng et al. 2024 ("When 'A Helpful Assistant' Is Not Really Helpful," [arXiv:2311.10054](https://arxiv.org/abs/2311.10054)) evaluated 162 personas across 4 LLMs on MMLU and similar benchmarks — *no consistent gain*, sometimes small losses. Salewski et al. 2023 ([arXiv:2305.14930](https://arxiv.org/abs/2305.14930)) found some persona-induced gains on specific tasks; follow-ups have not replicated broadly.
+**Evidence.** This is the directive with the **weakest modern evidence**. Zheng et al. 2024 ("When 'A Helpful Assistant' Is Not Really Helpful," [arXiv:2311.10054](https://arxiv.org/abs/2311.10054)) evaluated 162 personas across 4 LLM families on 2,410 factual questions — *no consistent gain*, sometimes small losses. Salewski et al. 2023 ([arXiv:2305.14930](https://arxiv.org/abs/2305.14930)) found some persona-induced gains on specific tasks; follow-ups have not replicated broadly.
 
 What *does* still work:
 
