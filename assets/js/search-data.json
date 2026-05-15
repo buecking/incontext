@@ -176,7 +176,7 @@
   },"25": {
     "doc": "Directives that work",
     "title": "1. Specificity beats qualifier words",
-    "content": "Pattern. Replace vague adjectives with measurable rules. Weak: Be brief. Use the right approach. Strong: Respond in under 4 sentences. Call assertEquals from org.junit.jupiter.api.Assertions, not Hamcrest matchers. Evidence. The most consistent finding in the prompt-engineering literature. Sclar et al. 2023 (“Quantifying Language Models’ Sensitivity to Spurious Features in Prompt Design,” arXiv:2310.11324) showed prompt-format choices alone swing GPT-3.5 accuracy by up to 76 percentage points on classification tasks. Auto-prompt-optimization papers (APE — Zhou et al. 2022, arXiv:2211.01910; Promptbreeder — Fernando et al. 2023, arXiv:2309.16797) consistently rediscover numeric constraints over qualitative adjectives. Failure modes. Hard numeric caps (“exactly 200 words”) get within 10–20% on current models, not exact. Prefer ranges or upper bounds. Still works? Yes, more reliably than ever — modern instruction-tuned models follow explicit constraints better than GPT-3.5 did. ",
+    "content": "Pattern. Replace vague adjectives with measurable rules. Weak: Be brief. Use the right approach. Strong: Respond in under 4 sentences. Call assertEquals from org.junit.jupiter.api.Assertions, not Hamcrest matchers. Evidence. The most consistent finding in the prompt-engineering literature. Sclar et al. 2023 (“Quantifying Language Models’ Sensitivity to Spurious Features in Prompt Design,” arXiv:2310.11324) showed prompt-format choices alone swing accuracy by up to 76 percentage points on LLaMA-2-13B across classification tasks — and substantial variation across all open-source LLMs they evaluated. Auto-prompt-optimization papers (APE — Zhou et al. 2022, arXiv:2211.01910; Promptbreeder — Fernando et al. 2023, arXiv:2309.16797) consistently rediscover numeric constraints over qualitative adjectives. Failure modes. Hard numeric caps (“exactly 200 words”) get within 10–20% on current models, not exact. Prefer ranges or upper bounds. Still works? Yes, more reliably than ever — modern instruction-tuned models follow explicit constraints better than GPT-3.5 did. ",
     "url": "/docs/reference/directives/#1-specificity-beats-qualifier-words",
     
     "relUrl": "/docs/reference/directives/#1-specificity-beats-qualifier-words"
@@ -211,7 +211,7 @@
   },"30": {
     "doc": "Directives that work",
     "title": "6. Role / persona prompts — for style, not for capability",
-    "content": "Pattern. “You are a senior backend engineer with 15 years of experience.” . Evidence. This is the directive with the weakest modern evidence. Zheng et al. 2024 (“When ‘A Helpful Assistant’ Is Not Really Helpful,” arXiv:2311.10054) evaluated 162 personas across 4 LLMs on MMLU and similar benchmarks — no consistent gain, sometimes small losses. Salewski et al. 2023 (arXiv:2305.14930) found some persona-induced gains on specific tasks; follow-ups have not replicated broadly. What does still work: . | Style/tone/audience personas (“explain to a 10-year-old,” “write like a legal contract”) reliably shift output style. | Capability-scope personas (“you are a JSON-only API”) reliably constrain format. | . What does not reliably work: . | Expert claims (“you are a world-class expert”) to boost factual accuracy. These can increase confident hallucinations. Gupta et al. 2024 (arXiv:2311.04892) also documented negative bias effects from demographic personas. | . Still works? Style/scope yes. Capability-boosting no. Drop “you are an expert” from your CLAUDE.md. ",
+    "content": "Pattern. “You are a senior backend engineer with 15 years of experience.” . Evidence. This is the directive with the weakest modern evidence. Zheng et al. 2024 (“When ‘A Helpful Assistant’ Is Not Really Helpful,” arXiv:2311.10054) evaluated 162 personas across 4 LLM families on 2,410 factual questions — no consistent gain, sometimes small losses. Salewski et al. 2023 (arXiv:2305.14930) found some persona-induced gains on specific tasks; follow-ups have not replicated broadly. What does still work: . | Style/tone/audience personas (“explain to a 10-year-old,” “write like a legal contract”) reliably shift output style. | Capability-scope personas (“you are a JSON-only API”) reliably constrain format. | . What does not reliably work: . | Expert claims (“you are a world-class expert”) to boost factual accuracy. These can increase confident hallucinations. Gupta et al. 2024 (arXiv:2311.04892) also documented negative bias effects from demographic personas. | . Still works? Style/scope yes. Capability-boosting no. Drop “you are an expert” from your CLAUDE.md. ",
     "url": "/docs/reference/directives/#6-role--persona-prompts--for-style-not-for-capability",
     
     "relUrl": "/docs/reference/directives/#6-role--persona-prompts--for-style-not-for-capability"
@@ -295,7 +295,7 @@
   },"42": {
     "doc": "Failure modes",
     "title": "2. Context bloat / token budget exhaustion",
-    "content": "What. Performance degrades as context length grows, even below the model’s window limit and even when everything in it is relevant. Symptom. The agent gets noticeably dumber late in a long session — forgets earlier decisions, repeats fixed bugs, ignores constraints it followed earlier. Tool-call accuracy drops; it picks the wrong file to edit. Evidence. RULER (Hsieh et al. 2024, arXiv:2404.06654) measured effective context length on long-context models. Llama-3-70B-Instruct’s effective length is ~32k against an advertised 128k under their threshold. LongBench v2 (Bai et al. 2024, arXiv:2412.15204) shows similar degradation curves. Anthropic’s own “context engineering” engineering posts (2024–2025) report measurable degradation in tool-selection accuracy as context grows. Diagnose. Run the same task at the start of a fresh session vs. after 50k+ tokens of accumulated history. If quality drops on identical prompts, you have bloat. Fix. | Compact aggressively (/compact in Claude Code, summarization in Cursor). | Push exploration into sub-agents so their raw output never enters the parent context. | Move static reference material out of CLAUDE.md into files the agent reads on demand. | Reset (/clear) at slice boundaries instead of running one session for a whole feature. | . ",
+    "content": "What. Performance degrades as context length grows, even below the model’s window limit and even when everything in it is relevant. Symptom. The agent gets noticeably dumber late in a long session — forgets earlier decisions, repeats fixed bugs, ignores constraints it followed earlier. Tool-call accuracy drops; it picks the wrong file to edit. Evidence. RULER (Hsieh et al. 2024, arXiv:2404.06654) measured effective context length on long-context models and found most fall well short of their advertised window under their threshold. LongBench v2 (Bai et al. 2024, arXiv:2412.15204) shows similar degradation curves. Anthropic’s Effective Context Engineering for AI Agents (Sept 2025) names this “context rot” — the observed drop in retrieval and reasoning accuracy as the window grows — and explicitly advises a “minimal viable set of tools” because ambiguous, sprawling tool sets compound the problem. Diagnose. Run the same task at the start of a fresh session vs. after 50k+ tokens of accumulated history. If quality drops on identical prompts, you have bloat. Fix. | Compact aggressively (/compact in Claude Code, summarization in Cursor). | Push exploration into sub-agents so their raw output never enters the parent context. | Move static reference material out of CLAUDE.md into files the agent reads on demand. | Reset (/clear) at slice boundaries instead of running one session for a whole feature. | . ",
     "url": "/docs/reference/failure-modes/#2-context-bloat--token-budget-exhaustion",
     
     "relUrl": "/docs/reference/failure-modes/#2-context-bloat--token-budget-exhaustion"
@@ -330,7 +330,7 @@
   },"47": {
     "doc": "Failure modes",
     "title": "7. Sycophancy / agreement bias",
-    "content": "What. Context that primes the model toward a conclusion produces that conclusion regardless of correctness. Symptom. “Is this code correct?” gets “yes” too often. “I think the bug is in parser.ts” causes the agent to find a “bug” in parser.ts even when the real bug is elsewhere. The agent agrees with user-stated wrong facts. Evidence. Sharma et al. 2023 (“Towards Understanding Sycophancy in Language Models,” arXiv:2310.13548, Anthropic): five state-of-the-art assistants exhibit sycophancy across free-form tasks; models change correct answers to incorrect ones when the user pushes back, often &gt;40% of the time. Perez et al. 2022 (arXiv:2212.09251) documented agreement-with-user-views scaling with RLHF training. The mechanism: human preference data rewards sycophantic responses a non-trivial fraction of the time. Diagnose. Ask the same question two ways: neutrally (“where is the bug?”) and leadingly (“I think the bug is in X, right?”). If conclusions flip, you have sycophancy. Fix. | Phrase questions neutrally. Don’t state hypotheses in the same turn you ask the model to evaluate them. | Ask the model to argue both sides before concluding. | For code review, hide author names and prior approvals. | . ",
+    "content": "What. Context that primes the model toward a conclusion produces that conclusion regardless of correctness. Symptom. “Is this code correct?” gets “yes” too often. “I think the bug is in parser.ts” causes the agent to find a “bug” in parser.ts even when the real bug is elsewhere. The agent agrees with user-stated wrong facts. Evidence. Sharma et al. 2023 (“Towards Understanding Sycophancy in Language Models,” arXiv:2310.13548, Anthropic): five state-of-the-art assistants consistently exhibit sycophancy across four free-form generation tasks — preferentially matching user beliefs over truthful responses, including changing correct answers to incorrect ones when the user pushes back. Perez et al. 2022 (arXiv:2212.09251) documented agreement-with-user-views scaling with RLHF training. The mechanism: human preference data rewards sycophantic responses a non-trivial fraction of the time. Diagnose. Ask the same question two ways: neutrally (“where is the bug?”) and leadingly (“I think the bug is in X, right?”). If conclusions flip, you have sycophancy. Fix. | Phrase questions neutrally. Don’t state hypotheses in the same turn you ask the model to evaluate them. | Ask the model to argue both sides before concluding. | For code review, hide author names and prior approvals. | . ",
     "url": "/docs/reference/failure-modes/#7-sycophancy--agreement-bias",
     
     "relUrl": "/docs/reference/failure-modes/#7-sycophancy--agreement-bias"
@@ -407,7 +407,7 @@
   },"58": {
     "doc": "Front matter cheat sheet",
     "title": "At a glance",
-    "content": "| Tool | File | Frontmatter required? | Load behavior | . | Claude Code CLAUDE.md | ./CLAUDE.md, ~/.claude/CLAUDE.md | No — plain markdown | Loaded in full at every session start | . | Claude Code path-scoped rules | .claude/rules/*.md | Optional (paths: field) | Loaded at start, or on-demand when matching files are opened | . | Claude Code SKILL.md | .claude/skills/&lt;name&gt;/SKILL.md | Yes — description recommended | Description always in context; full body loads only when invoked | . | Claude Code sub-agents | .claude/agents/*.md | Yes — name, description required | Loaded into context when delegated to | . | Cursor rules | .cursor/rules/*.mdc | Yes for non-Always rules | Depends on rule type (Always / Auto Attached / Agent Requested / Manual) | . | Aider CONVENTIONS.md | CONVENTIONS.md (anywhere) | No | Loaded via --read flag or read: in .aider.conf.yml | . | Continue.dev rules | .continue/rules/*.md | Optional | Loaded based on globs, regex, alwaysApply | . | GitHub Copilot — repo-wide | .github/copilot-instructions.md | No | Loaded for every Copilot request in the repo | . | GitHub Copilot — path-scoped | .github/instructions/&lt;name&gt;.instructions.md | Yes — applyTo required | Loaded when matching files are in context | . | Windsurf workspace rules | .windsurf/rules/*.md | Yes — trigger field | Depends on trigger (always_on, model_decision, glob, manual) | . | AGENTS.md | AGENTS.md at repo root | No — plain markdown | Read by 20+ tools including Codex, Cursor, Aider, Copilot | . Every detail below is from the live docs as of 2026-05. ",
+    "content": "| Tool | File | Frontmatter required? | Load behavior | . | Claude Code CLAUDE.md | ./CLAUDE.md, ~/.claude/CLAUDE.md | No — plain markdown | Loaded in full at every session start | . | Claude Code path-scoped rules | .claude/rules/*.md | Optional (paths: field) | Loaded at start, or on-demand when matching files are opened | . | Claude Code SKILL.md | .claude/skills/&lt;name&gt;/SKILL.md | Yes — description recommended | Description always in context; full body loads only when invoked | . | Claude Code sub-agents | .claude/agents/*.md | Yes — name, description required | Loaded into context when delegated to | . | Cursor rules | .cursor/rules/*.mdc | Yes for non-Always rules | Depends on rule type (Always / Auto Attached / Agent Requested / Manual) | . | Aider CONVENTIONS.md | CONVENTIONS.md (anywhere) | No | Loaded via --read flag or read: in .aider.conf.yml | . | Continue.dev rules | .continue/rules/*.md | Optional | Loaded based on globs, regex, alwaysApply | . | GitHub Copilot — repo-wide | .github/copilot-instructions.md | No | Loaded for every Copilot request in the repo | . | GitHub Copilot — path-scoped | .github/instructions/&lt;name&gt;.instructions.md | Yes — applyTo required | Loaded when matching files are in context | . | Windsurf workspace rules | .windsurf/rules/*.md | Yes — trigger field | Depends on trigger (always_on, model_decision, glob, manual) | . | AGENTS.md | AGENTS.md at repo root | No — plain markdown | Read by 25+ tools including Codex, Cursor, Aider, Copilot | . Every detail below is from the live docs as of 2026-05. ",
     "url": "/docs/reference/front-matter/#at-a-glance",
     
     "relUrl": "/docs/reference/front-matter/#at-a-glance"
@@ -484,7 +484,7 @@
   },"69": {
     "doc": "Front matter cheat sheet",
     "title": "AGENTS.md (cross-tool)",
-    "content": "Plain markdown, no frontmatter, lives at repo root. The spec is intentionally minimal: “AGENTS.md is just standard Markdown. Use any headings you like; the agent simply parses the text you provide.” Nested AGENTS.md files in subdirectories override the root one for that subtree. Read by 20+ tools as of 2026, including: . | OpenAI Codex | Google Jules, Gemini CLI | Anthropic Claude Code (via a @AGENTS.md import in CLAUDE.md or a symlink) | GitHub Copilot Coding Agent | Cursor, Zed, VS Code, Warp, Aider | Cognition Devin, Windsurf | JetBrains Junie | UiPath Autopilot | . Common section conventions: project overview, build/test commands, code style, testing instructions, security notes, commit message format, PR guidelines. Over 60,000 OSS projects use it. To keep Claude Code in the loop without duplicating content: . @AGENTS.md ## Claude Code specific - Use plan mode for changes under `src/billing/`. Or symlink (Unix-y systems only): . ln -s AGENTS.md CLAUDE.md . ",
+    "content": "Plain markdown, no frontmatter, lives at repo root. The spec is intentionally minimal: “AGENTS.md is just standard Markdown. Use any headings you like; the agent simply parses the text you provide.” Nested AGENTS.md files in subdirectories override the root one for that subtree. Read by 25+ tools as of 2026, including: . | OpenAI Codex | Google Jules, Gemini CLI | Anthropic Claude Code (via a @AGENTS.md import in CLAUDE.md or a symlink) | GitHub Copilot Coding Agent | Cursor, Zed, VS Code, Warp, Aider | Cognition Devin, Windsurf | JetBrains Junie | UiPath Autopilot | . Common section conventions: project overview, build/test commands, code style, testing instructions, security notes, commit message format, PR guidelines. Over 60,000 OSS projects use it. To keep Claude Code in the loop without duplicating content: . @AGENTS.md ## Claude Code specific - Use plan mode for changes under `src/billing/`. Or symlink (Unix-y systems only): . ln -s AGENTS.md CLAUDE.md . ",
     "url": "/docs/reference/front-matter/#agentsmd-cross-tool",
     
     "relUrl": "/docs/reference/front-matter/#agentsmd-cross-tool"
@@ -503,110 +503,110 @@
     
     "relUrl": "/docs/reference/front-matter/#sources"
   },"72": {
-    "doc": "Foundations",
-    "title": "Foundations",
-    "content": "The vocabulary and the underlying ideas. Read these first if anything in the rest of the site doesn’t make sense — most of the per-tool and pattern pages assume the framing here. ",
-    "url": "/docs/foundations/",
-    
-    "relUrl": "/docs/foundations/"
-  },"73": {
-    "doc": "Per-tool",
-    "title": "Per-tool",
-    "content": "Practical references for the specific context artifacts in use today. Each page covers what the file is, what to put in it, what to leave out, and how to keep it from going stale. These pages assume you’ve read What is a context resource? and Context is a budget — the recommendations here lean on those ideas. ",
-    "url": "/docs/per-tool/",
-    
-    "relUrl": "/docs/per-tool/"
-  },"74": {
     "doc": "Reference",
     "title": "Reference",
     "content": "Quick lookups. Installable skills, format cheat sheets, directive patterns with empirical evidence, and a diagnostic guide for when something’s wrong. ",
     "url": "/docs/reference/",
     
     "relUrl": "/docs/reference/"
-  },"75": {
+  },"73": {
     "doc": "Reference",
     "title": "Pages in this section",
     "content": ". | Front matter cheat sheet — what each tool’s context file expects at the top. CLAUDE.md, SKILL.md, sub-agents, Cursor rules, Aider, Continue.dev, Copilot, Windsurf, AGENTS.md — fields, locations, load behavior, copy-pasteable snippets. | Directives that work — phrasings that reliably change model behavior, with the papers behind each. The 12 patterns worth using in CLAUDE.md / AGENTS.md / SKILL.md, with explicit notes on which ones backfire on reasoning models. | Failure modes — diagnostic guide. The 14 documented ways context resources go wrong, what each one looks like in practice, the empirical evidence, a quick test that confirms it, and the standard fix. | . ",
     "url": "/docs/reference/#pages-in-this-section",
     
     "relUrl": "/docs/reference/#pages-in-this-section"
-  },"76": {
+  },"74": {
     "doc": "Reference",
     "title": "Installable skills",
-    "content": "These are raw SKILL.md files in the Pocock skills format. Point your agent at them or pull them into your repo. ",
+    "content": "These are raw SKILL.md files following the Agent Skills open standard — originally developed by Anthropic and supported by 30+ agent tools including Claude Code, Cursor, OpenAI Codex, GitHub Copilot, and Gemini CLI. Point your agent at them or pull them into your repo. ",
     "url": "/docs/reference/#installable-skills",
     
     "relUrl": "/docs/reference/#installable-skills"
-  },"77": {
+  },"75": {
     "doc": "Reference",
     "title": "Install one",
     "content": "Skills live at one of two paths: . # Per-project (committed to the repo, available to everyone on the team) .claude/skills/&lt;skill-name&gt;/SKILL.md # Per-user (available across every project on your machine) ~/.claude/skills/&lt;skill-name&gt;/SKILL.md . Pull xp-programming-workflow into the current repo: . mkdir -p .claude/skills/xp-programming-workflow curl -fsSL https://incontext.info/skills/xp-programming-workflow/SKILL.md \\ -o .claude/skills/xp-programming-workflow/SKILL.md . Start a new Claude Code session in that repo and the skill is loaded. Invoke directly: . /xp-programming-workflow implement the points-on-lesson-completion story . Or describe the task — the skill’s description field tells the agent when to apply it on its own. ",
     "url": "/docs/reference/#install-one",
     
     "relUrl": "/docs/reference/#install-one"
-  },"78": {
+  },"76": {
     "doc": "Reference",
     "title": "Available",
     "content": "| Skill | What it does | Install | . | xp-programming-workflow | Runs one XP loop: story → failing test → minimal impl → refactor → atomic commit → reset. Defends against the dumb zone by design. | curl -fsSL https://incontext.info/skills/xp-programming-workflow/SKILL.md | . Explainers for each skill live under Skills. The XP workflow has its own page for the Beck source and the AI-team adaptation. ",
     "url": "/docs/reference/#available",
     
     "relUrl": "/docs/reference/#available"
-  },"79": {
+  },"77": {
     "doc": "Reference",
     "title": "Verify a skill is loaded",
     "content": "In any Claude Code session: . /skills . You’ll see the skill listed by name with its description. If it’s not there, check the path and the YAML frontmatter — both name and description should be present. ",
     "url": "/docs/reference/#verify-a-skill-is-loaded",
     
     "relUrl": "/docs/reference/#verify-a-skill-is-loaded"
-  },"80": {
+  },"78": {
     "doc": "Reference",
     "title": "Hire us",
     "content": "If you landed here because one of these skills crossed your feed: the work that produced them is what we do for clients. The site is the resume. Reach us at the GitHub link in the header. ",
     "url": "/docs/reference/#hire-us",
     
     "relUrl": "/docs/reference/#hire-us"
-  },"81": {
-    "doc": "Skills",
-    "title": "Skills",
-    "content": "A skill is a reusable, named workflow that an AI coding tool can invoke on demand — /improve-codebase-architecture, /grill-me, /simplify. They’re packaged context plus packaged behavior: a small, scoped procedure the model already knows how to run, so you don’t have to re-explain it every session. Skills are a context resource in the sense that the rest of this site uses the term. They live next to your CLAUDE.md and AGENTS.md and load on demand instead of on every run, which makes them cheap to keep around and easy to compose. This section is short on purpose. There are hundreds of skills floating around. Most of them are noise. The ones below are the small set that real engineers reach for repeatedly, with the XP workflow as the headline because it’s the one that changes how you work, not just what you can ask for. ",
-    "url": "/docs/skills/",
+  },"79": {
+    "doc": "Foundations",
+    "title": "Foundations",
+    "content": "The vocabulary and the underlying ideas. Read these first if anything in the rest of the site doesn’t make sense — most of the per-tool and pattern pages assume the framing here. ",
+    "url": "/docs/foundations/",
     
-    "relUrl": "/docs/skills/"
-  },"82": {
-    "doc": "Skills",
-    "title": "What’s here",
-    "content": ". | The XP workflow — a faithful summary of Kent Beck’s Extreme Programming Explained (1999). The values, the principles, the twelve practices, the lifecycle, the roles. The source the AI variant is built on. | XP with an AI on the team — the spinoff. What changes (and what doesn’t) when one of the seats at the table is an AI coding agent. Adapts each practice, names the new failure modes, and ends with a 12-point invariant list you can install as a skill. | Supporting skills — the short list of skills that earn their keep alongside the XP loop: improve-codebase-architecture, grill-me, simplify. | . ",
-    "url": "/docs/skills/#whats-here",
-    
-    "relUrl": "/docs/skills/#whats-here"
-  },"83": {
-    "doc": "Skills",
-    "title": "When a skill is the right shape",
-    "content": "A workflow is worth turning into a skill when: . | You’ve run it more than three times. Below that, you’re still figuring out what it should do. | Its inputs are stable. A skill that needs a wall of context every time you invoke it isn’t a skill, it’s a prompt template. | It returns a recognizable artifact. A passing test, a green diff, a PR, a refactor plan. Something you can point at and say “that’s what the skill produced.” | . If a workflow doesn’t satisfy all three, leave it as a saved prompt. Skills are for things that have earned a name. ",
-    "url": "/docs/skills/#when-a-skill-is-the-right-shape",
-    
-    "relUrl": "/docs/skills/#when-a-skill-is-the-right-shape"
-  },"84": {
+    "relUrl": "/docs/foundations/"
+  },"80": {
     "doc": "Patterns",
     "title": "Patterns",
     "content": "Recurring shapes for organizing context that earn their keep across tools and models. Each page below covers one pattern: what it is, when to reach for it, how to apply it, and where it breaks. Grounded in the official docs of the tools that implement them and in the published research behind the claims. ",
     "url": "/docs/patterns/",
     
     "relUrl": "/docs/patterns/"
-  },"85": {
+  },"81": {
     "doc": "Patterns",
     "title": "In this section",
     "content": ". | Scope by directory — let the filesystem carry the layering. Rules close to the code they constrain, not stuffed into one root file. Implemented by every major tool. | Layered context — global → project → task, with closer-wins overrides. The cache-economics view of why this ordering matters. | Role + task + constraints — the three-part frame for a system prompt or CLAUDE.md. Including what role does not reliably do on modern models. | Retrieve before generate — when retrieval beats stuffing, and the empirical state of the art (Anthropic Contextual Retrieval, 49–67% top-20 failure reduction). | Cite, don’t summarize — point at the file instead of paraphrasing it. Citations stay fresh; paraphrases go stale. | Negative examples — counter-examples work only when paired with the positive alternative. The empirical case against bare prohibitions. | . ",
     "url": "/docs/patterns/#in-this-section",
     
     "relUrl": "/docs/patterns/#in-this-section"
-  },"86": {
+  },"82": {
     "doc": "Patterns",
     "title": "How these compose",
     "content": "The six patterns aren’t independent — they pull on each other: . | Scope by directory is a special case of layered context: directory depth is one axis of layering, alongside global/project/task. | Role + task + constraints maps onto layered context: role and constraints in the project layer (CLAUDE.md), task in the task layer (user message or perception working set). | Cite, don’t summarize is what makes scope by directory work: a top-level file that cites the subtree-level files stays small and stable; one that summarizes them goes stale. | Retrieve before generate is the external-corpus counterpart to cite: when the corpus is large enough that you can’t cite it all, retrieve. | Negative examples is the one pattern with a strict pairing rule — it works inside the other patterns when used carefully, and breaks badly when used alone. | . If you build a context resource that follows all six, the Perception over history layering is what you end up with regardless of intent. The patterns are the local choices; perception is what they look like in aggregate. ",
     "url": "/docs/patterns/#how-these-compose",
     
     "relUrl": "/docs/patterns/#how-these-compose"
+  },"83": {
+    "doc": "Per-tool",
+    "title": "Per-tool",
+    "content": "Practical references for the specific context artifacts in use today. Each page covers what the file is, what to put in it, what to leave out, and how to keep it from going stale. These pages assume you’ve read What is a context resource? and Context is a budget — the recommendations here lean on those ideas. ",
+    "url": "/docs/per-tool/",
+    
+    "relUrl": "/docs/per-tool/"
+  },"84": {
+    "doc": "Skills",
+    "title": "Skills",
+    "content": "A skill is a reusable, named workflow that an AI coding tool can invoke on demand — /improve-codebase-architecture, /grill-me, /simplify. They’re packaged context plus packaged behavior: a small, scoped procedure the model already knows how to run, so you don’t have to re-explain it every session. Skills are a context resource in the sense that the rest of this site uses the term. They live next to your CLAUDE.md and AGENTS.md and load on demand instead of on every run, which makes them cheap to keep around and easy to compose. This section is short on purpose. There are hundreds of skills floating around. Most of them are noise. The ones below are the small set that real engineers reach for repeatedly, with the XP workflow as the headline because it’s the one that changes how you work, not just what you can ask for. ",
+    "url": "/docs/skills/",
+    
+    "relUrl": "/docs/skills/"
+  },"85": {
+    "doc": "Skills",
+    "title": "What’s here",
+    "content": ". | The XP workflow — a faithful summary of Kent Beck’s Extreme Programming Explained (1999). The values, the principles, the twelve practices, the lifecycle, the roles. The source the AI variant is built on. | XP with an AI on the team — the spinoff. What changes (and what doesn’t) when one of the seats at the table is an AI coding agent. Adapts each practice, names the new failure modes, and ends with a 12-point invariant list you can install as a skill. | Supporting skills — the short list of skills that earn their keep alongside the XP loop: improve-codebase-architecture, grill-me, simplify. | . ",
+    "url": "/docs/skills/#whats-here",
+    
+    "relUrl": "/docs/skills/#whats-here"
+  },"86": {
+    "doc": "Skills",
+    "title": "When a skill is the right shape",
+    "content": "A workflow is worth turning into a skill when: . | You’ve run it more than three times. Below that, you’re still figuring out what it should do. | Its inputs are stable. A skill that needs a wall of context every time you invoke it isn’t a skill, it’s a prompt template. | It returns a recognizable artifact. A passing test, a green diff, a PR, a refactor plan. Something you can point at and say “that’s what the skill produced.” | . If a workflow doesn’t satisfy all three, leave it as a saved prompt. Skills are for things that have earned a name. ",
+    "url": "/docs/skills/#when-a-skill-is-the-right-shape",
+    
+    "relUrl": "/docs/skills/#when-a-skill-is-the-right-shape"
   },"87": {
     "doc": "Home",
     "title": "InContext",
@@ -1030,7 +1030,7 @@
   },"147": {
     "doc": "Role + task + constraints",
     "title": "Role: scope, not expertise",
-    "content": "Anthropic’s official guidance is clear and narrow: . “Setting a role in the system prompt focuses Claude’s behavior and tone for your use case.” — Anthropic prompting best practices . The role does two useful things: . | Scopes the work. “Coding assistant for a Jekyll site” tells the model what kind of files to expect, what conventions to assume, what tools are likely in play. | Sets the tone. “Tax preparer,” “five-year-old’s tutor,” “legal contract drafter” produce different output styles. | . What role does not reliably do, on current frontier models: boost factual accuracy via claimed expertise. Zheng et al. 2024 (arXiv:2311.10054) evaluated 162 personas across 4 LLMs on MMLU-style benchmarks and found no consistent gain. See directives §6 for the full story. The practical rule: . Good role: \"You are a code reviewer for a TypeScript monorepo using Bun and Vite.\" Bad role: \"You are a world-class senior engineer with 20 years of experience.\" . The good role tells the model what kind of work to expect. The bad role makes claims that often produce more confident hallucinations without measurable accuracy gains. ",
+    "content": "Anthropic’s official guidance is clear and narrow: . “Setting a role in the system prompt focuses Claude’s behavior and tone for your use case.” — Anthropic prompting best practices . The role does two useful things: . | Scopes the work. “Coding assistant for a Jekyll site” tells the model what kind of files to expect, what conventions to assume, what tools are likely in play. | Sets the tone. “Tax preparer,” “five-year-old’s tutor,” “legal contract drafter” produce different output styles. | . What role does not reliably do, on current frontier models: boost factual accuracy via claimed expertise. Zheng et al. 2024 (arXiv:2311.10054) evaluated 162 personas across 4 LLM families on 2,410 factual questions and found no consistent gain. See directives §6 for the full story. The practical rule: . Good role: \"You are a code reviewer for a TypeScript monorepo using Bun and Vite.\" Bad role: \"You are a world-class senior engineer with 20 years of experience.\" . The good role tells the model what kind of work to expect. The bad role makes claims that often produce more confident hallucinations without measurable accuracy gains. ",
     "url": "/docs/patterns/role-task-constraints/#role-scope-not-expertise",
     
     "relUrl": "/docs/patterns/role-task-constraints/#role-scope-not-expertise"
@@ -1366,7 +1366,7 @@
   },"195": {
     "doc": "XP with an AI on the team",
     "title": "The skill: a one-page invariant list",
-    "content": "The full SKILL.md file — formatted in the Pocock skills convention so it can be installed directly into Claude Code or any agent that loads SKILL.md files — is browseable here. The raw source for installation lives at skills/xp-programming-workflow/SKILL.md on GitHub. The shortened version below is what it expands to in spirit. | Stories before code. Every change traces to an accepted story. | Tests before code. Every implementation begins with a test the runner has watched fail. | The runner is the judge. “It works” without observed runner output means “not run.” | Simplest thing that could possibly work. Reject design elements that don’t earn their place. | Once and only once. No duplication, anywhere. | Refactor on demand. Never on speculation. Never mid-slice. | Vertical slices. Every slice produces a runnable system end-to-end. | One slice, one PR. Reviewable in one sitting. | Integrate within hours. No branch outlives a day. | Reset, don’t compact. New session per slice; tight handoff prompt; clean context. | Human owns; agent contributes. Every line is reviewed by a person before it lands. | Customer stays human. Scope, priority, and acceptance are not delegable. | . The first ten are XP turned up to ten on a workflow that includes an agent. The last two are the ones the AI variant adds, and they are the ones that fail first when teams skip them. ",
+    "content": "The full SKILL.md file — written to the Agent Skills open standard (originally developed by Anthropic, now supported by 30+ agent tools) so it can be installed directly into Claude Code or any agent that loads SKILL.md files — is browseable here. The raw source for installation lives at skills/xp-programming-workflow/SKILL.md on GitHub. The shortened version below is what it expands to in spirit. | Stories before code. Every change traces to an accepted story. | Tests before code. Every implementation begins with a test the runner has watched fail. | The runner is the judge. “It works” without observed runner output means “not run.” | Simplest thing that could possibly work. Reject design elements that don’t earn their place. | Once and only once. No duplication, anywhere. | Refactor on demand. Never on speculation. Never mid-slice. | Vertical slices. Every slice produces a runnable system end-to-end. | One slice, one PR. Reviewable in one sitting. | Integrate within hours. No branch outlives a day. | Reset, don’t compact. New session per slice; tight handoff prompt; clean context. | Human owns; agent contributes. Every line is reviewed by a person before it lands. | Customer stays human. Scope, priority, and acceptance are not delegable. | . The first ten are XP turned up to ten on a workflow that includes an agent. The last two are the ones the AI variant adds, and they are the ones that fail first when teams skip them. ",
     "url": "/docs/skills/xp-with-ai/#the-skill-a-one-page-invariant-list",
     
     "relUrl": "/docs/skills/xp-with-ai/#the-skill-a-one-page-invariant-list"

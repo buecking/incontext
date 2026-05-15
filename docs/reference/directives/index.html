@@ -278,7 +278,7 @@ Strong: Respond in under 4 sentences. Call assertEquals
         from org.junit.jupiter.api.Assertions, not Hamcrest matchers.
 </code></pre></div></div>
 
-<p><strong>Evidence.</strong> The most consistent finding in the prompt-engineering literature. Sclar et al. 2023 (“Quantifying Language Models’ Sensitivity to Spurious Features in Prompt Design,” <a href="https://arxiv.org/abs/2310.11324">arXiv:2310.11324</a>) showed prompt-format choices alone swing GPT-3.5 accuracy by up to <strong>76 percentage points</strong> on classification tasks. Auto-prompt-optimization papers (APE — Zhou et al. 2022, <a href="https://arxiv.org/abs/2211.01910">arXiv:2211.01910</a>; Promptbreeder — Fernando et al. 2023, <a href="https://arxiv.org/abs/2309.16797">arXiv:2309.16797</a>) consistently rediscover numeric constraints over qualitative adjectives.</p>
+<p><strong>Evidence.</strong> The most consistent finding in the prompt-engineering literature. Sclar et al. 2023 (“Quantifying Language Models’ Sensitivity to Spurious Features in Prompt Design,” <a href="https://arxiv.org/abs/2310.11324">arXiv:2310.11324</a>) showed prompt-format choices alone swing accuracy by up to <strong>76 percentage points</strong> on LLaMA-2-13B across classification tasks — and substantial variation across all open-source LLMs they evaluated. Auto-prompt-optimization papers (APE — Zhou et al. 2022, <a href="https://arxiv.org/abs/2211.01910">arXiv:2211.01910</a>; Promptbreeder — Fernando et al. 2023, <a href="https://arxiv.org/abs/2309.16797">arXiv:2309.16797</a>) consistently rediscover numeric constraints over qualitative adjectives.</p>
 
 <p><strong>Failure modes.</strong> Hard numeric caps (“exactly 200 words”) get within 10–20% on current models, not exact. Prefer ranges or upper bounds.</p>
 
@@ -383,7 +383,7 @@ Strong: Respond in plain text.
 
 <p><strong>Pattern.</strong> “You are a senior backend engineer with 15 years of experience.”</p>
 
-<p><strong>Evidence.</strong> This is the directive with the <strong>weakest modern evidence</strong>. Zheng et al. 2024 (“When ‘A Helpful Assistant’ Is Not Really Helpful,” <a href="https://arxiv.org/abs/2311.10054">arXiv:2311.10054</a>) evaluated 162 personas across 4 LLMs on MMLU and similar benchmarks — <em>no consistent gain</em>, sometimes small losses. Salewski et al. 2023 (<a href="https://arxiv.org/abs/2305.14930">arXiv:2305.14930</a>) found some persona-induced gains on specific tasks; follow-ups have not replicated broadly.</p>
+<p><strong>Evidence.</strong> This is the directive with the <strong>weakest modern evidence</strong>. Zheng et al. 2024 (“When ‘A Helpful Assistant’ Is Not Really Helpful,” <a href="https://arxiv.org/abs/2311.10054">arXiv:2311.10054</a>) evaluated 162 personas across 4 LLM families on 2,410 factual questions — <em>no consistent gain</em>, sometimes small losses. Salewski et al. 2023 (<a href="https://arxiv.org/abs/2305.14930">arXiv:2305.14930</a>) found some persona-induced gains on specific tasks; follow-ups have not replicated broadly.</p>
 
 <p>What <em>does</em> still work:</p>
 
