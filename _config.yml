@@ -54,11 +54,11 @@ nav_sort: case_insensitive  # respects nav_order numeric overrides
 # Aux links (top-right of every page)
 aux_links:
   "GitHub":
-    - "https://github.com/YOUR-USER/incontext"
+    - "https://github.com/buecking/incontext"
 aux_links_new_tab: true
 
 # Footer
-footer_content: 'InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a>'
+footer_content: 'InContext &middot; <a href="https://github.com/buecking/incontext">Source on GitHub</a>'
 
 # Last edited timestamps on each page
 last_edit_timestamp: true
@@ -67,7 +67,7 @@ last_edit_time_format: "%b %e %Y"
 # "Edit this page on GitHub" links
 gh_edit_link: true
 gh_edit_link_text: "Edit this page on GitHub"
-gh_edit_repository: "https://github.com/YOUR-USER/incontext"
+gh_edit_repository: "https://github.com/buecking/incontext"
 gh_edit_branch: "main"
 gh_edit_view_mode: "tree"
 
