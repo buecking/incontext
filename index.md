@@ -27,11 +27,3 @@ A working reference on the craft of context for AI — the files, patterns, and 
 **[Skills](/docs/skills/)** — the small set of named, reusable workflows worth keeping installed. Headlined by an XP-style fixed loop for shipping with an agent.
 
 **[Reference](/docs/reference/)** — quick lookups. Format cheat sheets, directives that work, common failure modes.
-
----
-
-## How to use this site
-
-Search (top of the page) or browse the sidebar. Pages are written to stand alone — landing on a deep page should make sense without reading anything before it. Where useful, pages link sideways to related material.
-
-Nothing here is theoretical. Every recommendation comes from watching models succeed or fail at real tasks.
