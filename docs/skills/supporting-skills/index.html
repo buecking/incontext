@@ -13,10 +13,29 @@
 
   <style id="jtd-nav-activation">
   
-    .site-nav ul li a {
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(3)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
       background-image: none;
     }
 
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(3) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(3) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(3) > ul.nav-list {
+      display: block;
+    }
   </style>
 
   
@@ -34,20 +53,20 @@
 
 
   <!-- Begin Jekyll SEO tag v2.9.0 -->
-<title>InContext | A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.</title>
+<title>Supporting skills | InContext</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="InContext" />
+<meta property="og:title" content="Supporting skills" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
 <meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
-<link rel="canonical" href="https://incontext.info/assets/css/just-the-docs-head-nav.css" />
-<meta property="og:url" content="https://incontext.info/assets/css/just-the-docs-head-nav.css" />
+<link rel="canonical" href="https://incontext.info/docs/skills/supporting-skills/" />
+<meta property="og:url" content="https://incontext.info/docs/skills/supporting-skills/" />
 <meta property="og:site_name" content="InContext" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="InContext" />
+<meta name="twitter:title" content="Supporting skills" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"InContext","url":"https://incontext.info/assets/css/just-the-docs-head-nav.css"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"Supporting skills","url":"https://incontext.info/docs/skills/supporting-skills/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -199,13 +218,138 @@
 </div>
 
     <div class="main-content-wrap">
-      
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/skills/">Skills</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Supporting skills</span></li>
+  </ol>
+</nav>
+
+
       <div id="main-content" class="main-content">
         <main>
           
-            <h.site-nav ul li a {
-  background-image: linear-gradient(-90deg, rgb(234.8, 236.82, 244.9) 0%, rgba(234.8, 236.82, 244.9, 0.8) 80%, rgba(234.8, 236.82, 244.9, 0) 100%);
-}
+            <h1 class="no_toc" id="supporting-skills">
+  
+  
+    <a href="#supporting-skills" class="anchor-heading" aria-labelledby="supporting-skills"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Supporting skills
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#improve-codebase-architecture--before-you-write-code" id="markdown-toc-improve-codebase-architecture--before-you-write-code"><code class="language-plaintext highlighter-rouge">improve-codebase-architecture</code> — before you write code</a></li>
+  <li><a href="#grill-me--before-you-write-code" id="markdown-toc-grill-me--before-you-write-code"><code class="language-plaintext highlighter-rouge">grill-me</code> — before you write code</a></li>
+  <li><a href="#simplify--after-you-write-code" id="markdown-toc-simplify--after-you-write-code"><code class="language-plaintext highlighter-rouge">simplify</code> — after you write code</a></li>
+  <li><a href="#whats-deliberately-not-on-this-list" id="markdown-toc-whats-deliberately-not-on-this-list">What’s deliberately not on this list</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+</ol><hr />
+
+<p>The <a href="/docs/skills/xp-workflow/">XP workflow</a> is the loop. These are the small set of skills that compose with it — the ones worth keeping installed because they earn their slot in the menu repeatedly, not because they sound impressive.</p>
+
+<p>The bar for inclusion here is high on purpose. There are hundreds of skills floating around. The three below cover the moments in the loop where a focused, named procedure beats free-form prompting: <strong>before you write code</strong>, <strong>while you write code</strong>, and <strong>after you write code</strong>.</p>
+<h2 id="improve-codebase-architecture--before-you-write-code">
+  
+  
+    <a href="#improve-codebase-architecture--before-you-write-code" class="anchor-heading" aria-labelledby="improve-codebase-architecture--before-you-write-code"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">improve-codebase-architecture</code> — before you write code
+  
+  
+</h2>
+    
+
+<p><strong>What it does.</strong> Reads the structure of the repo and reports back on the things an agent will struggle with: shallow modules, leaky boundaries, over-coupling, files that are doing five jobs. The output is a refactor plan, not a refactor.</p>
+
+<p><strong>Why it matters.</strong> The structure of your codebase is the single biggest lever on agent output quality. Agents navigate the same way humans do: shallow modules with twenty small, tightly-coupled files are nearly impossible to test in isolation, and impossible to test means impossible to verify, and impossible to verify means impossible to trust.</p>
+
+<p>The fix is <strong>deep modules</strong> — narrow interfaces that hide a lot of behavior — rather than thin ones that punt every decision up to the caller. This is John Ousterhout’s <em>A Philosophy of Software Design</em> applied to a codebase that’s also being read by an agent.</p>
+
+<p><strong>When to reach for it.</strong></p>
+
+<ul>
+  <li>Before starting a new feature in an unfamiliar area of the repo.</li>
+  <li>When you notice the agent producing tiny diffs that touch many files. That’s a structure problem, not a model problem.</li>
+  <li>Quarterly, on the area of the codebase that’s seen the most change.</li>
+</ul>
+
+<p><strong>When not to.</strong> Mid-slice. Don’t refactor while you’re trying to ship. Note the issue, finish the slice, then run the skill in its own session.</p>
+<h2 id="grill-me--before-you-write-code">
+  
+  
+    <a href="#grill-me--before-you-write-code" class="anchor-heading" aria-labelledby="grill-me--before-you-write-code"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">grill-me</code> — before you write code
+  
+  
+</h2>
+    
+
+<p><strong>What it does.</strong> Inverts the usual prompt direction. Instead of you instructing the model, the model interrogates you about the feature you’re about to build. It asks the questions a careful collaborator would ask: edge cases, failure modes, who else is affected, what counts as done, what’s explicitly out of scope.</p>
+
+<p><strong>Why it matters.</strong> The PRD step in the <a href="/docs/skills/xp-workflow/">XP loop</a> is the most consequential one — a wrong PRD makes every subsequent slice wrong in the same direction. Most of the time the failure isn’t that you can’t write a PRD; it’s that you don’t notice the questions you haven’t asked yourself yet.</p>
+
+<p>A grilling session surfaces the unasked questions. The conversation history isn’t the artifact — the answers you give while being grilled are. They go into the PRD.</p>
+
+<p><strong>When to reach for it.</strong></p>
+
+<ul>
+  <li>At the start of a feature, before any slicing.</li>
+  <li>After a planning meeting, with the meeting transcript pasted in. The model will ask follow-ups that the meeting didn’t.</li>
+  <li>Whenever you find yourself writing a PRD and feeling vaguely uncertain. That’s the symptom.</li>
+</ul>
+
+<p><strong>When not to.</strong> During implementation. The grilling skill is good at making you slow down; that’s the wrong move once a slice is underway.</p>
+<h2 id="simplify--after-you-write-code">
+  
+  
+    <a href="#simplify--after-you-write-code" class="anchor-heading" aria-labelledby="simplify--after-you-write-code"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">simplify</code> — after you write code
+  
+  
+</h2>
+    
+
+<p><strong>What it does.</strong> Reads a recently-changed diff and looks specifically for accidental complexity: premature abstractions, validation that can’t fail, error handling for cases that can’t happen, helper functions used once, comments that restate the code. The output is a smaller diff.</p>
+
+<p><strong>Why it matters.</strong> AI-generated code skews toward more — more layers, more handlers, more “just in case.” Each of those is a future maintenance load and a future source of agent confusion. The refactor step in the XP loop is the place to catch this, and <code class="language-plaintext highlighter-rouge">simplify</code> is the version of the refactor step that has a name.</p>
+
+<p><strong>When to reach for it.</strong></p>
+
+<ul>
+  <li>During step 5 of the XP loop, before opening the PR.</li>
+  <li>On a PR you’re reviewing where the diff feels bigger than the change warranted.</li>
+  <li>On any code that has the words “in case” in a comment.</li>
+</ul>
+
+<p><strong>When not to.</strong> Before tests are green. Simplification with a red bar is just rewriting.</p>
+<h2 id="whats-deliberately-not-on-this-list">
+  
+  
+    <a href="#whats-deliberately-not-on-this-list" class="anchor-heading" aria-labelledby="whats-deliberately-not-on-this-list"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What’s deliberately not on this list
+  
+  
+</h2>
+    
+
+<p>A few skills people expect to see here, and why they aren’t:</p>
+
+<ul>
+  <li><strong>Generic test generators.</strong> They write tests after the code, which gets the <a href="/docs/skills/xp-workflow/">XP loop</a> backwards. The test is the contract, not the postscript.</li>
+  <li><strong>Documentation generators.</strong> Generated docs go stale faster than they get read. If the code needs explaining, fix the code.</li>
+  <li><strong>Anything with “10x” in the name.</strong> The honest skills don’t need the marketing.</li>
+</ul>
+
+<p>The pattern across the three skills above: each one is named for a <em>moment in the workflow</em>, not a category of task. That’s the test for whether a skill belongs in the menu.</p>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/skills/xp-workflow/">The XP workflow</a> — the loop these compose into</li>
+  <li><a href="/docs/foundations/smart-zone-and-dumb-zone/">The smart zone and the dumb zone</a> — why each of these gets its own session</li>
+</ul>
 
           
 
@@ -227,7 +371,7 @@
       
       
         <p class="text-small mb-0">
-          <a href="https://github.com/YOUR-USER/incontext/tree/main/assets/css/just-the-docs-head-nav.css" id="edit-this-page">Edit this page on GitHub</a>
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/skills/supporting-skills.md" id="edit-this-page">Edit this page on GitHub</a>
         </p>
       
     </div>

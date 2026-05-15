@@ -1,0 +1,669 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(5)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(2) > ul > li:nth-child(5) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(2) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(2) > ul > li:nth-child(5) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list > li.nav-list-item:nth-child(5) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Perception over history | InContext</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Perception over history" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<link rel="canonical" href="https://incontext.info/docs/foundations/perception-over-history/" />
+<meta property="og:url" content="https://incontext.info/docs/foundations/perception-over-history/" />
+<meta property="og:site_name" content="InContext" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Perception over history" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"Perception over history","url":"https://incontext.info/docs/foundations/perception-over-history/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  InContext
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Foundations submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/foundations/" class="nav-list-link">Foundations</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/foundations/what-is-a-context-resource/" class="nav-list-link">What is a context resource?</a></li><li class="nav-list-item"><a href="/docs/foundations/context-is-a-budget/" class="nav-list-link">Context is a budget, not a bucket</a></li><li class="nav-list-item"><a href="/docs/foundations/long-context-degradation/" class="nav-list-link">Long-context degradation</a></li><li class="nav-list-item"><a href="/docs/foundations/smart-zone-and-dumb-zone/" class="nav-list-link">The smart zone and the dumb zone</a></li><li class="nav-list-item"><a href="/docs/foundations/perception-over-history/" class="nav-list-link">Perception over history</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Per-tool submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/per-tool/" class="nav-list-link">Per-tool</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/per-tool/claude-md/" class="nav-list-link">Crafting a CLAUDE.md</a></li><li class="nav-list-item"><a href="/docs/per-tool/agents-md/" class="nav-list-link">AGENTS.md and the convergence</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Patterns submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/patterns/" class="nav-list-link">Patterns</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/patterns/scope-by-directory/" class="nav-list-link">Scope by directory</a></li><li class="nav-list-item"><a href="/docs/patterns/layered-context/" class="nav-list-link">Layered context</a></li><li class="nav-list-item"><a href="/docs/patterns/role-task-constraints/" class="nav-list-link">Role + task + constraints</a></li><li class="nav-list-item"><a href="/docs/patterns/retrieve-before-generate/" class="nav-list-link">Retrieve before generate</a></li><li class="nav-list-item"><a href="/docs/patterns/cite-dont-summarize/" class="nav-list-link">Cite, don't summarize</a></li><li class="nav-list-item"><a href="/docs/patterns/negative-examples/" class="nav-list-link">Negative examples</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Skills submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/skills/" class="nav-list-link">Skills</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/skills/xp-workflow/" class="nav-list-link">The XP workflow</a></li><li class="nav-list-item"><a href="/docs/skills/xp-with-ai/" class="nav-list-link">XP with an AI on the team</a></li><li class="nav-list-item"><a href="/docs/skills/supporting-skills/" class="nav-list-link">Supporting skills</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/reference/front-matter/" class="nav-list-link">Front matter cheat sheet</a></li><li class="nav-list-item"><a href="/docs/reference/directives/" class="nav-list-link">Directives that work</a></li><li class="nav-list-item"><a href="/docs/reference/failure-modes/" class="nav-list-link">Failure modes</a></li></ul></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search InContext" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search InContext</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/foundations/">Foundations</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Perception over history</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="perception-over-history">
+  
+  
+    <a href="#perception-over-history" class="anchor-heading" aria-labelledby="perception-over-history"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Perception over history
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#why-the-standard-answer-is-the-wrong-shape" id="markdown-toc-why-the-standard-answer-is-the-wrong-shape">Why the standard answer is the wrong shape</a>    <ol>
+      <li><a href="#prompt-caching-kv-reuse" id="markdown-toc-prompt-caching-kv-reuse">Prompt caching (KV reuse)</a></li>
+      <li><a href="#summarization-compaction" id="markdown-toc-summarization-compaction">Summarization (compaction)</a></li>
+      <li><a href="#rag-retrieve-at-generation-time" id="markdown-toc-rag-retrieve-at-generation-time">RAG (retrieve at generation time)</a></li>
+      <li><a href="#sliding-window" id="markdown-toc-sliding-window">Sliding window</a></li>
+    </ol>
+  </li>
+  <li><a href="#the-shift-history-vs-perception" id="markdown-toc-the-shift-history-vs-perception">The shift: history vs perception</a></li>
+  <li><a href="#the-proposal-perceptionmd" id="markdown-toc-the-proposal-perceptionmd">The proposal: perception.md</a>    <ol>
+      <li><a href="#one-file-continuously-updated" id="markdown-toc-one-file-continuously-updated">One file, continuously updated</a></li>
+      <li><a href="#three-layers" id="markdown-toc-three-layers">Three layers</a></li>
+      <li><a href="#the-schema" id="markdown-toc-the-schema">The schema</a></li>
+      <li><a href="#the-gibberish-language-angle" id="markdown-toc-the-gibberish-language-angle">The “gibberish language” angle</a></li>
+      <li><a href="#why-this-is-faster-than-summarization" id="markdown-toc-why-this-is-faster-than-summarization">Why this is faster than summarization</a></li>
+    </ol>
+  </li>
+  <li><a href="#what-this-isnt" id="markdown-toc-what-this-isnt">What this isn’t</a></li>
+  <li><a href="#open-questions" id="markdown-toc-open-questions">Open questions</a></li>
+  <li><a href="#how-to-try-this-today" id="markdown-toc-how-to-try-this-today">How to try this today</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+  <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
+</ol><hr />
+
+<p>Every long-running agent session hits the same wall: the conversation grows faster than the model’s attention scales, and somewhere past the sixty-thousandth token the agent starts forgetting what it was doing. The standard answer is to <em>compress the history</em> — KV-cache it, summarize it, retrieve from it. This page argues the standard answer is solving the wrong problem.</p>
+
+<p>The agent doesn’t need its history. It needs its <strong>perception</strong>: a current model of the task, the code, and what it’s about to do. Humans don’t navigate the world by replaying yesterday. We navigate by carrying a small, dense, continuously updated mental model. Agents should do the same.</p>
+
+<p>What follows is a survey of how current systems compress context, an honest account of where each one breaks, and a design proposal — <code class="language-plaintext highlighter-rouge">perception.md</code> — for a compression layer that carries <em>state</em> instead of <em>trajectory</em>.</p>
+
+<blockquote class="note">
+  <p>Most of this page is empirical (the current-systems survey is sourced; the failure modes link out to citable evidence). The <code class="language-plaintext highlighter-rouge">perception.md</code> design proposal at the end is a contribution, not a literature review — clearly flagged where it crosses from “documented” into “designed.”</p>
+</blockquote>
+<h2 id="why-the-standard-answer-is-the-wrong-shape">
+  
+  
+    <a href="#why-the-standard-answer-is-the-wrong-shape" class="anchor-heading" aria-labelledby="why-the-standard-answer-is-the-wrong-shape"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why the standard answer is the wrong shape
+  
+  
+</h2>
+    
+
+<p>The four common compression strategies in use today, with a short note on what each is and where it breaks. Cited evidence at the end of each section.</p>
+<h3 id="prompt-caching-kv-reuse">
+  
+  
+    <a href="#prompt-caching-kv-reuse" class="anchor-heading" aria-labelledby="prompt-caching-kv-reuse"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Prompt caching (KV reuse)
+  
+  
+</h3>
+    
+
+<p><strong>What it does.</strong> The model provider stores the key-value tensors for a stable prefix of your context and reuses them on the next request. Anthropic, OpenAI, and Google all offer this. The savings are real: 75–90% reduction in input cost on multi-turn conversations is typical.</p>
+
+<p><strong>How it works.</strong> Exact byte-for-byte prefix match. If turn 5 changes a single character in turn 2, the cache is invalidated from turn 2 onward.</p>
+
+<p><strong>Where it breaks.</strong></p>
+
+<ul>
+  <li><strong>Edit fragility.</strong> Any change to an earlier message kills the cache. Iterative refinement workflows (refactor → re-evaluate → refactor) get the worst of both worlds: long context, no caching.</li>
+  <li><strong>Multi-breakpoint workarounds are limited.</strong> Anthropic supports up to 4 cache breakpoints; some agents (Hermes is a good example — system + 3 rolling messages) burn all 4 just to keep a moving window cached. There’s no semantic-level caching: caches reuse exact tokens, not exact meanings.</li>
+  <li><strong>Cache TTL is short.</strong> Anthropic’s standard cache is 5 minutes; the 1-hour extended cache costs more per write. Idle sessions pay the full input cost on resume.</li>
+</ul>
+
+<p>Prompt caching is a cost optimization, not a context-quality optimization. It does nothing about the dumb zone: a cached 200K context is the same dumb zone as an uncached 200K context.</p>
+<h3 id="summarization-compaction">
+  
+  
+    <a href="#summarization-compaction" class="anchor-heading" aria-labelledby="summarization-compaction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Summarization (compaction)
+  
+  
+</h3>
+    
+
+<p><strong>What it does.</strong> When context fills, run a separate model pass that produces a natural-language summary of earlier messages; replace the original messages with the summary. Claude Code’s <code class="language-plaintext highlighter-rouge">/compact</code>, Cursor’s summarization, and Hermes’ four-phase compressor all work this way.</p>
+
+<p><strong>How it works.</strong> A subset of messages is rolled into a structured summary — typically with a fixed template (goal / progress / decisions / blockers / next steps). The compressor reserves a “head” (system prompt + first exchange) and a “tail” (most-recent N messages), summarizes the middle, and reassembles.</p>
+
+<p>Hermes’ approach is representative of the state of the art:</p>
+
+<ul>
+  <li>Two compression layers — a gateway-level “session hygiene” at 85% of context, and an agent-loop compressor at 50%.</li>
+  <li>Four phases — prune old tool results, determine boundaries (keeping tool_call/tool_result pairs intact), generate a structured summary via an auxiliary LLM, and reassemble.</li>
+  <li>Iterative re-compression that <em>updates</em> the previous summary instead of regenerating, moving items from “in progress” to “done.”</li>
+</ul>
+
+<p>This is well-engineered and substantially better than naive truncation. It is still not enough.</p>
+
+<p><strong>Where it breaks.</strong></p>
+
+<ul>
+  <li><strong>Compaction rot.</strong> Repeated summarization of summaries loses fidelity exponentially. By the third compaction, the agent is acting on a summary of a summary of a summary; specifics that mattered in turn 3 are footnotes in turn 50.</li>
+  <li><strong>Format anchoring.</strong> The summary template (“goal / progress / decisions”) imposes a shape that may not match the task. Whatever doesn’t fit the template gets dropped.</li>
+  <li><strong>Decision drift.</strong> The summary captures <em>what was decided</em> but not <em>why</em>. When a later situation invalidates the original reason, the agent keeps the decision and forgets the constraint.</li>
+  <li><strong>No notion of currency.</strong> The summary treats every fact as equal-weight. A decision made in turn 4 and superseded in turn 30 may survive both compactions because nothing flagged it as stale.</li>
+  <li><strong>Tool-call orphaning.</strong> Even with <code class="language-plaintext highlighter-rouge">_sanitize_tool_pairs()</code>-style logic, sub-conversations get mangled. The tool result that proved a hypothesis lives in the trash; the hypothesis remains as if proved.</li>
+</ul>
+
+<p>The failure mode behind all of these is the same: <strong>summarization preserves trajectory, not state.</strong> It is an answer to “what happened” when the agent’s question is “what’s true.”</p>
+
+<p>See also: <a href="/docs/foundations/smart-zone-and-dumb-zone/">the smart zone and the dumb zone</a>, <a href="/docs/reference/failure-modes/#12-repetition-collapse">failure modes §12</a>.</p>
+<h3 id="rag-retrieve-at-generation-time">
+  
+  
+    <a href="#rag-retrieve-at-generation-time" class="anchor-heading" aria-labelledby="rag-retrieve-at-generation-time"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> RAG (retrieve at generation time)
+  
+  
+</h3>
+    
+
+<p><strong>What it does.</strong> Index past content (or external documents) into a vector store; at each turn, retrieve the top-k chunks relevant to the current question and inject them into the prompt.</p>
+
+<p><strong>Where it breaks.</strong></p>
+
+<ul>
+  <li><strong>Cross-document reasoning is hard.</strong> RAG works when the answer is <em>in</em> one of the top-k chunks. When the answer requires synthesizing across the top 50, retrieval gives you a shallow view.</li>
+  <li><strong>Recency is not relevance.</strong> Vector similarity has no notion of which version of a fact is current. The chunk that says “we use Postgres” and the chunk that says “we migrated to ScyllaDB” both score highly on a Postgres question. The model picks one — usually wrong.</li>
+  <li><strong>Format-sensitive.</strong> Liu et al.’s lost-in-the-middle finding (<a href="https://arxiv.org/abs/2307.03172">arXiv:2307.03172</a>) hits hard here: middle chunks in a re-ranked list are systematically under-used.</li>
+</ul>
+
+<p>RAG is the right tool when context is mostly external (a large codebase, a documentation corpus). It is a poor replacement for working memory.</p>
+<h3 id="sliding-window">
+  
+  
+    <a href="#sliding-window" class="anchor-heading" aria-labelledby="sliding-window"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sliding window
+  
+  
+</h3>
+    
+
+<p><strong>What it does.</strong> Keep the last N messages; throw out everything before that.</p>
+
+<p><strong>Where it breaks.</strong> Everywhere. The first time the agent needs to remember a decision from turn 4 in turn 25, the window has moved past it. Don’t use sliding windows for anything that needs to remember anything.</p>
+<h2 id="the-shift-history-vs-perception">
+  
+  
+    <a href="#the-shift-history-vs-perception" class="anchor-heading" aria-labelledby="the-shift-history-vs-perception"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The shift: history vs perception
+  
+  
+</h2>
+    
+
+<p>The shared failure mode across all four methods is treating the conversation as a <strong>log to be compressed</strong>. But the agent doesn’t act on the log. It acts on its current model of the situation. The log is the input that produced the model. Once the model exists, the log is recoverable in principle and irrelevant in practice.</p>
+
+<p>The same is true for humans. You don’t remember most of yesterday. You remember <em>that the bug is in the parser</em>, <em>that the migration is paused on a legal review</em>, <em>that the next thing you need to do is call the on-call</em>. The journey from “I had no idea what was wrong” to “the bug is in the parser” is mostly gone. Only the conclusion survives.</p>
+
+<p>Neuroscience has a name for this: <a href="https://en.wikipedia.org/wiki/Memory_consolidation"><strong>memory consolidation</strong></a>. Episodic memories — what happened — are gradually transformed into semantic memories — what is true. The transformation is lossy by design. Holding the entire episodic record would be expensive and would compete for attention with the perception of <em>now</em>.</p>
+
+<p>Reinforcement learning has a name for this: <strong>belief state</strong>. An agent in a partially-observable environment doesn’t act on the trajectory; it acts on a posterior distribution over the world state, updated incrementally with each new observation. Trajectory is data; belief is the abstraction the agent reasons over.</p>
+
+<p>The argument of this page is: <strong>LLM agents should be given a belief state, not a trajectory.</strong> That belief state is <code class="language-plaintext highlighter-rouge">perception.md</code>.</p>
+<h2 id="the-proposal-perceptionmd">
+  
+  
+    <a href="#the-proposal-perceptionmd" class="anchor-heading" aria-labelledby="the-proposal-perceptionmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The proposal: perception.md
+  
+  
+</h2>
+    
+
+<blockquote class="note">
+  <p>Everything from here forward is a design proposal. It draws on documented mechanisms (memory consolidation, world models, semantic compression) but the specific construct — a single perception.md file, the schema below, the layering — is not, as of writing, a deployed system. Treat as a contribution to think with, not a survey.</p>
+</blockquote>
+<h3 id="one-file-continuously-updated">
+  
+  
+    <a href="#one-file-continuously-updated" class="anchor-heading" aria-labelledby="one-file-continuously-updated"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> One file, continuously updated
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">perception.md</code> is a file the agent maintains alongside the codebase. Its sole job is to represent <strong>what the agent currently believes to be true</strong> about its task. Not what happened. Not the transcript. The model.</p>
+
+<p>Roughly: if you destroyed the session history and gave a fresh agent only <code class="language-plaintext highlighter-rouge">perception.md</code>, it should be able to pick up exactly where the previous agent left off without re-explaining anything.</p>
+
+<p>That is a stronger claim than “summary that’s enough to keep going.” A good <code class="language-plaintext highlighter-rouge">perception.md</code> makes the <em>history irrelevant</em>.</p>
+<h3 id="three-layers">
+  
+  
+    <a href="#three-layers" class="anchor-heading" aria-labelledby="three-layers"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Three layers
+  
+  
+</h3>
+    
+
+<p>Not all perception decays at the same rate. The file is structured into three layers, each updated on its own cadence:</p>
+
+<ul>
+  <li><strong>Invariants</strong> — facts that are true for the whole task and probably the whole project. The stack, the conventions, the constraints. Updated rarely; behave like CLAUDE.md.</li>
+  <li><strong>Frame</strong> — facts that are true for the current feature / slice / PR. The story, the acceptance criteria, the open questions, the decisions made so far. Updated at the start of every slice; survives across a few sessions.</li>
+  <li><strong>Working set</strong> — facts that are true for the next few minutes. The file you’re editing, the hypothesis you’re testing, the next thing to do. Updated continuously; overwritten as often as needed.</li>
+</ul>
+
+<p>The token-cost economics fall out of the layering: invariants are stable and cache well; the frame is medium-stability and cache-friendly when the slice is small; the working set is volatile and shouldn’t be cached. Three cache breakpoints, one per layer, fits cleanly into Anthropic’s four-breakpoint limit with one to spare.</p>
+<h3 id="the-schema">
+  
+  
+    <a href="#the-schema" class="anchor-heading" aria-labelledby="the-schema"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The schema
+  
+  
+</h3>
+    
+
+<p>The file is markdown, but the content is closer to a structured belief log than to prose. The goal is dense, machine-friendly, human-auditable. Below is a concrete schema. Adapt freely.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># perception.md</span>
+
+<span class="gu">## Invariants</span>
+<span class="p">-</span> stack: TypeScript / Bun / Postgres 16
+<span class="p">-</span> test-runner: bun test (<span class="sb">`just test`</span>)
+<span class="p">-</span> style: see .claude/rules/style.md
+<span class="p">-</span> forbidden: writes to ./vendor/, edits to migrations &lt; 0042
+
+<span class="gu">## Frame</span>
+slice: 023-points-on-lesson-completion
+story: "When a user completes a lesson, they earn N points visible on the dashboard."
+acceptance:
+<span class="p">  -</span> one schema column added to lessons.points
+<span class="p">  -</span> one service method awardPoints(userId, lessonId)
+<span class="p">  -</span> one API endpoint POST /lessons/:id/complete
+<span class="p">  -</span> one UI element rendering the running total
+decided:
+<span class="p">  -</span> points are integer, not float [reason: legal, no fractional currency]
+<span class="p">  -</span> award is idempotent per (user, lesson) [reason: replay safety]
+open:
+<span class="p">  -</span> does the bonus multiplier apply here? [blocked on product]
+constraints:
+<span class="p">  -</span> cannot ship before 2026-05-20 (legal freeze ends)
+
+<span class="gu">## Working set</span>
+file: src/services/points.ts
+hypothesis: idempotency belongs in the service, not the schema
+next:
+<span class="p">  1.</span> failing test for double-award
+<span class="p">  2.</span> minimal implementation
+<span class="p">  3.</span> refactor extract awardOrSkip helper
+recent-tool-results:
+<span class="p">  -</span> bun test points.spec.ts → 1 failed (idempotency), 4 passed
+<span class="p">  -</span> rg "awardPoints" → 0 callers yet
+</code></pre></div></div>
+
+<p>That whole file is around 250 tokens. Compare to the equivalent transcript of how the agent got there, which is easily 20–50× longer. The compression ratio is not the point — the <em>fidelity at the compressed size</em> is. A summary that fits the same token budget would have lost half the structure.</p>
+<h3 id="the-gibberish-language-angle">
+  
+  
+    <a href="#the-gibberish-language-angle" class="anchor-heading" aria-labelledby="the-gibberish-language-angle"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The “gibberish language” angle
+  
+  
+</h3>
+    
+
+<p>The schema above uses human-readable prose. A more aggressive version uses a denser notation — designed for the model’s parser, not for human skim-reading. Something like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inv{stack:ts/bun/pg16; tests:`bun test`; style:.claude/rules/style.md; nogo:./vendor/,mig&lt;0042}
+frame{slice:023; goal:"points on completion"; ac:[col,svc,api,ui];
+      decided:[int(legal),idempotent(replay)];
+      open:[bonus-mult?@product];
+      freeze:&gt;=2026-05-20}
+work{file:points.ts; hyp:idempotency@service;
+     next:[fail-test:double-award→impl→refactor:awardOrSkip];
+     last:[test:1F/4P,rg:0callers]}
+</code></pre></div></div>
+
+<p>This is the “gibberish” — not actually gibberish, but a compressed notation that LLMs parse reliably (they parse far less natural formats every day) and that hits roughly half the tokens of the prose schema for the same content.</p>
+
+<p>Whether this is worth the readability cost is task-dependent. For ephemeral working-set content, yes. For invariants that humans review in PRs, no — keep those readable.</p>
+<h3 id="why-this-is-faster-than-summarization">
+  
+  
+    <a href="#why-this-is-faster-than-summarization" class="anchor-heading" aria-labelledby="why-this-is-faster-than-summarization"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why this is faster than summarization
+  
+  
+</h3>
+    
+
+<p>Three reasons, in increasing order of importance:</p>
+
+<ol>
+  <li>
+    <p><strong>No replay.</strong> A summary still narrates <em>what was done</em>. A perception file says <em>what is</em>. State is bounded; trajectory grows monotonically. Past a certain task complexity, even the best summarizer is summarizing <em>more</em> than the perception needs to contain.</p>
+  </li>
+  <li>
+    <p><strong>Stable cache.</strong> Perception layers are touched on predictable schedules: invariants almost never, frame per-slice, working set per-action. The invariant + frame prefix caches well across many turns. Summaries get rewritten on every compaction; their cache lifetime is one turn.</p>
+  </li>
+  <li>
+    <p><strong>No compaction rot.</strong> Each update to <code class="language-plaintext highlighter-rouge">perception.md</code> writes a fresh belief state, not a summary of a summary. The lossiness happens once at write-time (when the agent encodes its current model into the file), not iteratively.</p>
+  </li>
+</ol>
+
+<p>The fourth reason, which is harder to measure but probably the largest in practice: <strong>the file is auditable.</strong> When the agent is doing the wrong thing, you can <code class="language-plaintext highlighter-rouge">cat perception.md</code> and see what it believes. Debugging a confused agent today means scrolling a transcript. Debugging it with perception means reading one short file.</p>
+<h2 id="what-this-isnt">
+  
+  
+    <a href="#what-this-isnt" class="anchor-heading" aria-labelledby="what-this-isnt"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What this isn’t
+  
+  
+</h2>
+    
+
+<p>Several things this proposal is <em>not</em>:</p>
+
+<ul>
+  <li><strong>Not a replacement for <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>.</strong> Invariants live in both; <code class="language-plaintext highlighter-rouge">perception.md</code> is dynamic. <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is the static seed; <code class="language-plaintext highlighter-rouge">perception.md</code> is the running belief.</li>
+  <li><strong>Not a replacement for prompt caching.</strong> Layered perception <em>plays well</em> with KV caching — the layering is designed for it.</li>
+  <li><strong>Not a replacement for the full session log when debugging.</strong> Logs still exist. They are just not the agent’s working memory.</li>
+  <li><strong>Not magic.</strong> A bad perception encoding produces bad results, the same way a bad summary does. The win comes from the right <em>shape</em> (state, not trajectory), not from any specific format.</li>
+</ul>
+<h2 id="open-questions">
+  
+  
+    <a href="#open-questions" class="anchor-heading" aria-labelledby="open-questions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Open questions
+  
+  
+</h2>
+    
+
+<p>This is a design, not a deployed system. Honest gaps:</p>
+
+<ul>
+  <li><strong>Who writes the working set?</strong> The agent itself, on every turn? An external compressor? A hook that fires on every action? Different choices have different cache implications.</li>
+  <li><strong>How does the agent know the perception is stale?</strong> Some signal that the file no longer matches reality — a test failure, a contradicted assumption, a tool result that doesn’t fit. Worth designing explicitly.</li>
+  <li><strong>What about multi-agent setups?</strong> When two agents share a task, do they share perception? The plural form is interesting — <code class="language-plaintext highlighter-rouge">perception.md</code> as the durable common ground that survives both agents resetting.</li>
+  <li><strong>Compression ratio in the limit.</strong> How dense can the encoding get before the model can’t read it reliably? Probably testable; not yet tested.</li>
+  <li><strong>Failure mode: the agent stops trusting its perception.</strong> If the file disagrees with the code, which does the agent believe? Defaults to “code wins on conflict” feel right, but the consequences need working out.</li>
+</ul>
+
+<p>A serious empirical evaluation would look like: take a long-running coding task; compare an agent run with standard <code class="language-plaintext highlighter-rouge">/compact</code> against an agent run with hand-maintained <code class="language-plaintext highlighter-rouge">perception.md</code>; measure task success, token cost, and time-to-completion. That experiment hasn’t been run as of writing.</p>
+<h2 id="how-to-try-this-today">
+  
+  
+    <a href="#how-to-try-this-today" class="anchor-heading" aria-labelledby="how-to-try-this-today"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How to try this today
+  
+  
+</h2>
+    
+
+<p>You don’t need any custom infrastructure to start using <code class="language-plaintext highlighter-rouge">perception.md</code>. The two-line version:</p>
+
+<ol>
+  <li>Add <code class="language-plaintext highlighter-rouge">perception.md</code> to your repo (gitignored or committed, your call).</li>
+  <li>In <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>, instruct the agent: <em>“Maintain <code class="language-plaintext highlighter-rouge">perception.md</code> as the running model of the current task. At the start of every slice, write the frame. After each action, update the working set. Before reading the chat history for context, read this file first.”</em></li>
+</ol>
+
+<p>That gets you most of the benefit on Claude Code today. The agent will treat the file as a load-bearing artifact, and you can shape what it writes by editing the file directly when it gets it wrong.</p>
+
+<p>A more ambitious version would expose the layering to the harness: distinct cache breakpoints per layer, automatic perception updates on tool-result events, a <code class="language-plaintext highlighter-rouge">/perception</code> slash command that pretty-prints the current state. None of that is necessary to start.</p>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/foundations/context-is-a-budget/">Context is a budget, not a bucket</a> — the underlying economics</li>
+  <li><a href="/docs/foundations/smart-zone-and-dumb-zone/">The smart zone and the dumb zone</a> — why finishing in the smart zone matters</li>
+  <li><a href="/docs/foundations/long-context-degradation/">Long-context degradation</a> — the empirical case for less context, not more</li>
+  <li><a href="/docs/reference/failure-modes/">Failure modes</a> — what goes wrong with current compression strategies</li>
+</ul>
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<ul>
+  <li>Hermes Agent, <em>Context Compression and Caching</em> developer guide: <a href="https://hermes-agent.nousresearch.com/docs/developer-guide/context-compression-and-caching">https://hermes-agent.nousresearch.com/docs/developer-guide/context-compression-and-caching</a></li>
+  <li>Anthropic, <em>Prompt Caching</em>: <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching">https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching</a></li>
+  <li>Liu et al. 2023, <em>Lost in the Middle: How Language Models Use Long Contexts</em>, <a href="https://arxiv.org/abs/2307.03172">arXiv:2307.03172</a></li>
+  <li>Modarressi et al. 2025, <em>NoLiMa: Long-Context Evaluation Beyond Literal Matching</em>, <a href="https://arxiv.org/abs/2502.05167">arXiv:2502.05167</a></li>
+  <li>Hsieh et al. 2024, <em>RULER: What’s the Real Context Size of Your Long-Context Language Models?</em>, <a href="https://arxiv.org/abs/2404.06654">arXiv:2404.06654</a></li>
+  <li>Xiao et al. 2024, <em>Efficient Streaming Language Models with Attention Sinks</em>, <a href="https://arxiv.org/abs/2309.17453">arXiv:2309.17453</a></li>
+  <li>Anthropic, <em>Effective Context Engineering for AI Agents</em>: <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents</a></li>
+  <li>Wikipedia, <em>Memory consolidation</em>: <a href="https://en.wikipedia.org/wiki/Memory_consolidation">https://en.wikipedia.org/wiki/Memory_consolidation</a></li>
+  <li>Kaelbling, Littman &amp; Cassandra 1998, <em>Planning and acting in partially observable stochastic domains</em> — the canonical belief-state reference in RL.</li>
+</ul>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+        <p class="text-small mb-0">
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/foundations/perception-over-history.md" id="edit-this-page">Edit this page on GitHub</a>
+        </p>
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

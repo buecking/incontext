@@ -13,10 +13,29 @@
 
   <style id="jtd-nav-activation">
   
-    .site-nav ul li a {
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(4)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
       background-image: none;
     }
 
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(2) > ul > li:nth-child(4) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(2) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(2) > ul > li:nth-child(4) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list > li.nav-list-item:nth-child(4) > ul.nav-list {
+      display: block;
+    }
   </style>
 
   
@@ -34,20 +53,20 @@
 
 
   <!-- Begin Jekyll SEO tag v2.9.0 -->
-<title>InContext | A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.</title>
+<title>The smart zone and the dumb zone | InContext</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="InContext" />
+<meta property="og:title" content="The smart zone and the dumb zone" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
 <meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
-<link rel="canonical" href="https://incontext.info/assets/css/just-the-docs-head-nav.css" />
-<meta property="og:url" content="https://incontext.info/assets/css/just-the-docs-head-nav.css" />
+<link rel="canonical" href="https://incontext.info/docs/foundations/smart-zone-and-dumb-zone/" />
+<meta property="og:url" content="https://incontext.info/docs/foundations/smart-zone-and-dumb-zone/" />
 <meta property="og:site_name" content="InContext" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="InContext" />
+<meta name="twitter:title" content="The smart zone and the dumb zone" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"InContext","url":"https://incontext.info/assets/css/just-the-docs-head-nav.css"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"The smart zone and the dumb zone","url":"https://incontext.info/docs/foundations/smart-zone-and-dumb-zone/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -199,13 +218,147 @@
 </div>
 
     <div class="main-content-wrap">
-      
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/foundations/">Foundations</a></li>
+    <li class="breadcrumb-nav-list-item"><span>The smart zone and the dumb zone</span></li>
+  </ol>
+</nav>
+
+
       <div id="main-content" class="main-content">
         <main>
           
-            <h.site-nav ul li a {
-  background-image: linear-gradient(-90deg, rgb(234.8, 236.82, 244.9) 0%, rgba(234.8, 236.82, 244.9, 0.8) 80%, rgba(234.8, 236.82, 244.9, 0) 100%);
-}
+            <h1 class="no_toc" id="the-smart-zone-and-the-dumb-zone">
+  
+  
+    <a href="#the-smart-zone-and-the-dumb-zone" class="anchor-heading" aria-labelledby="the-smart-zone-and-the-dumb-zone"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The smart zone and the dumb zone
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#the-short-version" id="markdown-toc-the-short-version">The short version</a></li>
+  <li><a href="#why-it-gets-worse-not-just-longer" id="markdown-toc-why-it-gets-worse-not-just-longer">Why it gets worse, not just longer</a></li>
+  <li><a href="#treat-context-as-units-of-time" id="markdown-toc-treat-context-as-units-of-time">Treat context as units of time</a></li>
+  <li><a href="#operating-in-the-smart-zone" id="markdown-toc-operating-in-the-smart-zone">Operating in the smart zone</a></li>
+  <li><a href="#what-this-isnt" id="markdown-toc-what-this-isnt">What this isn’t</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+  <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
+</ol><hr />
+<h2 id="the-short-version">
+  
+  
+    <a href="#the-short-version" class="anchor-heading" aria-labelledby="the-short-version"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The short version
+  
+  
+</h2>
+    
+
+<p>A model starts every session sharp and gets duller with every token added to its context. The early part of a session — small context, fresh attention — is the <strong>smart zone</strong>. The later part of a session — bloated context, attention spread thin, earlier mistakes still in scope — is the <strong>dumb zone</strong>.</p>
+
+<p>The single most useful operating principle that falls out of this: <strong>finish the work before you leave the smart zone, then reset.</strong> Don’t let one session sprawl across three features.</p>
+
+<p>The framing comes from Matt Pocock’s walkthrough of his AI coding workflow. It’s the same underlying phenomenon as <a href="/docs/foundations/long-context-degradation/">long-context degradation</a> and <a href="/docs/foundations/context-is-a-budget/">context as a budget</a>, but reframed as a working stance: every action you take is buying you a less capable collaborator on the next action.</p>
+<h2 id="why-it-gets-worse-not-just-longer">
+  
+  
+    <a href="#why-it-gets-worse-not-just-longer" class="anchor-heading" aria-labelledby="why-it-gets-worse-not-just-longer"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why it gets worse, not just longer
+  
+  
+</h2>
+    
+
+<p>The intuition that “more context = more knowledge” is the wrong shape. Pocock uses a football-league analogy: adding a team doesn’t add one new fixture, it adds a fixture against every existing team. Token interactions scale similarly — every new token has to be related, however weakly, to every other token already in scope. The cost isn’t linear in tokens; the <em>coherence</em> cost is closer to quadratic.</p>
+
+<p>The practical consequences:</p>
+
+<ul>
+  <li><strong>Earlier mistakes don’t disappear.</strong> A wrong assumption made in turn 3 is still being attended to in turn 30, quietly pulling later answers off course.</li>
+  <li><strong>Instructions decay.</strong> The system prompt is still technically in context, but it’s competing with everything you’ve added since.</li>
+  <li><strong>The model gets cheaper to confuse.</strong> A contradiction it would have spotted on a blank slate slips past on a crowded one.</li>
+  <li><strong>You stop noticing.</strong> The decline is gradual. By the time the output is obviously bad, you’re well past the point where a fresh session would have been faster.</li>
+</ul>
+<h2 id="treat-context-as-units-of-time">
+  
+  
+    <a href="#treat-context-as-units-of-time" class="anchor-heading" aria-labelledby="treat-context-as-units-of-time"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Treat context as units of time
+  
+  
+</h2>
+    
+
+<p>The most useful reframe is to stop counting tokens and start counting <em>actions</em>. Each action — each tool call, each file read, each round-trip — is a unit of time you’ve spent. You only have so many before the model is materially worse at the task than it was at the start.</p>
+
+<p>This changes how you decide what to do next:</p>
+
+<ul>
+  <li><strong>Is this action load-bearing for the task, or am I exploring?</strong> Exploration belongs in a different session.</li>
+  <li><strong>Will this answer still be useful in 30 actions, or only the next 3?</strong> If only the next 3, do the work now and reset before the next chunk.</li>
+  <li><strong>Am I asking the model to re-derive something I already know?</strong> That’s a unit of time spent on nothing.</li>
+</ul>
+
+<p>The discipline is the same one good engineers already apply to meetings: every minute spent has a cost, and the cost compounds.</p>
+<h2 id="operating-in-the-smart-zone">
+  
+  
+    <a href="#operating-in-the-smart-zone" class="anchor-heading" aria-labelledby="operating-in-the-smart-zone"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Operating in the smart zone
+  
+  
+</h2>
+    
+
+<p>A few habits that keep you there:</p>
+
+<ul>
+  <li><strong>Plan in one session, implement in another.</strong> Planning sessions go long and conversational; implementation sessions need a model that hasn’t been arguing about scope for an hour.</li>
+  <li><strong>Slice work small enough to finish before degradation kicks in.</strong> If you can’t, the slice is too big — see <a href="/docs/skills/xp-workflow/">vertical tracer bullets</a>.</li>
+  <li><strong>Prefer <code class="language-plaintext highlighter-rouge">/clear</code> over <code class="language-plaintext highlighter-rouge">/compact</code>.</strong> Compaction keeps the rot. A clean reset with a tight handoff prompt almost always beats a 200K-token continuation.</li>
+  <li><strong>Front-load the irreversible decisions.</strong> The model is sharpest in the first few turns. Spend those on the choices you can’t easily back out of.</li>
+</ul>
+
+<blockquote class="tip">
+  <p>When you notice yourself re-explaining something, that’s the signal. The model isn’t getting confused because the task is hard — it’s getting confused because the room is too crowded. Reset.</p>
+</blockquote>
+<h2 id="what-this-isnt">
+  
+  
+    <a href="#what-this-isnt" class="anchor-heading" aria-labelledby="what-this-isnt"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What this isn’t
+  
+  
+</h2>
+    
+
+<p>This is not an argument against long context. Long context is genuinely useful for retrieval-style tasks where the model needs to look something up and answer once. The smart-zone / dumb-zone framing is about <strong>multi-step working sessions</strong>, where each step depends on the model still being coherent about everything before it. Those degrade in a way that single-shot lookups don’t.</p>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/foundations/context-is-a-budget/">Context is a budget, not a bucket</a> — the underlying economics</li>
+  <li><a href="/docs/foundations/long-context-degradation/">Long-context degradation</a> — the empirical “lost in the middle” finding</li>
+  <li><a href="/docs/skills/xp-workflow/">The XP workflow</a> — Beck’s discipline, summarized faithfully</li>
+  <li><a href="/docs/skills/xp-with-ai/">XP with an AI on the team</a> — the spinoff that operationalizes the smart-zone constraint</li>
+  <li><a href="/docs/foundations/perception-over-history/">Perception over history</a> — a compression strategy that defends against the dumb zone by carrying belief state instead of trajectory</li>
+</ul>
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<ul>
+  <li>Pocock, M. (2026). <em>Full Walkthrough: Workflow for AI Coding.</em> YouTube. <a href="https://www.youtube.com/watch?v=-QFHIoCo-Ko">https://www.youtube.com/watch?v=-QFHIoCo-Ko</a></li>
+</ul>
 
           
 
@@ -227,7 +380,7 @@
       
       
         <p class="text-small mb-0">
-          <a href="https://github.com/YOUR-USER/incontext/tree/main/assets/css/just-the-docs-head-nav.css" id="edit-this-page">Edit this page on GitHub</a>
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/foundations/smart-zone-and-dumb-zone.md" id="edit-this-page">Edit this page on GitHub</a>
         </p>
       
     </div>

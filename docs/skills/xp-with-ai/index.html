@@ -1,0 +1,619 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(2)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(2) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(2) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(2) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>XP with an AI on the team | InContext</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="XP with an AI on the team" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<link rel="canonical" href="https://incontext.info/docs/skills/xp-with-ai/" />
+<meta property="og:url" content="https://incontext.info/docs/skills/xp-with-ai/" />
+<meta property="og:site_name" content="InContext" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="XP with an AI on the team" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"XP with an AI on the team","url":"https://incontext.info/docs/skills/xp-with-ai/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  InContext
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Foundations submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/foundations/" class="nav-list-link">Foundations</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/foundations/what-is-a-context-resource/" class="nav-list-link">What is a context resource?</a></li><li class="nav-list-item"><a href="/docs/foundations/context-is-a-budget/" class="nav-list-link">Context is a budget, not a bucket</a></li><li class="nav-list-item"><a href="/docs/foundations/long-context-degradation/" class="nav-list-link">Long-context degradation</a></li><li class="nav-list-item"><a href="/docs/foundations/smart-zone-and-dumb-zone/" class="nav-list-link">The smart zone and the dumb zone</a></li><li class="nav-list-item"><a href="/docs/foundations/perception-over-history/" class="nav-list-link">Perception over history</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Per-tool submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/per-tool/" class="nav-list-link">Per-tool</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/per-tool/claude-md/" class="nav-list-link">Crafting a CLAUDE.md</a></li><li class="nav-list-item"><a href="/docs/per-tool/agents-md/" class="nav-list-link">AGENTS.md and the convergence</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Patterns submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/patterns/" class="nav-list-link">Patterns</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/patterns/scope-by-directory/" class="nav-list-link">Scope by directory</a></li><li class="nav-list-item"><a href="/docs/patterns/layered-context/" class="nav-list-link">Layered context</a></li><li class="nav-list-item"><a href="/docs/patterns/role-task-constraints/" class="nav-list-link">Role + task + constraints</a></li><li class="nav-list-item"><a href="/docs/patterns/retrieve-before-generate/" class="nav-list-link">Retrieve before generate</a></li><li class="nav-list-item"><a href="/docs/patterns/cite-dont-summarize/" class="nav-list-link">Cite, don't summarize</a></li><li class="nav-list-item"><a href="/docs/patterns/negative-examples/" class="nav-list-link">Negative examples</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Skills submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/skills/" class="nav-list-link">Skills</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/skills/xp-workflow/" class="nav-list-link">The XP workflow</a></li><li class="nav-list-item"><a href="/docs/skills/xp-with-ai/" class="nav-list-link">XP with an AI on the team</a></li><li class="nav-list-item"><a href="/docs/skills/supporting-skills/" class="nav-list-link">Supporting skills</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/reference/front-matter/" class="nav-list-link">Front matter cheat sheet</a></li><li class="nav-list-item"><a href="/docs/reference/directives/" class="nav-list-link">Directives that work</a></li><li class="nav-list-item"><a href="/docs/reference/failure-modes/" class="nav-list-link">Failure modes</a></li></ul></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search InContext" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search InContext</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/skills/">Skills</a></li>
+    <li class="breadcrumb-nav-list-item"><span>XP with an AI on the team</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="xp-with-an-ai-on-the-team">
+  
+  
+    <a href="#xp-with-an-ai-on-the-team" class="anchor-heading" aria-labelledby="xp-with-an-ai-on-the-team"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> XP with an AI on the team
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#what-xp-got-right-that-matters-more-now" id="markdown-toc-what-xp-got-right-that-matters-more-now">What XP got right that matters more now</a></li>
+  <li><a href="#what-stays-exactly-the-same" id="markdown-toc-what-stays-exactly-the-same">What stays exactly the same</a></li>
+  <li><a href="#what-changes-when-an-ai-joins-the-team" id="markdown-toc-what-changes-when-an-ai-joins-the-team">What changes when an AI joins the team</a>    <ol>
+      <li><a href="#pair-programming--human--agent-driving" id="markdown-toc-pair-programming--human--agent-driving">Pair programming → human + agent driving</a></li>
+      <li><a href="#testing--the-test-runner-is-the-only-judge" id="markdown-toc-testing--the-test-runner-is-the-only-judge">Testing → the test runner is the only judge</a></li>
+      <li><a href="#refactoring--the-agent-refactors-small-the-human-refactors-large" id="markdown-toc-refactoring--the-agent-refactors-small-the-human-refactors-large">Refactoring → the agent refactors small, the human refactors large</a></li>
+      <li><a href="#collective-ownership--the-human-owns-the-agent-contributes" id="markdown-toc-collective-ownership--the-human-owns-the-agent-contributes">Collective ownership → the human owns; the agent contributes</a></li>
+      <li><a href="#on-site-customer--the-customer-is-still-human" id="markdown-toc-on-site-customer--the-customer-is-still-human">On-site customer → the customer is still human</a></li>
+      <li><a href="#the-planning-game--estimates-from-the-human-with-agent-help" id="markdown-toc-the-planning-game--estimates-from-the-human-with-agent-help">The Planning Game → estimates from the human, with agent help</a></li>
+      <li><a href="#40-hour-week--applies-to-context-too" id="markdown-toc-40-hour-week--applies-to-context-too">40-hour week → applies to context, too</a></li>
+      <li><a href="#small-releases--iterations--vertical-tracer-bullet-slices" id="markdown-toc-small-releases--iterations--vertical-tracer-bullet-slices">Small releases / iterations → vertical tracer-bullet slices</a></li>
+    </ol>
+  </li>
+  <li><a href="#new-failure-modes-the-agent-introduces" id="markdown-toc-new-failure-modes-the-agent-introduces">New failure modes the agent introduces</a></li>
+  <li><a href="#the-roles-revisited" id="markdown-toc-the-roles-revisited">The roles, revisited</a></li>
+  <li><a href="#what-kills-an-xp-with-ai-project" id="markdown-toc-what-kills-an-xp-with-ai-project">What kills an XP-with-AI project</a></li>
+  <li><a href="#the-skill-a-one-page-invariant-list" id="markdown-toc-the-skill-a-one-page-invariant-list">The skill: a one-page invariant list</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+  <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
+</ol><hr />
+
+<p>This page is the companion to <a href="/docs/skills/xp-workflow/">the XP workflow</a>. That page is faithful Beck, written for human teams. This one is the spinoff: what changes — and what doesn’t — when one of the seats at the table is occupied by an AI coding agent.</p>
+
+<p>The short version: <strong>XP gets more valuable, not less.</strong> The discipline Beck designed in 1999 was a safety net for humans, who drift slowly. AI agents drift faster, in different directions, and with more confidence. The same net catches more.</p>
+
+<p>But the practices need adapting. Some get easier. Some get harder. A few break entirely if you apply them naively. The rest of this page works through which is which.</p>
+<h2 id="what-xp-got-right-that-matters-more-now">
+  
+  
+    <a href="#what-xp-got-right-that-matters-more-now" class="anchor-heading" aria-labelledby="what-xp-got-right-that-matters-more-now"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What XP got right that matters more now
+  
+  
+</h2>
+    
+
+<p>Three of XP’s foundational bets pay off harder when an agent is in the loop:</p>
+
+<p><strong>The flattened cost-of-change curve.</strong> XP’s whole technical premise was that with simple design, comprehensive tests, and constant refactoring, late changes stay cheap. With an agent on the team, you make <em>more</em> changes, faster, with less individual deliberation. If the curve isn’t flat, the agent’s velocity becomes a liability instead of an asset. Every XP practice that flattens the curve is now load-bearing.</p>
+
+<p><strong>Tests are the contract.</strong> Beck’s claim was that <em>“any program feature without an automated test simply doesn’t exist.”</em> For a human, that’s discipline. For an agent, it’s survival. The agent’s inner loop is <em>“did this look right to me?”</em> — and the answer is always yes. The test runner is the only thing that can disagree.</p>
+
+<p><strong>Small steps.</strong> XP’s relentless slicing was justified by human attention spans, integration risk, and the cost of being wrong. All three apply to agents, plus a fourth: <strong>context degradation.</strong> The longer a session runs, the worse the model gets at it. (See <a href="/docs/foundations/smart-zone-and-dumb-zone/">the smart zone and the dumb zone</a>.) The discipline of finishing one slice and resetting was already correct; with AI it’s also necessary.</p>
+<h2 id="what-stays-exactly-the-same">
+  
+  
+    <a href="#what-stays-exactly-the-same" class="anchor-heading" aria-labelledby="what-stays-exactly-the-same"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What stays exactly the same
+  
+  
+</h2>
+    
+
+<p>Don’t touch these. The values, the premise, and most of the practices were already right.</p>
+
+<ul>
+  <li><strong>The four values.</strong> Communication, simplicity, feedback, courage. The fifth (respect) covers the human members of the team; the agent doesn’t need it but it doesn’t harm either.</li>
+  <li><strong>The Once and Only Once rule.</strong> Agents generate duplicate code constantly. The rule is the same; you’ll just enforce it more often.</li>
+  <li><strong>Simple design’s four constraints.</strong> Run all tests, no duplication, states every intention, fewest classes/methods. In that order. Unchanged.</li>
+  <li><strong>Coding standards.</strong> Now machine-enforced (formatters, linters) — but the <em>rule</em> that the team writes in one voice is the same rule.</li>
+  <li><strong>The Planning Game’s split of business vs. technical decisions.</strong> The agent is on the technical side; it does not get to make business decisions. (It will offer to, often. Decline.)</li>
+  <li><strong>Continuous integration.</strong> The agent makes this easier, not harder — it is happy to run the full test suite every commit.</li>
+  <li><strong>Atomic commits, small releases.</strong> Smaller, if anything, because the agent makes diffs faster than you can review them at scale.</li>
+</ul>
+<h2 id="what-changes-when-an-ai-joins-the-team">
+  
+  
+    <a href="#what-changes-when-an-ai-joins-the-team" class="anchor-heading" aria-labelledby="what-changes-when-an-ai-joins-the-team"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What changes when an AI joins the team
+  
+  
+</h2>
+    
+
+<p>Eight practices need adaptation. This is the meat of the page.</p>
+<h3 id="pair-programming--human--agent-driving">
+  
+  
+    <a href="#pair-programming--human--agent-driving" class="anchor-heading" aria-labelledby="pair-programming--human--agent-driving"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Pair programming → human + agent driving
+  
+  
+</h3>
+    
+
+<p>The literal Beck practice is two humans at one keyboard. With an agent, the seat changes occupants. Three patterns work; one doesn’t.</p>
+
+<p><strong>Works:</strong> <em>Agent drives, human navigates.</em> You watch the diff stream, interrupt early when the approach is wrong, redirect on tactics. The agent’s tireless typing pairs well with your strategic attention.</p>
+
+<p><strong>Works:</strong> <em>Human drives, agent navigates.</em> You write code; the agent watches and points out what you missed — the missing test case, the duplicated logic, the simpler approach.</p>
+
+<p><strong>Works:</strong> <em>Alternating turns.</em> Useful for hard problems where neither party has the full picture. The handoff itself surfaces unstated assumptions.</p>
+
+<p><strong>Doesn’t work:</strong> <em>Agent drives, no human.</em> This is not pair programming, it’s solo programming with a robot. Beck’s whole point was that pairing makes the practices <em>enforce themselves</em> under stress — the partner who refuses to skip the test, who pushes back on the unjustified complexity. An agent will not refuse anything. It will write the test after the code if you ask. It will accept a bad design if you insist. The pair only works when one of the two parties has <em>taste</em> and <em>the willingness to say no.</em> That has to be the human.</p>
+<h3 id="testing--the-test-runner-is-the-only-judge">
+  
+  
+    <a href="#testing--the-test-runner-is-the-only-judge" class="anchor-heading" aria-labelledby="testing--the-test-runner-is-the-only-judge"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing → the test runner is the only judge
+  
+  
+</h3>
+    
+
+<p>Beck split testing in two: programmers write unit tests, customers write functional tests. Both sources still apply. What changes is <em>who is allowed to declare a test passed.</em></p>
+
+<p>The rule with an agent: <strong>the test runner is the only thing that can mark a test green.</strong> Not the agent’s report. Not the agent’s reading of the output. The runner.</p>
+
+<p>This sounds paranoid until the first time an agent confidently tells you all 47 tests passed when in fact the test file failed to load and zero tests ran. That happens.</p>
+
+<p>Operationally:</p>
+
+<ul>
+  <li>The agent writes the test, runs it, watches it fail (red), implements, runs it, watches it pass (green). All three transitions are observed.</li>
+  <li>A “tests pass” claim with no observed runner output is treated as “tests not run.”</li>
+  <li>Functional tests are the same. The customer (or you, on the customer’s behalf) writes the assertion; the runner judges.</li>
+</ul>
+<h3 id="refactoring--the-agent-refactors-small-the-human-refactors-large">
+  
+  
+    <a href="#refactoring--the-agent-refactors-small-the-human-refactors-large" class="anchor-heading" aria-labelledby="refactoring--the-agent-refactors-small-the-human-refactors-large"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Refactoring → the agent refactors small, the human refactors large
+  
+  
+</h3>
+    
+
+<p>Beck said <em>“refactor when the system asks you to.”</em> That’s still the rule. What changes is the division of labor.</p>
+
+<p><strong>Small refactorings</strong> — extract method, rename, dedupe two adjacent blocks — the agent does well. They’re local, they’re test-covered, the diff is reviewable in a glance.</p>
+
+<p><strong>Large refactorings</strong> — restructuring a module, untangling an inheritance tree, moving responsibility between layers — the agent does badly. It loses the thread, generates diffs touching dozens of files, and produces changes that pass tests but corrupt the architecture. These stay human-led, with the agent as a navigator on individual steps.</p>
+
+<p>A useful rule of thumb: <strong>if the refactor doesn’t fit in a smart-zone session, the agent should not be leading it.</strong> Either slice it smaller or do it yourself.</p>
+<h3 id="collective-ownership--the-human-owns-the-agent-contributes">
+  
+  
+    <a href="#collective-ownership--the-human-owns-the-agent-contributes" class="anchor-heading" aria-labelledby="collective-ownership--the-human-owns-the-agent-contributes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Collective ownership → the human owns; the agent contributes
+  
+  
+</h3>
+    
+
+<p>Beck’s collective ownership says anyone on the team can change any code. The agent technically can — it has write access to everything — but it doesn’t <em>own</em> anything in the sense Beck meant. Ownership in XP carries responsibility: if it breaks, you fix it; if it’s ugly, you clean it; if a year from now nobody understands it, you remember why.</p>
+
+<p>The agent has none of that. It will not be on the team in a year. It does not remember last week.</p>
+
+<p>So collective ownership becomes: <strong>the humans own the code collectively; the agent is a contributor.</strong> The implications:</p>
+
+<ul>
+  <li>Every line the agent writes must be reviewable and reviewed before it lands.</li>
+  <li>Diffs the human can’t hold in their head are diffs the human doesn’t actually own. Push back on size.</li>
+  <li>The agent’s confidence about a piece of code it wrote three sessions ago is worthless; that code may as well be a stranger’s.</li>
+</ul>
+<h3 id="on-site-customer--the-customer-is-still-human">
+  
+  
+    <a href="#on-site-customer--the-customer-is-still-human" class="anchor-heading" aria-labelledby="on-site-customer--the-customer-is-still-human"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> On-site customer → the customer is still human
+  
+  
+</h3>
+    
+
+<p>This one tempts people most and breaks worst. The on-site customer in Beck’s XP makes scope and priority decisions, writes functional tests, and resolves ambiguity in real time. An agent can simulate all three. <strong>It must not be allowed to.</strong></p>
+
+<p>The agent does not know what the business actually needs. It will pattern-match to similar projects in its training data and produce plausible answers — which is often <em>worse</em> than no answer, because plausible answers don’t get questioned. A real customer’s “I don’t know” is more valuable than an agent’s confident guess.</p>
+
+<p>The agent can <em>help</em> the customer (draft stories from a meeting transcript, suggest edge cases, write functional tests <em>from</em> customer-provided assertions) — but the assertions, priorities, and acceptance come from a person who will use the system.</p>
+
+<p>The “grill-me” pattern from <a href="/docs/skills/supporting-skills/">supporting skills</a> is good here: have the agent interrogate the customer to surface unstated assumptions. That’s the agent at its best.</p>
+<h3 id="the-planning-game--estimates-from-the-human-with-agent-help">
+  
+  
+    <a href="#the-planning-game--estimates-from-the-human-with-agent-help" class="anchor-heading" aria-labelledby="the-planning-game--estimates-from-the-human-with-agent-help"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The Planning Game → estimates from the human, with agent help
+  
+  
+</h3>
+    
+
+<p>Beck’s rule: <em>“the person responsible for implementing gets to estimate.”</em> When a human will implement, the human estimates. When the agent will implement, the agent’s estimate is <em>not</em> trustworthy — it has no idea how long things take in your repo, with your tests, with your CI, with your weird build config.</p>
+
+<p>The pattern that works: <strong>the agent proposes an estimate based on the slice; the human adjusts based on local reality; the human commits.</strong> Estimates are recorded and tracked exactly as Beck describes (the tracker role is unchanged) so the team can learn how badly the agent estimates and apply the right correction factor.</p>
+
+<p>Over time, you’ll discover the agent is consistently optimistic by some multiple in your codebase. That multiple is your local truth.</p>
+<h3 id="40-hour-week--applies-to-context-too">
+  
+  
+    <a href="#40-hour-week--applies-to-context-too" class="anchor-heading" aria-labelledby="40-hour-week--applies-to-context-too"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 40-hour week → applies to context, too
+  
+  
+</h3>
+    
+
+<p>Beck’s rule was about humans staying fresh enough to think. With an agent, the same rule applies to the <em>session</em> itself: a session that’s been running too long is a tired collaborator, and tired collaborators make mistakes. The math is different (cache TTLs, token counts, context degradation curves) but the principle holds.</p>
+
+<p>Operationally:</p>
+
+<ul>
+  <li>Plan in one session, implement in another. Don’t burn implementation context on planning argument.</li>
+  <li>Reset (<code class="language-plaintext highlighter-rouge">/clear</code>) before degradation, not after. If you notice you’re re-explaining things, you’re already past the line.</li>
+  <li>Compaction is not a reset. It keeps the rot.</li>
+  <li>The cheapest action in the workflow is starting a new session with a tight handoff prompt.</li>
+</ul>
+<h3 id="small-releases--iterations--vertical-tracer-bullet-slices">
+  
+  
+    <a href="#small-releases--iterations--vertical-tracer-bullet-slices" class="anchor-heading" aria-labelledby="small-releases--iterations--vertical-tracer-bullet-slices"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Small releases / iterations → vertical tracer-bullet slices
+  
+  
+</h3>
+    
+
+<p>Beck called for small releases, sliced by business value. With an agent, the slicing technique that works best is more specific: <strong>vertical tracer bullets</strong> — slices that cut through every layer of the system end-to-end, each producing a working (if minimal) feature.</p>
+
+<p>Why this matters more with an agent:</p>
+
+<ul>
+  <li>The agent’s blast radius is wider. A horizontal slice (“all the schema changes for v2”) gives the agent a lot of code to touch with no end-to-end feedback. By the time you discover the design is wrong, the diff is unreviewable.</li>
+  <li>Vertical slices end with a runnable system. Real feedback, every slice.</li>
+  <li>Vertical slices are independent enough to parallelize across multiple agent sessions; horizontal slices serialize.</li>
+</ul>
+
+<p>This is the one practice where modern AI-coding work has refined Beck’s original. The principle (small, valuable, frequent) is unchanged. The shape (cut down through the layers, not across) is sharper.</p>
+<h2 id="new-failure-modes-the-agent-introduces">
+  
+  
+    <a href="#new-failure-modes-the-agent-introduces" class="anchor-heading" aria-labelledby="new-failure-modes-the-agent-introduces"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> New failure modes the agent introduces
+  
+  
+</h2>
+    
+
+<p>These didn’t exist in 1999 because the team was all human. They show up now and the practices need to be tightened to catch them.</p>
+
+<ul>
+  <li><strong>Plausible-but-wrong.</strong> The agent produces output that looks correct, reads correct, and is wrong in a way you only catch by running it. Defense: tests run, not tests written.</li>
+  <li><strong>Sycophancy.</strong> The agent agrees with bad ideas, including its own previous bad ideas. Defense: the human says no; the test runner says no. Don’t outsource judgment to the agent.</li>
+  <li><strong>Hallucinated APIs.</strong> Method names, signatures, packages that look right but don’t exist. Defense: the type checker and the test runner. If they pass, the API exists.</li>
+  <li><strong>Confident reports of work not done.</strong> “Tests all pass” when no tests ran. “Files updated” with no diff. Defense: verify against the artifact, not the message.</li>
+  <li><strong>Drift across sessions.</strong> What the agent “knew” last session is gone this session. Defense: write it down. Story cards, the PRD, CLAUDE.md. The conversation is not a memory system; the repo is.</li>
+  <li><strong>Scope expansion under the guise of helpfulness.</strong> The agent will silently add features, error handlers, and abstractions you didn’t ask for. Defense: review every diff; reject anything not justified by a current story.</li>
+  <li><strong>Context degradation.</strong> Quality drops as the session lengthens. Defense: small slices, frequent resets, planning separated from implementation.</li>
+</ul>
+<h2 id="the-roles-revisited">
+  
+  
+    <a href="#the-roles-revisited" class="anchor-heading" aria-labelledby="the-roles-revisited"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The roles, revisited
+  
+  
+</h2>
+    
+
+<p>Beck’s seven roles still exist. Three of them change shape.</p>
+
+<ul>
+  <li><strong>Programmer</strong> — now usually a human + agent pair. Both write code; only the human owns it.</li>
+  <li><strong>Customer</strong> — unchanged and human. The single most important boundary to defend.</li>
+  <li><strong>Tester</strong> — the human still defines the assertions; the agent can mechanize them. The tester role is more important now because the agent’s tests, left to its own judgment, drift toward “tests that pass” rather than “tests that prove something.”</li>
+  <li><strong>Tracker</strong> — the agent is genuinely good at this role. Mining commits, tabulating estimates vs. actuals, surfacing the trends. A nice fit.</li>
+  <li><strong>Coach</strong> — stays human. The coach is the person who notices when the team is drifting from its own discipline; the agent is part of the drift, not its detector.</li>
+  <li><strong>Consultant</strong> — the agent is an on-tap consultant for narrow technical questions. Use it that way. Don’t let it own the answer; pair on it.</li>
+  <li><strong>Big Boss</strong> — unchanged. Still a human. Still hears bad news early.</li>
+</ul>
+<h2 id="what-kills-an-xp-with-ai-project">
+  
+  
+    <a href="#what-kills-an-xp-with-ai-project" class="anchor-heading" aria-labelledby="what-kills-an-xp-with-ai-project"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What kills an XP-with-AI project
+  
+  
+</h2>
+    
+
+<p>Beck’s list of showstoppers still applies. These are the additional ways the AI variant fails:</p>
+
+<ul>
+  <li><strong>Treating the agent as a peer programmer who owns code.</strong> It doesn’t. Every line is your line.</li>
+  <li><strong>Trusting the agent’s reports over the artifacts.</strong> The diff is truth; the message is commentary.</li>
+  <li><strong>Letting one session sprawl across a whole feature.</strong> The dumb zone wins by default if you don’t reset.</li>
+  <li><strong>Skipping tests because “the agent already wrote it correctly.”</strong> It didn’t. Or it did this time and won’t next time. The test is for the next time.</li>
+  <li><strong>Letting the agent write the test after the code.</strong> The test is then shaped by the implementation, not the requirement. Useless.</li>
+  <li><strong>Compacting instead of clearing.</strong> Carries the rot forward.</li>
+  <li><strong>Pretending the agent is the customer.</strong> Different page; pretend hard enough and you’ll ship the wrong product confidently.</li>
+</ul>
+<h2 id="the-skill-a-one-page-invariant-list">
+  
+  
+    <a href="#the-skill-a-one-page-invariant-list" class="anchor-heading" aria-labelledby="the-skill-a-one-page-invariant-list"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The skill: a one-page invariant list
+  
+  
+</h2>
+    
+
+<p>The full SKILL.md file — formatted in the <a href="https://github.com/mattpocock/skills">Pocock skills</a> convention so it can be installed directly into Claude Code or any agent that loads <code class="language-plaintext highlighter-rouge">SKILL.md</code> files — is <a href="/skills/xp-programming-workflow/SKILL.md">browseable here</a>. The raw source for installation lives at <a href="https://github.com/buecking/incontext/blob/main/skills/xp-programming-workflow/SKILL.md"><code class="language-plaintext highlighter-rouge">skills/xp-programming-workflow/SKILL.md</code></a> on GitHub. The shortened version below is what it expands to in spirit.</p>
+
+<ol>
+  <li><strong>Stories before code.</strong> Every change traces to an accepted story.</li>
+  <li><strong>Tests before code.</strong> Every implementation begins with a test the runner has watched fail.</li>
+  <li><strong>The runner is the judge.</strong> “It works” without observed runner output means “not run.”</li>
+  <li><strong>Simplest thing that could possibly work.</strong> Reject design elements that don’t earn their place.</li>
+  <li><strong>Once and only once.</strong> No duplication, anywhere.</li>
+  <li><strong>Refactor on demand.</strong> Never on speculation. Never mid-slice.</li>
+  <li><strong>Vertical slices.</strong> Every slice produces a runnable system end-to-end.</li>
+  <li><strong>One slice, one PR.</strong> Reviewable in one sitting.</li>
+  <li><strong>Integrate within hours.</strong> No branch outlives a day.</li>
+  <li><strong>Reset, don’t compact.</strong> New session per slice; tight handoff prompt; clean context.</li>
+  <li><strong>Human owns; agent contributes.</strong> Every line is reviewed by a person before it lands.</li>
+  <li><strong>Customer stays human.</strong> Scope, priority, and acceptance are not delegable.</li>
+</ol>
+
+<p>The first ten are XP turned up to ten on a workflow that includes an agent. The last two are the ones the AI variant adds, and they are the ones that fail first when teams skip them.</p>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/skills/xp-workflow/">The XP workflow</a> — the unmodified Beck source for this adaptation</li>
+  <li><a href="/docs/foundations/smart-zone-and-dumb-zone/">The smart zone and the dumb zone</a> — the AI-specific constraint that justifies several of the changes above</li>
+  <li><a href="/docs/skills/supporting-skills/">Supporting skills</a> — the small set of named skills that compose with this loop</li>
+</ul>
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<ul>
+  <li>Beck, K. (1999). <em>Extreme Programming Explained: Embrace Change.</em> Addison-Wesley.</li>
+  <li>Pocock, M. (2026). <em>Full Walkthrough: Workflow for AI Coding.</em> YouTube. <a href="https://www.youtube.com/watch?v=-QFHIoCo-Ko">https://www.youtube.com/watch?v=-QFHIoCo-Ko</a> — for the smart-zone framing and the vertical-slice refinement.</li>
+</ul>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+        <p class="text-small mb-0">
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/skills/xp-with-ai.md" id="edit-this-page">Edit this page on GitHub</a>
+        </p>
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

@@ -13,10 +13,26 @@
 
   <style id="jtd-nav-activation">
   
-    .site-nav ul li a {
+
+    
+    .site-nav > ul.nav-list:first-child > li:not(:nth-child(5)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li a {
       background-image: none;
     }
 
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list {
+      display: block;
+    }
   </style>
 
   
@@ -34,20 +50,20 @@
 
 
   <!-- Begin Jekyll SEO tag v2.9.0 -->
-<title>InContext | A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.</title>
+<title>Skills | InContext</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="InContext" />
+<meta property="og:title" content="Skills" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
 <meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
-<link rel="canonical" href="https://incontext.info/assets/css/just-the-docs-head-nav.css" />
-<meta property="og:url" content="https://incontext.info/assets/css/just-the-docs-head-nav.css" />
+<link rel="canonical" href="https://incontext.info/docs/skills/" />
+<meta property="og:url" content="https://incontext.info/docs/skills/" />
 <meta property="og:site_name" content="InContext" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="InContext" />
+<meta name="twitter:title" content="Skills" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"InContext","url":"https://incontext.info/assets/css/just-the-docs-head-nav.css"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"Skills","url":"https://incontext.info/docs/skills/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -203,14 +219,74 @@
       <div id="main-content" class="main-content">
         <main>
           
-            <h.site-nav ul li a {
-  background-image: linear-gradient(-90deg, rgb(234.8, 236.82, 244.9) 0%, rgba(234.8, 236.82, 244.9, 0.8) 80%, rgba(234.8, 236.82, 244.9, 0) 100%);
-}
+            <h1 id="skills">
+  
+  
+    <a href="#skills" class="anchor-heading" aria-labelledby="skills"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Skills
+  
+  
+</h1>
+    
+
+<p>A <strong>skill</strong> is a reusable, named workflow that an AI coding tool can invoke on demand — <code class="language-plaintext highlighter-rouge">/improve-codebase-architecture</code>, <code class="language-plaintext highlighter-rouge">/grill-me</code>, <code class="language-plaintext highlighter-rouge">/simplify</code>. They’re packaged context plus packaged behavior: a small, scoped procedure the model already knows how to run, so you don’t have to re-explain it every session.</p>
+
+<p>Skills are a context resource in the sense that <a href="/docs/foundations/what-is-a-context-resource/">the rest of this site</a> uses the term. They live next to your <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> and <code class="language-plaintext highlighter-rouge">AGENTS.md</code> and load on demand instead of on every run, which makes them cheap to keep around and easy to compose.</p>
+
+<p>This section is short on purpose. There are hundreds of skills floating around. Most of them are noise. The ones below are the small set that real engineers reach for repeatedly, with the <a href="/docs/skills/xp-workflow/">XP workflow</a> as the headline because it’s the one that changes how you work, not just what you can ask for.</p>
+<h2 id="whats-here">
+  
+  
+    <a href="#whats-here" class="anchor-heading" aria-labelledby="whats-here"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What’s here
+  
+  
+</h2>
+    
+
+<ul>
+  <li><strong><a href="/docs/skills/xp-workflow/">The XP workflow</a></strong> — a faithful summary of Kent Beck’s <em>Extreme Programming Explained</em> (1999). The values, the principles, the twelve practices, the lifecycle, the roles. The source the AI variant is built on.</li>
+  <li><strong><a href="/docs/skills/xp-with-ai/">XP with an AI on the team</a></strong> — the spinoff. What changes (and what doesn’t) when one of the seats at the table is an AI coding agent. Adapts each practice, names the new failure modes, and ends with a 12-point invariant list you can install as a skill.</li>
+  <li><strong><a href="/docs/skills/supporting-skills/">Supporting skills</a></strong> — the short list of skills that earn their keep alongside the XP loop: <code class="language-plaintext highlighter-rouge">improve-codebase-architecture</code>, <code class="language-plaintext highlighter-rouge">grill-me</code>, <code class="language-plaintext highlighter-rouge">simplify</code>.</li>
+</ul>
+<h2 id="when-a-skill-is-the-right-shape">
+  
+  
+    <a href="#when-a-skill-is-the-right-shape" class="anchor-heading" aria-labelledby="when-a-skill-is-the-right-shape"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When a skill is the right shape
+  
+  
+</h2>
+    
+
+<p>A workflow is worth turning into a skill when:</p>
+
+<ol>
+  <li><strong>You’ve run it more than three times.</strong> Below that, you’re still figuring out what it should do.</li>
+  <li><strong>Its inputs are stable.</strong> A skill that needs a wall of context every time you invoke it isn’t a skill, it’s a prompt template.</li>
+  <li><strong>It returns a recognizable artifact.</strong> A passing test, a green diff, a PR, a refactor plan. Something you can point at and say “that’s what the skill produced.”</li>
+</ol>
+
+<p>If a workflow doesn’t satisfy all three, leave it as a saved prompt. Skills are for things that have earned a name.</p>
 
           
 
           
-            
+            <hr>
+<h2 class="text-delta">Table of contents</h2>
+
+<ul>
+  
+  <li>
+    <a href="/docs/skills/xp-workflow/">The XP workflow</a>
+  </li>
+  
+  <li>
+    <a href="/docs/skills/xp-with-ai/">XP with an AI on the team</a>
+  </li>
+  
+  <li>
+    <a href="/docs/skills/supporting-skills/">Supporting skills</a>
+  </li>
+  
+</ul>
           
         </main>
         
@@ -227,7 +303,7 @@
       
       
         <p class="text-small mb-0">
-          <a href="https://github.com/YOUR-USER/incontext/tree/main/assets/css/just-the-docs-head-nav.css" id="edit-this-page">Edit this page on GitHub</a>
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/skills/index.md" id="edit-this-page">Edit this page on GitHub</a>
         </p>
       
     </div>

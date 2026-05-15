@@ -13,10 +13,29 @@
 
   <style id="jtd-nav-activation">
   
-    .site-nav ul li a {
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(1)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
       background-image: none;
     }
 
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(1) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(1) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list {
+      display: block;
+    }
   </style>
 
   
@@ -34,20 +53,20 @@
 
 
   <!-- Begin Jekyll SEO tag v2.9.0 -->
-<title>InContext | A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.</title>
+<title>Scope by directory | InContext</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="InContext" />
+<meta property="og:title" content="Scope by directory" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
 <meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
-<link rel="canonical" href="https://incontext.info/assets/css/just-the-docs-head-nav.css" />
-<meta property="og:url" content="https://incontext.info/assets/css/just-the-docs-head-nav.css" />
+<link rel="canonical" href="https://incontext.info/docs/patterns/scope-by-directory/" />
+<meta property="og:url" content="https://incontext.info/docs/patterns/scope-by-directory/" />
 <meta property="og:site_name" content="InContext" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="InContext" />
+<meta name="twitter:title" content="Scope by directory" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"InContext","url":"https://incontext.info/assets/css/just-the-docs-head-nav.css"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"Scope by directory","url":"https://incontext.info/docs/patterns/scope-by-directory/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -199,13 +218,169 @@
 </div>
 
     <div class="main-content-wrap">
-      
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/patterns/">Patterns</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Scope by directory</span></li>
+  </ol>
+</nav>
+
+
       <div id="main-content" class="main-content">
         <main>
           
-            <h.site-nav ul li a {
-  background-image: linear-gradient(-90deg, rgb(234.8, 236.82, 244.9) 0%, rgba(234.8, 236.82, 244.9, 0.8) 80%, rgba(234.8, 236.82, 244.9, 0) 100%);
-}
+            <h1 class="no_toc" id="scope-by-directory">
+  
+  
+    <a href="#scope-by-directory" class="anchor-heading" aria-labelledby="scope-by-directory"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Scope by directory
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#what-it-is" id="markdown-toc-what-it-is">What it is</a></li>
+  <li><a href="#when-to-reach-for-it" id="markdown-toc-when-to-reach-for-it">When to reach for it</a></li>
+  <li><a href="#how-to-apply-it" id="markdown-toc-how-to-apply-it">How to apply it</a></li>
+  <li><a href="#why-this-works" id="markdown-toc-why-this-works">Why this works</a></li>
+  <li><a href="#failure-modes" id="markdown-toc-failure-modes">Failure modes</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+</ol><hr />
+
+<p>Don’t put every rule in the root <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>. Let the filesystem carry the layering: rules that apply everywhere live at the root, rules that only apply to one part of the codebase live next to that code. The agent picks them up automatically when it works in that subdirectory.</p>
+
+<p>This is the single most underused feature of every context-file format in production.</p>
+<h2 id="what-it-is">
+  
+  
+    <a href="#what-it-is" class="anchor-heading" aria-labelledby="what-it-is"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What it is
+  
+  
+</h2>
+    
+
+<p>Every major AI coding tool reads context files at multiple levels of the directory tree and concatenates them, with closer-to-cwd files winning on conflict:</p>
+
+<ul>
+  <li><strong>Claude Code</strong> walks up from the working directory and concatenates every <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> and <code class="language-plaintext highlighter-rouge">CLAUDE.local.md</code> it finds. Subdirectory files are also loaded on demand when Claude reads files in those directories. (<a href="https://code.claude.com/docs/en/memory">docs</a>)</li>
+  <li><strong>Cursor</strong> supports nested <code class="language-plaintext highlighter-rouge">.cursor/rules/</code> directories — rules apply to their containing directory and below.</li>
+  <li><strong>Continue.dev</strong> discovers <code class="language-plaintext highlighter-rouge">.continue/rules/</code> files recursively.</li>
+  <li><strong>Aider</strong> can load any <code class="language-plaintext highlighter-rouge">CONVENTIONS.md</code> from any directory via <code class="language-plaintext highlighter-rouge">--read</code>.</li>
+  <li><strong>AGENTS.md</strong> is explicit: nested files in a monorepo override the root for that subtree, with “the closest one taking precedence.” (<a href="https://agents.md/">spec</a>)</li>
+</ul>
+
+<p>The pattern is the same across all of them: <strong>closer wins, distant accumulates.</strong></p>
+<h2 id="when-to-reach-for-it">
+  
+  
+    <a href="#when-to-reach-for-it" class="anchor-heading" aria-labelledby="when-to-reach-for-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When to reach for it
+  
+  
+</h2>
+    
+
+<p>Three signals that you should split a context file by directory:</p>
+
+<ol>
+  <li><strong>The root file is over ~200 lines.</strong> Anthropic’s own guidance for <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is to target under 200 lines per file because adherence drops as length grows. (<a href="https://code.claude.com/docs/en/memory">Claude Code memory docs</a>)</li>
+  <li><strong>Half the rules are about one part of the codebase.</strong> If your CLAUDE.md has a “Frontend” section, a “Backend” section, and a “Migrations” section, those should be three separate files in three subdirectories.</li>
+  <li><strong>Different teams own different subtrees.</strong> Your team’s conventions don’t belong in another team’s working directory, and vice versa.</li>
+</ol>
+<h2 id="how-to-apply-it">
+  
+  
+    <a href="#how-to-apply-it" class="anchor-heading" aria-labelledby="how-to-apply-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How to apply it
+  
+  
+</h2>
+    
+
+<p>The canonical layout for a Claude Code project:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>your-project/
+├── CLAUDE.md                          # global: stack, commands, conventions
+├── frontend/
+│   └── CLAUDE.md                      # React conventions, component patterns
+├── backend/
+│   ├── CLAUDE.md                      # API conventions, error handling
+│   └── api/
+│       └── CLAUDE.md                  # specific to v2 endpoints
+└── db/
+    ├── CLAUDE.md                      # migration rules, schema conventions
+    └── migrations/
+        └── CLAUDE.md                  # immutability rule for shipped migrations
+</code></pre></div></div>
+
+<p>When Claude Code starts in <code class="language-plaintext highlighter-rouge">backend/api/</code>, it loads — in order — the root <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>, then <code class="language-plaintext highlighter-rouge">backend/CLAUDE.md</code>, then <code class="language-plaintext highlighter-rouge">backend/api/CLAUDE.md</code>. Closest wins on conflicts.</p>
+
+<p>For Cursor, the same idea using <code class="language-plaintext highlighter-rouge">.cursor/rules/</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>your-project/
+├── .cursor/rules/
+│   └── conventions.mdc                # global
+├── frontend/
+│   └── .cursor/rules/
+│       └── react.mdc                  # React-only
+└── backend/
+    └── .cursor/rules/
+        └── api.mdc                    # API-only
+</code></pre></div></div>
+
+<p>For path-scoping <em>without</em> directory splitting, both Claude Code and Cursor support a <code class="language-plaintext highlighter-rouge">paths</code>/<code class="language-plaintext highlighter-rouge">globs</code> field in the rule’s frontmatter — the rule lives in one place but only activates on matching files:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">paths</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">src/api/**/*.ts"</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p>See <a href="/docs/reference/front-matter/">front matter cheat sheet</a> for the exact field names per tool.</p>
+<h2 id="why-this-works">
+  
+  
+    <a href="#why-this-works" class="anchor-heading" aria-labelledby="why-this-works"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why this works
+  
+  
+</h2>
+    
+
+<p>Three reasons it pays for itself:</p>
+
+<ol>
+  <li><strong>Token economics.</strong> Rules that don’t apply to the current task aren’t competing for attention. A rule about React component naming spending tokens during a backend migration is a rule that pulled attention away from migration rules.</li>
+  <li><strong>Cache stability.</strong> Directory-scoped files change less often than monolithic ones, which keeps the agent’s <a href="/docs/foundations/perception-over-history/">prompt cache</a> warmer.</li>
+  <li><strong>Reviewability.</strong> A <code class="language-plaintext highlighter-rouge">db/migrations/CLAUDE.md</code> that says “never edit shipped migrations” lives next to the code it constrains. Future you grep’ing for the rule will find it immediately.</li>
+</ol>
+<h2 id="failure-modes">
+  
+  
+    <a href="#failure-modes" class="anchor-heading" aria-labelledby="failure-modes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Failure modes
+  
+  
+</h2>
+    
+
+<p>The pattern is forgiving but two ways it goes wrong:</p>
+
+<ul>
+  <li><strong>Inheritance collisions you didn’t see.</strong> A rule in the root that contradicts a rule in a subdirectory. The closer file wins, but if you forgot the root rule existed, you’ll be confused when the agent ignores it in some directories. Run <code class="language-plaintext highlighter-rouge">/memory</code> (Claude Code) to see exactly which files are loaded in the current session. See <a href="/docs/reference/failure-modes/#4-instruction-conflict">failure modes §4</a>.</li>
+  <li><strong>Stale subdirectory files.</strong> A <code class="language-plaintext highlighter-rouge">frontend/CLAUDE.md</code> from when you used Vue, still sitting there now that you’ve migrated to React. Subdirectory files go stale faster than root files because they’re touched less. Treat them as code — review them in PRs that change that subtree.</li>
+</ul>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/patterns/layered-context/">Layered context</a> — the broader pattern this is a special case of</li>
+  <li><a href="/docs/reference/front-matter/">Front matter cheat sheet</a> — exact path-scoping fields per tool</li>
+  <li><a href="/docs/per-tool/claude-md/">Crafting a CLAUDE.md</a> — what to put in each file</li>
+  <li><a href="/docs/reference/failure-modes/#4-instruction-conflict">Failure modes §4 — instruction conflict</a></li>
+</ul>
 
           
 
@@ -227,7 +402,7 @@
       
       
         <p class="text-small mb-0">
-          <a href="https://github.com/YOUR-USER/incontext/tree/main/assets/css/just-the-docs-head-nav.css" id="edit-this-page">Edit this page on GitHub</a>
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/patterns/scope-by-directory.md" id="edit-this-page">Edit this page on GitHub</a>
         </p>
       
     </div>

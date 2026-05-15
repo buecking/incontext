@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(3)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(3) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(3) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(3) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Role + task + constraints | InContext</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Role + task + constraints" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<link rel="canonical" href="https://incontext.info/docs/patterns/role-task-constraints/" />
+<meta property="og:url" content="https://incontext.info/docs/patterns/role-task-constraints/" />
+<meta property="og:site_name" content="InContext" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Role + task + constraints" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"Role + task + constraints","url":"https://incontext.info/docs/patterns/role-task-constraints/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  InContext
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Foundations submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/foundations/" class="nav-list-link">Foundations</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/foundations/what-is-a-context-resource/" class="nav-list-link">What is a context resource?</a></li><li class="nav-list-item"><a href="/docs/foundations/context-is-a-budget/" class="nav-list-link">Context is a budget, not a bucket</a></li><li class="nav-list-item"><a href="/docs/foundations/long-context-degradation/" class="nav-list-link">Long-context degradation</a></li><li class="nav-list-item"><a href="/docs/foundations/smart-zone-and-dumb-zone/" class="nav-list-link">The smart zone and the dumb zone</a></li><li class="nav-list-item"><a href="/docs/foundations/perception-over-history/" class="nav-list-link">Perception over history</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Per-tool submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/per-tool/" class="nav-list-link">Per-tool</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/per-tool/claude-md/" class="nav-list-link">Crafting a CLAUDE.md</a></li><li class="nav-list-item"><a href="/docs/per-tool/agents-md/" class="nav-list-link">AGENTS.md and the convergence</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Patterns submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/patterns/" class="nav-list-link">Patterns</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/patterns/scope-by-directory/" class="nav-list-link">Scope by directory</a></li><li class="nav-list-item"><a href="/docs/patterns/layered-context/" class="nav-list-link">Layered context</a></li><li class="nav-list-item"><a href="/docs/patterns/role-task-constraints/" class="nav-list-link">Role + task + constraints</a></li><li class="nav-list-item"><a href="/docs/patterns/retrieve-before-generate/" class="nav-list-link">Retrieve before generate</a></li><li class="nav-list-item"><a href="/docs/patterns/cite-dont-summarize/" class="nav-list-link">Cite, don't summarize</a></li><li class="nav-list-item"><a href="/docs/patterns/negative-examples/" class="nav-list-link">Negative examples</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Skills submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/skills/" class="nav-list-link">Skills</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/skills/xp-workflow/" class="nav-list-link">The XP workflow</a></li><li class="nav-list-item"><a href="/docs/skills/xp-with-ai/" class="nav-list-link">XP with an AI on the team</a></li><li class="nav-list-item"><a href="/docs/skills/supporting-skills/" class="nav-list-link">Supporting skills</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/reference/front-matter/" class="nav-list-link">Front matter cheat sheet</a></li><li class="nav-list-item"><a href="/docs/reference/directives/" class="nav-list-link">Directives that work</a></li><li class="nav-list-item"><a href="/docs/reference/failure-modes/" class="nav-list-link">Failure modes</a></li></ul></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search InContext" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search InContext</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/patterns/">Patterns</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Role + task + constraints</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="role--task--constraints">
+  
+  
+    <a href="#role--task--constraints" class="anchor-heading" aria-labelledby="role--task--constraints"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Role + task + constraints
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#the-three-parts" id="markdown-toc-the-three-parts">The three parts</a></li>
+  <li><a href="#role-scope-not-expertise" id="markdown-toc-role-scope-not-expertise">Role: scope, not expertise</a></li>
+  <li><a href="#task-specific-and-concrete" id="markdown-toc-task-specific-and-concrete">Task: specific and concrete</a></li>
+  <li><a href="#constraints-invariants-and-forbiddens" id="markdown-toc-constraints-invariants-and-forbiddens">Constraints: invariants and forbiddens</a></li>
+  <li><a href="#why-all-three" id="markdown-toc-why-all-three">Why all three</a></li>
+  <li><a href="#how-it-fits-with-perception" id="markdown-toc-how-it-fits-with-perception">How it fits with perception</a></li>
+  <li><a href="#failure-modes" id="markdown-toc-failure-modes">Failure modes</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+</ol><hr />
+
+<p>The three-part frame for system prompts and durable context. <strong>Role</strong> scopes what kind of work this is. <strong>Task</strong> says what to do. <strong>Constraints</strong> say what not to do. Skip any one and the prompt under-specifies.</p>
+
+<p>This is the most-recommended structure in Anthropic’s, OpenAI’s, and Google’s prompt-engineering guidance. It is also widely misapplied — particularly the role layer, where the old “you are a world-class expert” pattern has weaker evidence on modern models than most prompt collections still assume.</p>
+<h2 id="the-three-parts">
+  
+  
+    <a href="#the-three-parts" class="anchor-heading" aria-labelledby="the-three-parts"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The three parts
+  
+  
+</h2>
+    
+
+<p>A system prompt or top-of-CLAUDE.md should have three sections, in this order:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. ROLE         — what kind of work is this; what scope does the model operate in
+2. TASK         — what to do right now (sometimes deferred to the user message)
+3. CONSTRAINTS  — invariants that hold regardless of task; forbidden actions
+</code></pre></div></div>
+
+<p>A minimum example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You are a coding assistant for the InContext Jekyll site. Edit markdown
+files in docs/ and assets in assets/; do not modify _config.yml or
+Gemfile without explicit user confirmation.
+
+When the user describes a feature, write the page that implements it.
+
+Constraints:
+- Never commit without the user asking.
+- Never edit files in vendor/ or _site/.
+- Match the writing voice of existing pages: direct, opinionated, no
+  fluff. Drop expert-persona claims and tip/threat language.
+</code></pre></div></div>
+
+<p>That’s the shape. Adapt to your context.</p>
+<h2 id="role-scope-not-expertise">
+  
+  
+    <a href="#role-scope-not-expertise" class="anchor-heading" aria-labelledby="role-scope-not-expertise"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Role: scope, not expertise
+  
+  
+</h2>
+    
+
+<p>Anthropic’s official guidance is clear and narrow:</p>
+
+<blockquote>
+  <p>“Setting a role in the system prompt focuses Claude’s behavior and tone for your use case.”
+— <a href="https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic prompting best practices</a></p>
+</blockquote>
+
+<p>The role does two useful things:</p>
+
+<ul>
+  <li><strong>Scopes the work.</strong> “Coding assistant for a Jekyll site” tells the model what kind of files to expect, what conventions to assume, what tools are likely in play.</li>
+  <li><strong>Sets the tone.</strong> “Tax preparer,” “five-year-old’s tutor,” “legal contract drafter” produce different output styles.</li>
+</ul>
+
+<p>What role <em>does not</em> reliably do, on current frontier models: <strong>boost factual accuracy via claimed expertise</strong>. Zheng et al. 2024 (<a href="https://arxiv.org/abs/2311.10054">arXiv:2311.10054</a>) evaluated 162 personas across 4 LLMs on MMLU-style benchmarks and found <em>no consistent gain</em>. See <a href="/docs/reference/directives/#6-role--persona-prompts--for-style-not-for-capability">directives §6</a> for the full story.</p>
+
+<p>The practical rule:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Good role:  "You are a code reviewer for a TypeScript monorepo using Bun and Vite."
+Bad role:   "You are a world-class senior engineer with 20 years of experience."
+</code></pre></div></div>
+
+<p>The good role tells the model what kind of work to expect. The bad role makes claims that often produce <em>more confident hallucinations</em> without measurable accuracy gains.</p>
+<h2 id="task-specific-and-concrete">
+  
+  
+    <a href="#task-specific-and-concrete" class="anchor-heading" aria-labelledby="task-specific-and-concrete"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task: specific and concrete
+  
+  
+</h2>
+    
+
+<p>The task layer is the <em>what to do</em>. Two patterns work, depending on whether you’re writing a system prompt or a one-off prompt:</p>
+
+<ul>
+  <li><strong>In a system prompt or CLAUDE.md:</strong> describe the <em>shape</em> of tasks the model will handle, not a specific task. <em>“When the user describes a feature, write the page that implements it.”</em></li>
+  <li><strong>In the user message:</strong> describe <em>this</em> task concretely. <em>“Add a ‘Skills’ link to the home page, between ‘Patterns’ and ‘Reference’.”</em></li>
+</ul>
+
+<p>Across both, the rule from <a href="/docs/reference/directives/#1-specificity-beats-qualifier-words">directives §1</a> holds: specific and concrete beats vague and qualitative. Numeric where possible.</p>
+
+<p>Anthropic’s own guidance on Claude Opus 4.7 specifically:</p>
+
+<blockquote>
+  <p>“Claude Opus 4.7 interprets prompts more literally and explicitly than Claude Opus 4.6… If you need Claude to apply an instruction broadly, state the scope explicitly (for example, ‘Apply this formatting to every section, not just the first one’).”
+— <a href="https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic prompting best practices</a></p>
+</blockquote>
+
+<p>Translation: don’t leave the scope of “the task” implicit.</p>
+<h2 id="constraints-invariants-and-forbiddens">
+  
+  
+    <a href="#constraints-invariants-and-forbiddens" class="anchor-heading" aria-labelledby="constraints-invariants-and-forbiddens"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Constraints: invariants and forbiddens
+  
+  
+</h2>
+    
+
+<p>The third part is the rules that hold <em>regardless of the task</em>. Two flavors:</p>
+
+<ol>
+  <li><strong>Invariants</strong> — things that must always be true. <em>“All code must pass <code class="language-plaintext highlighter-rouge">bun test</code> before commit.”</em></li>
+  <li><strong>Forbiddens</strong> — things that must never happen. <em>“Never edit files in <code class="language-plaintext highlighter-rouge">vendor/</code>.”</em></li>
+</ol>
+
+<p>Pair every forbidden with a positive alternative where possible. From <a href="/docs/reference/directives/#3-positive-framing-beats-negation">directives §3</a>: LLMs systematically underperform on negation (Truong et al. 2023, <a href="https://arxiv.org/abs/2306.08189">arXiv:2306.08189</a>) — performance drops 20-40 points on negated questions vs. affirmative ones.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Weak:    Never modify migration files.
+Strong:  Treat migration files in db/migrations/ as immutable once shipped.
+         For schema changes, create a new migration with the next number.
+</code></pre></div></div>
+
+<p>The strong version states the positive behavior (new migration) and pairs it with the prohibition. The weak version leaves the model with “migration” as a high-attention concept and no positive direction.</p>
+<h2 id="why-all-three">
+  
+  
+    <a href="#why-all-three" class="anchor-heading" aria-labelledby="why-all-three"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why all three
+  
+  
+</h2>
+    
+
+<p>Skipping any one of the three layers under-specifies the prompt:</p>
+
+<ul>
+  <li><strong>No role:</strong> the model picks a default role from the conversation history or the structure of your input. Default roles are inconsistent across sessions and biased toward “general helpful assistant,” which is the wrong shape for most coding work.</li>
+  <li><strong>No task:</strong> the model improvises one from context, often with too much initiative. “Help me with this code” without a task description produces unsolicited refactors.</li>
+  <li><strong>No constraints:</strong> the model uses its training-data defaults, which may not match your repo’s conventions. Confident, plausible, wrong.</li>
+</ul>
+
+<p>The three layers also map cleanly to the <a href="/docs/patterns/layered-context/">layered context</a> pattern: <strong>role and constraints live in the project layer (CLAUDE.md), tasks live in the task layer (user message, working set)</strong>. Maintaining this mapping keeps the cache-stable parts cache-stable.</p>
+<h2 id="how-it-fits-with-perception">
+  
+  
+    <a href="#how-it-fits-with-perception" class="anchor-heading" aria-labelledby="how-it-fits-with-perception"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How it fits with perception
+  
+  
+</h2>
+    
+
+<p>A maintained <a href="/docs/foundations/perception-over-history/">perception.md</a> makes the three-part frame more concrete:</p>
+
+<ul>
+  <li><strong>Role and constraints</strong> live in <code class="language-plaintext highlighter-rouge">perception.md</code>’s <strong>Invariants</strong> layer.</li>
+  <li><strong>The current task</strong> lives in the <strong>Frame</strong> layer (the current slice, acceptance criteria, decisions made).</li>
+  <li><strong>The current action</strong> lives in the <strong>Working set</strong>.</li>
+</ul>
+
+<p>If you’re already maintaining a perception file, the three-part frame is a sanity check: every line in your system prompt should belong to one of the three. Lines that don’t belong to any of them are probably noise.</p>
+<h2 id="failure-modes">
+  
+  
+    <a href="#failure-modes" class="anchor-heading" aria-labelledby="failure-modes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Failure modes
+  
+  
+</h2>
+    
+
+<ul>
+  <li><strong>Confident expert persona.</strong> “You are an expert at X” induces over-confident output without measurable accuracy gains. See <a href="/docs/reference/directives/#6-role--persona-prompts--for-style-not-for-capability">directives §6</a>.</li>
+  <li><strong>Aspirational constraints.</strong> Constraints that describe how you wish the codebase worked, not how it actually does. The model writes against the rule and against the surrounding code. See <a href="/docs/reference/failure-modes/#5-aspirational-rules">failure modes §5</a>.</li>
+  <li><strong>Task creep into the system prompt.</strong> Hardcoded specific tasks (“implement the points feature”) in CLAUDE.md instead of in a user message. When the task changes, the CLAUDE.md is stale immediately.</li>
+  <li><strong>Negation-only constraints.</strong> A wall of “don’t do this, don’t do that” with no positive direction. Pair each prohibition with the positive alternative.</li>
+</ul>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/patterns/layered-context/">Layered context</a> — where each part of the frame belongs</li>
+  <li><a href="/docs/foundations/perception-over-history/">Perception over history</a> — how the three layers map to perception layers</li>
+  <li><a href="/docs/reference/directives/">Directives that work</a> — empirical evidence on imperatives, role, negation</li>
+  <li><a href="/docs/per-tool/claude-md/">Crafting a CLAUDE.md</a> — how the frame translates into a CLAUDE.md file</li>
+  <li><a href="/docs/reference/failure-modes/#5-aspirational-rules">Failure modes §5 — aspirational rules</a></li>
+</ul>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+        <p class="text-small mb-0">
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/patterns/role-task-constraints.md" id="edit-this-page">Edit this page on GitHub</a>
+        </p>
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

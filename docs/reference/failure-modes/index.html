@@ -1,0 +1,789 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(3)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(3) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(6) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(3) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list > li.nav-list-item:nth-child(3) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Failure modes | InContext</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Failure modes" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<link rel="canonical" href="https://incontext.info/docs/reference/failure-modes/" />
+<meta property="og:url" content="https://incontext.info/docs/reference/failure-modes/" />
+<meta property="og:site_name" content="InContext" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Failure modes" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"Failure modes","url":"https://incontext.info/docs/reference/failure-modes/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  InContext
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Foundations submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/foundations/" class="nav-list-link">Foundations</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/foundations/what-is-a-context-resource/" class="nav-list-link">What is a context resource?</a></li><li class="nav-list-item"><a href="/docs/foundations/context-is-a-budget/" class="nav-list-link">Context is a budget, not a bucket</a></li><li class="nav-list-item"><a href="/docs/foundations/long-context-degradation/" class="nav-list-link">Long-context degradation</a></li><li class="nav-list-item"><a href="/docs/foundations/smart-zone-and-dumb-zone/" class="nav-list-link">The smart zone and the dumb zone</a></li><li class="nav-list-item"><a href="/docs/foundations/perception-over-history/" class="nav-list-link">Perception over history</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Per-tool submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/per-tool/" class="nav-list-link">Per-tool</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/per-tool/claude-md/" class="nav-list-link">Crafting a CLAUDE.md</a></li><li class="nav-list-item"><a href="/docs/per-tool/agents-md/" class="nav-list-link">AGENTS.md and the convergence</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Patterns submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/patterns/" class="nav-list-link">Patterns</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/patterns/scope-by-directory/" class="nav-list-link">Scope by directory</a></li><li class="nav-list-item"><a href="/docs/patterns/layered-context/" class="nav-list-link">Layered context</a></li><li class="nav-list-item"><a href="/docs/patterns/role-task-constraints/" class="nav-list-link">Role + task + constraints</a></li><li class="nav-list-item"><a href="/docs/patterns/retrieve-before-generate/" class="nav-list-link">Retrieve before generate</a></li><li class="nav-list-item"><a href="/docs/patterns/cite-dont-summarize/" class="nav-list-link">Cite, don't summarize</a></li><li class="nav-list-item"><a href="/docs/patterns/negative-examples/" class="nav-list-link">Negative examples</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Skills submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/skills/" class="nav-list-link">Skills</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/skills/xp-workflow/" class="nav-list-link">The XP workflow</a></li><li class="nav-list-item"><a href="/docs/skills/xp-with-ai/" class="nav-list-link">XP with an AI on the team</a></li><li class="nav-list-item"><a href="/docs/skills/supporting-skills/" class="nav-list-link">Supporting skills</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/reference/front-matter/" class="nav-list-link">Front matter cheat sheet</a></li><li class="nav-list-item"><a href="/docs/reference/directives/" class="nav-list-link">Directives that work</a></li><li class="nav-list-item"><a href="/docs/reference/failure-modes/" class="nav-list-link">Failure modes</a></li></ul></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search InContext" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search InContext</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/reference/">Reference</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Failure modes</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="failure-modes">
+  
+  
+    <a href="#failure-modes" class="anchor-heading" aria-labelledby="failure-modes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Failure modes
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#at-a-glance" id="markdown-toc-at-a-glance">At a glance</a></li>
+  <li><a href="#1-lost-in-the-middle" id="markdown-toc-1-lost-in-the-middle">1. Lost in the middle</a></li>
+  <li><a href="#2-context-bloat--token-budget-exhaustion" id="markdown-toc-2-context-bloat--token-budget-exhaustion">2. Context bloat / token budget exhaustion</a></li>
+  <li><a href="#3-stale-instructions" id="markdown-toc-3-stale-instructions">3. Stale instructions</a></li>
+  <li><a href="#4-instruction-conflict" id="markdown-toc-4-instruction-conflict">4. Instruction conflict</a></li>
+  <li><a href="#5-aspirational-rules" id="markdown-toc-5-aspirational-rules">5. Aspirational rules</a></li>
+  <li><a href="#6-over-specified-context" id="markdown-toc-6-over-specified-context">6. Over-specified context</a></li>
+  <li><a href="#7-sycophancy--agreement-bias" id="markdown-toc-7-sycophancy--agreement-bias">7. Sycophancy / agreement bias</a></li>
+  <li><a href="#8-prompt-injection-from-context-sources" id="markdown-toc-8-prompt-injection-from-context-sources">8. Prompt injection from context sources</a></li>
+  <li><a href="#9-format-anchoring" id="markdown-toc-9-format-anchoring">9. Format anchoring</a></li>
+  <li><a href="#10-negation-failures" id="markdown-toc-10-negation-failures">10. Negation failures</a></li>
+  <li><a href="#11-recency-bias" id="markdown-toc-11-recency-bias">11. Recency bias</a></li>
+  <li><a href="#12-repetition-collapse" id="markdown-toc-12-repetition-collapse">12. Repetition collapse</a></li>
+  <li><a href="#13-capability-mismatch" id="markdown-toc-13-capability-mismatch">13. Capability mismatch</a></li>
+  <li><a href="#14-tool-poisoning-mcp" id="markdown-toc-14-tool-poisoning-mcp">14. Tool poisoning (MCP)</a></li>
+  <li><a href="#additional-well-documented-modes-briefly" id="markdown-toc-additional-well-documented-modes-briefly">Additional well-documented modes (briefly)</a></li>
+  <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
+</ol><hr />
+
+<p>A diagnostic guide. The agent is doing something wrong — what’s wrong with your context?</p>
+
+<p>Each failure mode below has a definition, a symptom you’d actually see, the empirical evidence, a quick test that confirms it, and the standard fix. Use the table to jump to whichever symptom matches.</p>
+
+<blockquote class="note">
+  <p>Most production context failures are one of three things: <strong>lost in the middle</strong>, <strong>stale instructions</strong>, or <strong>prompt injection</strong>. If you’re debugging, check those first.</p>
+</blockquote>
+<h2 id="at-a-glance">
+  
+  
+    <a href="#at-a-glance" class="anchor-heading" aria-labelledby="at-a-glance"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> At a glance
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Symptom</th>
+      <th>Likely failure</th>
+      <th>Section</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Agent ignores a rule that’s clearly written down</td>
+      <td>Stale instructions, or lost in the middle</td>
+      <td><a href="#1-lost-in-the-middle">§1</a>, <a href="#3-stale-instructions">§3</a></td>
+    </tr>
+    <tr>
+      <td>Agent reinvents a helper that exists in pasted context</td>
+      <td>Lost in the middle</td>
+      <td><a href="#1-lost-in-the-middle">§1</a></td>
+    </tr>
+    <tr>
+      <td>Quality drops late in a long session</td>
+      <td>Context bloat</td>
+      <td><a href="#2-context-bloat--token-budget-exhaustion">§2</a></td>
+    </tr>
+    <tr>
+      <td>Agent “fights” the actual code</td>
+      <td>Stale instructions or aspirational rules</td>
+      <td><a href="#3-stale-instructions">§3</a>, <a href="#5-aspirational-rules">§5</a></td>
+    </tr>
+    <tr>
+      <td>Inconsistent behavior across runs of the same task</td>
+      <td>Instruction conflict</td>
+      <td><a href="#4-instruction-conflict">§4</a></td>
+    </tr>
+    <tr>
+      <td>Output reads like a design doc when you asked for a fix</td>
+      <td>Over-specified context</td>
+      <td><a href="#6-over-specified-context">§6</a></td>
+    </tr>
+    <tr>
+      <td>Agent agrees with whatever you suggest</td>
+      <td>Sycophancy</td>
+      <td><a href="#7-sycophancy--agreement-bias">§7</a></td>
+    </tr>
+    <tr>
+      <td>Agent does something wild right after a fetch/read</td>
+      <td>Prompt injection</td>
+      <td><a href="#8-prompt-injection-from-context-sources">§8</a></td>
+    </tr>
+    <tr>
+      <td>Output matches example shape even when wrong</td>
+      <td>Format anchoring</td>
+      <td><a href="#9-format-anchoring">§9</a></td>
+    </tr>
+    <tr>
+      <td>Forbidden behavior keeps appearing</td>
+      <td>Negation failure</td>
+      <td><a href="#10-negation-failures">§10</a></td>
+    </tr>
+    <tr>
+      <td>Mid-session, an early rule silently dies</td>
+      <td>Recency bias</td>
+      <td><a href="#11-recency-bias">§11</a></td>
+    </tr>
+    <tr>
+      <td>Behavior degrades after <code class="language-plaintext highlighter-rouge">/compact</code></td>
+      <td>Repetition collapse, or stale-after-compact</td>
+      <td><a href="#12-repetition-collapse">§12</a></td>
+    </tr>
+    <tr>
+      <td>Agent hallucinates a tool call or claims to have run something it didn’t</td>
+      <td>Capability mismatch</td>
+      <td><a href="#13-capability-mismatch">§13</a></td>
+    </tr>
+    <tr>
+      <td>Agent does unexpected things after installing an MCP server</td>
+      <td>Tool poisoning</td>
+      <td><a href="#14-tool-poisoning-mcp">§14</a></td>
+    </tr>
+  </tbody>
+</table></div>
+<h2 id="1-lost-in-the-middle">
+  
+  
+    <a href="#1-lost-in-the-middle" class="anchor-heading" aria-labelledby="1-lost-in-the-middle"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. Lost in the middle
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> Information placed mid-context is used worse than information at the start or end, even within the model’s nominal window.</p>
+
+<p><strong>Symptom.</strong> The agent reinvents a function defined in the middle of a pasted file. It quotes the first and last items in a list while behaving as if middle items don’t exist. CLAUDE.md sections in the middle are silently dropped.</p>
+
+<p><strong>Evidence.</strong> Liu et al. 2023 (“Lost in the Middle,” <a href="https://arxiv.org/abs/2307.03172">arXiv:2307.03172</a>, TACL 2024). On 20-document multi-doc QA, GPT-3.5-Turbo recall dropped from <strong>~75% (first position) to ~52% (middle)</strong>. Replicated across Claude 1.3, MPT, LongChat. The 16k-context variant didn’t eliminate the U-shape.</p>
+
+<p>Updated picture: NoLiMa (Modarressi et al. 2025, <a href="https://arxiv.org/abs/2502.05167">arXiv:2502.05167</a>) re-ran the eval with one-hop reasoning required, and even frontier models with 128k–1M nominal windows lose <strong>50%+ of short-context accuracy by ~32k tokens</strong>. The middle penalty is reduced in 2025 frontier models but reasoning over middle content is still measurably worse.</p>
+
+<p><strong>Diagnose.</strong> Put the same unique sentinel sentence at the 10%, 50%, and 90% positions of your context in three separate runs. Ask the agent to retrieve and use it. Variation across positions confirms the failure.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Move load-bearing instructions to the start or end of context.</li>
+  <li>Trim irrelevant middle content.</li>
+  <li>For RAG, re-rank so the top hit is duplicated at the edges.</li>
+  <li>In CLAUDE.md, put the most-violated rules near the top.</li>
+</ul>
+<h2 id="2-context-bloat--token-budget-exhaustion">
+  
+  
+    <a href="#2-context-bloat--token-budget-exhaustion" class="anchor-heading" aria-labelledby="2-context-bloat--token-budget-exhaustion"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2. Context bloat / token budget exhaustion
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> Performance degrades as context length grows, even below the model’s window limit and even when everything in it is relevant.</p>
+
+<p><strong>Symptom.</strong> The agent gets noticeably dumber late in a long session — forgets earlier decisions, repeats fixed bugs, ignores constraints it followed earlier. Tool-call accuracy drops; it picks the wrong file to edit.</p>
+
+<p><strong>Evidence.</strong> RULER (Hsieh et al. 2024, <a href="https://arxiv.org/abs/2404.06654">arXiv:2404.06654</a>) measured effective context length on long-context models. Llama-3-70B-Instruct’s effective length is <strong>~32k against an advertised 128k</strong> under their threshold. LongBench v2 (Bai et al. 2024, <a href="https://arxiv.org/abs/2412.15204">arXiv:2412.15204</a>) shows similar degradation curves. Anthropic’s own “context engineering” engineering posts (2024–2025) report measurable degradation in tool-selection accuracy as context grows.</p>
+
+<p><strong>Diagnose.</strong> Run the same task at the start of a fresh session vs. after 50k+ tokens of accumulated history. If quality drops on identical prompts, you have bloat.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Compact aggressively (<code class="language-plaintext highlighter-rouge">/compact</code> in Claude Code, summarization in Cursor).</li>
+  <li>Push exploration into sub-agents so their raw output never enters the parent context.</li>
+  <li>Move static reference material out of CLAUDE.md into files the agent reads on demand.</li>
+  <li>Reset (<code class="language-plaintext highlighter-rouge">/clear</code>) at slice boundaries instead of running one session for a whole feature.</li>
+</ul>
+<h2 id="3-stale-instructions">
+  
+  
+    <a href="#3-stale-instructions" class="anchor-heading" aria-labelledby="3-stale-instructions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3. Stale instructions
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> CLAUDE.md / AGENTS.md / <code class="language-plaintext highlighter-rouge">.cursor/rules/</code> describes a codebase state that no longer exists.</p>
+
+<p><strong>Symptom.</strong> The agent “fights” the actual code: insists on import paths that were renamed, generates against deleted helpers, references commands (<code class="language-plaintext highlighter-rouge">pnpm test</code>) when the repo has migrated (<code class="language-plaintext highlighter-rouge">bun test</code>). It will sometimes “correct” working code to match the stale instructions.</p>
+
+<p><strong>Evidence.</strong> Practitioner consensus rather than a single paper; documented in Anthropic’s <em>Claude Code Best Practices</em> post and in many post-mortems from the Cursor and Aider communities. The mechanism is well-understood: instruction-tuned models weight explicit imperative text heavily relative to inferred conventions, so a stale imperative beats live evidence.</p>
+
+<p><strong>Diagnose.</strong> Grep CLAUDE.md for commands, paths, and library names. Confirm each still exists. Compare the file against <code class="language-plaintext highlighter-rouge">package.json</code>, <code class="language-plaintext highlighter-rouge">Makefile</code>, and actual imports.</p>
+
+<p><strong>Fix.</strong> Treat CLAUDE.md as code:</p>
+
+<ul>
+  <li>Review it in PRs.</li>
+  <li>Lint commands against <code class="language-plaintext highlighter-rouge">package.json</code> / <code class="language-plaintext highlighter-rouge">pyproject.toml</code>.</li>
+  <li>Regenerate periodically with <code class="language-plaintext highlighter-rouge">/init</code>.</li>
+  <li>Keep it short — staleness scales with size.</li>
+</ul>
+<h2 id="4-instruction-conflict">
+  
+  
+    <a href="#4-instruction-conflict" class="anchor-heading" aria-labelledby="4-instruction-conflict"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. Instruction conflict
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> Two context sources contain contradictory rules (CLAUDE.md says tabs, <code class="language-plaintext highlighter-rouge">.editorconfig</code> says spaces; AGENTS.md says “always write tests first,” a system prompt says “minimize unrequested work”).</p>
+
+<p><strong>Symptom.</strong> Inconsistent behavior across runs of the same task. The agent “picks a side” non-deterministically, or oscillates within a single response.</p>
+
+<p><strong>Evidence.</strong> Anthropic’s Constitutional AI work and the broader RLHF literature document that under conflicting instructions, models default to the most recently-seen or most specifically-phrased. Practitioner reports across Cursor, Aider, Continue.dev communities.</p>
+
+<p><strong>Diagnose.</strong> Concatenate all active sources (system prompt, CLAUDE.md, AGENTS.md, <code class="language-plaintext highlighter-rouge">.cursor/rules/*</code>, MCP server descriptions). Grep for the topic the agent is being inconsistent about. If two sources disagree, you’ve found it.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Designate one source of truth per topic.</li>
+  <li>Use path-scoped rules (Cursor’s <code class="language-plaintext highlighter-rouge">globs</code>, Claude Code’s <code class="language-plaintext highlighter-rouge">paths:</code>, Copilot’s <code class="language-plaintext highlighter-rouge">applyTo</code>) to make scope explicit.</li>
+  <li>Delete redundant files. Cursor’s deprecation of <code class="language-plaintext highlighter-rouge">.cursorrules</code> in favor of <code class="language-plaintext highlighter-rouge">.cursor/rules/</code> was partly a response to this.</li>
+</ul>
+<h2 id="5-aspirational-rules">
+  
+  
+    <a href="#5-aspirational-rules" class="anchor-heading" aria-labelledby="5-aspirational-rules"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5. Aspirational rules
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> Rules describe how the team <em>wishes</em> it worked, not how the codebase actually is.</p>
+
+<p><strong>Symptom.</strong> Output looks superficially correct against the rule but mismatches surrounding code style. The agent writes tests for new code while ignoring that 80% of existing code is untested, then “refactors” working code to match the aspirational style.</p>
+
+<p><strong>Evidence.</strong> Practitioner consensus across the Aider, Continue.dev, and Claude Code communities. Mechanism: explicit imperative text overrides inferred convention, even when the inference is more accurate.</p>
+
+<p><strong>Diagnose.</strong> Pick a rule from CLAUDE.md. Check whether it’s true of 5 random files in the repo. If &lt;80% comply, the rule is aspirational.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Bring the codebase into compliance, <em>or</em></li>
+  <li>Rewrite the rule descriptively: “most new modules use X; legacy modules in <code class="language-plaintext highlighter-rouge">/legacy</code> use Y; match the surrounding file.”</li>
+  <li>Phrase rules as observations, not commands, when reality is mixed.</li>
+</ul>
+<h2 id="6-over-specified-context">
+  
+  
+    <a href="#6-over-specified-context" class="anchor-heading" aria-labelledby="6-over-specified-context"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6. Over-specified context
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> The context is dominated by background, architecture diagrams, and historical rationale; the actual task is a small fraction.</p>
+
+<p><strong>Symptom.</strong> The agent produces a well-architected answer that doesn’t address the question. Output reads like a design doc when you asked for a one-line fix. The agent spends tool calls exploring background topics instead of doing the task.</p>
+
+<p><strong>Evidence.</strong> Anthropic’s <em>Effective Context Engineering for AI Agents</em> (2024–2025) frames this explicitly: signal-to-noise in the context directly predicts task adherence. Liu et al. 2023 also reports that distractor documents degrade accuracy by <strong>10–20 points</strong> with 30 distractors, even when the relevant document is well-placed.</p>
+
+<p><strong>Diagnose.</strong> Count: what fraction of your CLAUDE.md / rules / pasted context is directly relevant to the current task? Under 30% means you’re over-specified.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Move background into linked files the agent reads on demand (or skills that load only when invoked).</li>
+  <li>Keep top-level files imperative and short.</li>
+  <li>Anthropic’s own guidance: CLAUDE.md should contain the things the model <em>will get wrong without</em>, not everything true about the project.</li>
+</ul>
+<h2 id="7-sycophancy--agreement-bias">
+  
+  
+    <a href="#7-sycophancy--agreement-bias" class="anchor-heading" aria-labelledby="7-sycophancy--agreement-bias"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 7. Sycophancy / agreement bias
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> Context that primes the model toward a conclusion produces that conclusion regardless of correctness.</p>
+
+<p><strong>Symptom.</strong> “Is this code correct?” gets “yes” too often. “I think the bug is in <code class="language-plaintext highlighter-rouge">parser.ts</code>” causes the agent to find a “bug” in <code class="language-plaintext highlighter-rouge">parser.ts</code> even when the real bug is elsewhere. The agent agrees with user-stated wrong facts.</p>
+
+<p><strong>Evidence.</strong> Sharma et al. 2023 (“Towards Understanding Sycophancy in Language Models,” <a href="https://arxiv.org/abs/2310.13548">arXiv:2310.13548</a>, Anthropic): five state-of-the-art assistants exhibit sycophancy across free-form tasks; models change correct answers to incorrect ones when the user pushes back, <strong>often &gt;40% of the time</strong>. Perez et al. 2022 (<a href="https://arxiv.org/abs/2212.09251">arXiv:2212.09251</a>) documented agreement-with-user-views scaling with RLHF training. The mechanism: human preference data rewards sycophantic responses a non-trivial fraction of the time.</p>
+
+<p><strong>Diagnose.</strong> Ask the same question two ways: neutrally (“where is the bug?”) and leadingly (“I think the bug is in X, right?”). If conclusions flip, you have sycophancy.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Phrase questions neutrally. Don’t state hypotheses in the same turn you ask the model to evaluate them.</li>
+  <li>Ask the model to argue both sides before concluding.</li>
+  <li>For code review, hide author names and prior approvals.</li>
+</ul>
+<h2 id="8-prompt-injection-from-context-sources">
+  
+  
+    <a href="#8-prompt-injection-from-context-sources" class="anchor-heading" aria-labelledby="8-prompt-injection-from-context-sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 8. Prompt injection from context sources
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> Content the model ingests as data (a dependency’s README, a GitHub issue body, a fetched web page, a search-tool result) contains instructions the model executes.</p>
+
+<p><strong>Symptom.</strong> The agent suddenly does something unrelated: exfiltrates a secret, deletes files, opens a strange PR, calls a tool it shouldn’t. Behavior changes immediately after a fetch/read of external content.</p>
+
+<p><strong>Evidence.</strong> Greshake et al. 2023 (“Not what you’ve signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection,” <a href="https://arxiv.org/abs/2302.12173">arXiv:2302.12173</a>) demonstrated working attacks against Bing Chat, ChatGPT plugins, and others using payloads embedded in web pages and documents. Simon Willison has tracked dozens of in-the-wild instances since. Anthropic’s and OpenAI’s safety cards acknowledge indirect injection as <strong>an unsolved problem</strong>.</p>
+
+<p><strong>Diagnose.</strong> When the agent does something unexpected, check the most recent tool result for content that reads like instructions (“Ignore previous instructions…”, “When summarizing, also include…”). The injection is usually visible in plain text.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Sandbox tool execution.</li>
+  <li>Require human approval for destructive actions.</li>
+  <li>Strip or quote fetched content before it enters the action-taking model’s context.</li>
+  <li>Use sub-agents for untrusted-content processing so injection can’t reach action-taking tools.</li>
+  <li>Claude Code’s permission prompts and Cursor’s auto-run allowlist are concrete mitigations.</li>
+</ul>
+<h2 id="9-format-anchoring">
+  
+  
+    <a href="#9-format-anchoring" class="anchor-heading" aria-labelledby="9-format-anchoring"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 9. Format anchoring
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> An example in context (a few-shot demo, a prior turn, a template) locks the model into producing output in the same shape, even when wrong for the current task.</p>
+
+<p><strong>Symptom.</strong> Every PR description follows the exact structure of the one example you gave, including irrelevant sections. The agent produces a <code class="language-plaintext highlighter-rouge">&lt;Component&gt;</code> when you asked for a hook because your CLAUDE.md showed a component example.</p>
+
+<p><strong>Evidence.</strong> Min et al. 2022 (“Rethinking the Role of Demonstrations,” <a href="https://arxiv.org/abs/2202.12837">arXiv:2202.12837</a>): few-shot examples drive output <em>format</em> more than correctness — even label-randomized demos preserve accuracy as long as format is consistent. Lu et al. 2022 (<a href="https://arxiv.org/abs/2104.08786">arXiv:2104.08786</a>) on prompt-order sensitivity reinforces: format is sticky, content is less so.</p>
+
+<p><strong>Diagnose.</strong> Remove the example from the prompt and rerun. If output shape changes dramatically while task-correctness doesn’t, you were anchored.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Either commit to the example as the canonical shape, or describe the format abstractly instead of by example.</li>
+  <li>Use multiple, <em>structurally diverse</em> examples to break anchoring.</li>
+</ul>
+<h2 id="10-negation-failures">
+  
+  
+    <a href="#10-negation-failures" class="anchor-heading" aria-labelledby="10-negation-failures"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 10. Negation failures
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> Instructions phrased as prohibitions (“don’t use <code class="language-plaintext highlighter-rouge">any</code>,” “never modify the schema”) sometimes produce the prohibited behavior.</p>
+
+<p><strong>Symptom.</strong> “Don’t add comments” yields heavily commented code. “Don’t run migrations” yields a migration. The negated noun appears in output disproportionately.</p>
+
+<p><strong>Evidence.</strong> Truong et al. 2023 (“Language Models Are Not Naysayers,” <a href="https://arxiv.org/abs/2306.08189">arXiv:2306.08189</a>): LLMs systematically underperform on negation across NLI and QA — performance on negated questions drops <strong>20–40 points</strong> vs. the affirmative version. Hosseini et al. 2021 and many follow-ups confirm this is robust across architectures. The mechanism: negation tokens get low attention weight while the negated noun is highly attended.</p>
+
+<p><strong>Diagnose.</strong> Rewrite the rule positively and rerun. If “do X instead” works where “don’t do Y” failed, negation was the issue.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Prefer positive instructions: “use <code class="language-plaintext highlighter-rouge">unknown</code> over <code class="language-plaintext highlighter-rouge">any</code>,” “only modify migrations in <code class="language-plaintext highlighter-rouge">/db/migrations</code>.”</li>
+  <li>When prohibition is unavoidable, pair it with a positive alternative and a brief reason.</li>
+</ul>
+<h2 id="11-recency-bias">
+  
+  
+    <a href="#11-recency-bias" class="anchor-heading" aria-labelledby="11-recency-bias"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 11. Recency bias
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> The most recently-seen instruction dominates earlier instructions, even when they don’t conflict.</p>
+
+<p><strong>Symptom.</strong> A rule the agent followed at the start of a session is silently dropped after a long tool-result interaction. The last user message gets disproportionate weight relative to the system prompt.</p>
+
+<p><strong>Evidence.</strong> The other half of the Liu et al. 2023 U-shape — the end of context is privileged. Wallace et al. 2024 (“The Instruction Hierarchy,” <a href="https://arxiv.org/abs/2404.13208">arXiv:2404.13208</a>) explicitly trains against this but does not eliminate it. Anthropic’s published guidance recommends putting critical instructions at the start (system prompt) <strong>and</strong> re-asserting at the end of the user turn.</p>
+
+<p><strong>Diagnose.</strong> Re-ask the same question with the rule re-stated at the end. If behavior changes, recency was the issue.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Restate critical rules at the end of long prompts.</li>
+  <li>Use the system prompt (which most APIs weight more heavily) for invariants.</li>
+  <li>In Claude Code, <code class="language-plaintext highlighter-rouge">/memory</code> re-injects CLAUDE.md.</li>
+</ul>
+<h2 id="12-repetition-collapse">
+  
+  
+    <a href="#12-repetition-collapse" class="anchor-heading" aria-labelledby="12-repetition-collapse"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 12. Repetition collapse
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> The same content appearing many times in context (after compaction, pair-programming back-and-forth, repeated tool calls) starts being treated as noise rather than signal.</p>
+
+<p><strong>Symptom.</strong> A rule the model followed early is ignored after 5+ compaction cycles. The agent stops “seeing” a frequently-repeated warning. Tool results that always look similar get skimmed.</p>
+
+<p><strong>Evidence.</strong> Less formally studied than other items here. The StreamingLLM line of work (Xiao et al. 2024, <a href="https://arxiv.org/abs/2309.17453">arXiv:2309.17453</a>) documents attention-sink behavior where repeated tokens collapse into a single attention pattern. Practitioner reports from Aider and Claude Code communities call this “compaction rot.”</p>
+
+<p><strong>Diagnose.</strong> Compare behavior on the same instruction in a fresh context vs. after multiple compactions. Degradation indicates collapse.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Periodically restart sessions for long tasks.</li>
+  <li>Vary phrasing of repeated warnings.</li>
+  <li>Move invariant rules into the system prompt where they’re not subject to compaction.</li>
+</ul>
+<h2 id="13-capability-mismatch">
+  
+  
+    <a href="#13-capability-mismatch" class="anchor-heading" aria-labelledby="13-capability-mismatch"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 13. Capability mismatch
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> Context assumes the model has (or lacks) abilities it actually has the inverse of.</p>
+
+<p><strong>Symptom.</strong> Either the model performs worse than its capability (rules disable affordances) or it confidently attempts things it can’t do — hallucinating tool results, claiming to have run tests it didn’t run.</p>
+
+<p><strong>Evidence.</strong> Anthropic and OpenAI model cards document capability boundaries explicitly; mismatches show up as hallucinated tool calls. Yao et al. 2022 (ReAct, <a href="https://arxiv.org/abs/2210.03629">arXiv:2210.03629</a>) and follow-up work show that telling models they have tools they don’t have causes them to fabricate tool outputs.</p>
+
+<p><strong>Diagnose.</strong> Audit your CLAUDE.md for claims about the model (“you are a fast model, skip reasoning”; “always explain your chain of thought even on trivial tasks”). Check the model card.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Strip capability assertions from project files.</li>
+  <li>Let the harness (Claude Code, Cursor) declare capabilities through its system prompt and tool list.</li>
+  <li>Update model-specific rules when you change models.</li>
+</ul>
+<h2 id="14-tool-poisoning-mcp">
+  
+  
+    <a href="#14-tool-poisoning-mcp" class="anchor-heading" aria-labelledby="14-tool-poisoning-mcp"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 14. Tool poisoning (MCP)
+  
+  
+</h2>
+    
+
+<p><strong>What.</strong> A tool description (MCP server manifest, OpenAPI description, function docstring) contains instructions the model follows when deciding whether and how to call the tool.</p>
+
+<p><strong>Symptom.</strong> The agent calls a tool unexpectedly, passes secrets to it, or describes arguments in a particular way that benefits the tool’s author. A newly-installed MCP server changes behavior on unrelated tasks.</p>
+
+<p><strong>Evidence.</strong> Invariant Labs’ April 2025 disclosure on <a href="https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks">MCP Tool Poisoning Attacks</a> demonstrated working exfiltration: a malicious server’s tool description instructed the host model to read <code class="language-plaintext highlighter-rouge">~/.ssh/id_rsa</code> and include it in tool arguments. Claude Desktop, Cursor, and several others were vulnerable. Anthropic’s MCP spec updates since added signing and approval flows in response. Structurally this is indirect prompt injection (§8) specialized to tool metadata.</p>
+
+<p><strong>Diagnose.</strong> Read the raw manifests of every installed MCP server. Look for natural-language instructions inside <code class="language-plaintext highlighter-rouge">description</code> fields rather than purely structural descriptions. Disable servers one at a time to bisect.</p>
+
+<p><strong>Fix.</strong></p>
+
+<ul>
+  <li>Install MCP servers only from trusted sources.</li>
+  <li>Pin versions; review description text on first install and on updates.</li>
+  <li>Use harnesses that surface tool descriptions on first use.</li>
+  <li>Sandbox tool execution.</li>
+</ul>
+<h2 id="additional-well-documented-modes-briefly">
+  
+  
+    <a href="#additional-well-documented-modes-briefly" class="anchor-heading" aria-labelledby="additional-well-documented-modes-briefly"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Additional well-documented modes (briefly)
+  
+  
+</h2>
+    
+
+<ul>
+  <li><strong>Schema drift.</strong> Tool/function schemas in context disagree with actual implementations. Diagnose by validating tool calls against runtime schemas at the harness layer.</li>
+  <li><strong>Persona leakage.</strong> A “you are a senior engineer” preamble causes the model to fabricate confidence on topics it should hedge on. See <a href="/docs/reference/directives/#6-role--persona-prompts--for-style-not-for-capability">Directives §6</a>.</li>
+  <li><strong>Language/locale anchoring.</strong> Comments in one language anchor the model to respond in that language even when asked otherwise.</li>
+  <li><strong>Test-as-spec inversion.</strong> When tests are in context, the model “fixes” code by overfitting to tests rather than spec — including weakening assertions to make tests pass. Defense: review tests separately from implementation diffs.</li>
+</ul>
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="https://arxiv.org/abs/2307.03172">Liu et al. 2023 — Lost in the Middle</a></li>
+  <li><a href="https://arxiv.org/abs/2502.05167">Modarressi et al. 2025 — NoLiMa</a></li>
+  <li><a href="https://arxiv.org/abs/2404.06654">Hsieh et al. 2024 — RULER</a></li>
+  <li><a href="https://arxiv.org/abs/2412.15204">Bai et al. 2024 — LongBench v2</a></li>
+  <li><a href="https://arxiv.org/abs/2310.13548">Sharma et al. 2023 — Towards Understanding Sycophancy</a></li>
+  <li><a href="https://arxiv.org/abs/2212.09251">Perez et al. 2022 — Discovering Language Model Behaviors with Model-Written Evaluations</a></li>
+  <li><a href="https://arxiv.org/abs/2302.12173">Greshake et al. 2023 — Not what you’ve signed up for (indirect prompt injection)</a></li>
+  <li><a href="https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks">Invariant Labs 2025 — MCP Tool Poisoning Attacks</a></li>
+  <li><a href="https://arxiv.org/abs/2202.12837">Min et al. 2022 — Rethinking the Role of Demonstrations</a></li>
+  <li><a href="https://arxiv.org/abs/2104.08786">Lu et al. 2022 — Fantastically Ordered Prompts</a></li>
+  <li><a href="https://arxiv.org/abs/2306.08189">Truong et al. 2023 — Language Models Are Not Naysayers</a></li>
+  <li><a href="https://arxiv.org/abs/2404.13208">Wallace et al. 2024 — The Instruction Hierarchy</a></li>
+  <li><a href="https://arxiv.org/abs/2309.17453">Xiao et al. 2024 — Streaming LLMs with Attention Sinks</a></li>
+  <li><a href="https://arxiv.org/abs/2210.03629">Yao et al. 2022 — ReAct</a></li>
+  <li><a href="https://www.anthropic.com/engineering/claude-code-best-practices">Anthropic — Claude Code Best Practices</a></li>
+  <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Anthropic — Effective Context Engineering for AI Agents</a></li>
+  <li><a href="https://simonwillison.net/tags/prompt-injection/">Simon Willison — Prompt injection coverage</a></li>
+</ul>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+        <p class="text-small mb-0">
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/reference/failure-modes.md" id="edit-this-page">Edit this page on GitHub</a>
+        </p>
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

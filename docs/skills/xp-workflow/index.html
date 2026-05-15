@@ -1,0 +1,702 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(1)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(1) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(1) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>The XP workflow | InContext</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="The XP workflow" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<link rel="canonical" href="https://incontext.info/docs/skills/xp-workflow/" />
+<meta property="og:url" content="https://incontext.info/docs/skills/xp-workflow/" />
+<meta property="og:site_name" content="InContext" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="The XP workflow" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"The XP workflow","url":"https://incontext.info/docs/skills/xp-workflow/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  InContext
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Foundations submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/foundations/" class="nav-list-link">Foundations</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/foundations/what-is-a-context-resource/" class="nav-list-link">What is a context resource?</a></li><li class="nav-list-item"><a href="/docs/foundations/context-is-a-budget/" class="nav-list-link">Context is a budget, not a bucket</a></li><li class="nav-list-item"><a href="/docs/foundations/long-context-degradation/" class="nav-list-link">Long-context degradation</a></li><li class="nav-list-item"><a href="/docs/foundations/smart-zone-and-dumb-zone/" class="nav-list-link">The smart zone and the dumb zone</a></li><li class="nav-list-item"><a href="/docs/foundations/perception-over-history/" class="nav-list-link">Perception over history</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Per-tool submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/per-tool/" class="nav-list-link">Per-tool</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/per-tool/claude-md/" class="nav-list-link">Crafting a CLAUDE.md</a></li><li class="nav-list-item"><a href="/docs/per-tool/agents-md/" class="nav-list-link">AGENTS.md and the convergence</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Patterns submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/patterns/" class="nav-list-link">Patterns</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/patterns/scope-by-directory/" class="nav-list-link">Scope by directory</a></li><li class="nav-list-item"><a href="/docs/patterns/layered-context/" class="nav-list-link">Layered context</a></li><li class="nav-list-item"><a href="/docs/patterns/role-task-constraints/" class="nav-list-link">Role + task + constraints</a></li><li class="nav-list-item"><a href="/docs/patterns/retrieve-before-generate/" class="nav-list-link">Retrieve before generate</a></li><li class="nav-list-item"><a href="/docs/patterns/cite-dont-summarize/" class="nav-list-link">Cite, don't summarize</a></li><li class="nav-list-item"><a href="/docs/patterns/negative-examples/" class="nav-list-link">Negative examples</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Skills submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/skills/" class="nav-list-link">Skills</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/skills/xp-workflow/" class="nav-list-link">The XP workflow</a></li><li class="nav-list-item"><a href="/docs/skills/xp-with-ai/" class="nav-list-link">XP with an AI on the team</a></li><li class="nav-list-item"><a href="/docs/skills/supporting-skills/" class="nav-list-link">Supporting skills</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/reference/front-matter/" class="nav-list-link">Front matter cheat sheet</a></li><li class="nav-list-item"><a href="/docs/reference/directives/" class="nav-list-link">Directives that work</a></li><li class="nav-list-item"><a href="/docs/reference/failure-modes/" class="nav-list-link">Failure modes</a></li></ul></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search InContext" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search InContext</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/skills/">Skills</a></li>
+    <li class="breadcrumb-nav-list-item"><span>The XP workflow</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="the-xp-workflow">
+  
+  
+    <a href="#the-xp-workflow" class="anchor-heading" aria-labelledby="the-xp-workflow"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The XP workflow
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#what-xp-is" id="markdown-toc-what-xp-is">What XP is</a></li>
+  <li><a href="#the-technical-premise-the-cost-of-change-curve-flattens" id="markdown-toc-the-technical-premise-the-cost-of-change-curve-flattens">The technical premise: the cost of change curve flattens</a></li>
+  <li><a href="#the-four-values" id="markdown-toc-the-four-values">The four values</a></li>
+  <li><a href="#the-principles" id="markdown-toc-the-principles">The principles</a></li>
+  <li><a href="#the-four-basic-activities" id="markdown-toc-the-four-basic-activities">The four basic activities</a></li>
+  <li><a href="#the-twelve-practices" id="markdown-toc-the-twelve-practices">The twelve practices</a>    <ol>
+      <li><a href="#1-the-planning-game" id="markdown-toc-1-the-planning-game">1. The Planning Game</a></li>
+      <li><a href="#2-small-releases" id="markdown-toc-2-small-releases">2. Small releases</a></li>
+      <li><a href="#3-metaphor" id="markdown-toc-3-metaphor">3. Metaphor</a></li>
+      <li><a href="#4-simple-design" id="markdown-toc-4-simple-design">4. Simple design</a></li>
+      <li><a href="#5-testing" id="markdown-toc-5-testing">5. Testing</a></li>
+      <li><a href="#6-refactoring" id="markdown-toc-6-refactoring">6. Refactoring</a></li>
+      <li><a href="#7-pair-programming" id="markdown-toc-7-pair-programming">7. Pair programming</a></li>
+      <li><a href="#8-collective-ownership" id="markdown-toc-8-collective-ownership">8. Collective ownership</a></li>
+      <li><a href="#9-continuous-integration" id="markdown-toc-9-continuous-integration">9. Continuous integration</a></li>
+      <li><a href="#10-40-hour-week" id="markdown-toc-10-40-hour-week">10. 40-hour week</a></li>
+      <li><a href="#11-on-site-customer" id="markdown-toc-11-on-site-customer">11. On-site customer</a></li>
+      <li><a href="#12-coding-standards" id="markdown-toc-12-coding-standards">12. Coding standards</a></li>
+      <li><a href="#how-the-practices-hold-each-other-up" id="markdown-toc-how-the-practices-hold-each-other-up">How the practices hold each other up</a></li>
+    </ol>
+  </li>
+  <li><a href="#the-lifecycle-of-a-project" id="markdown-toc-the-lifecycle-of-a-project">The lifecycle of a project</a></li>
+  <li><a href="#the-roles" id="markdown-toc-the-roles">The roles</a></li>
+  <li><a href="#what-kills-an-xp-project" id="markdown-toc-what-kills-an-xp-project">What kills an XP project</a></li>
+  <li><a href="#the-2080-rule" id="markdown-toc-the-2080-rule">The 20–80 rule</a></li>
+  <li><a href="#using-xp-as-a-skill" id="markdown-toc-using-xp-as-a-skill">Using XP as a skill</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+  <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
+</ol><hr />
+
+<p>This page is a skill: a packaged, named workflow you can install in an AI coding tool and invoke when you start a project. The workflow is Kent Beck’s <strong>Extreme Programming</strong>, summarized faithfully from <em>Extreme Programming Explained: Embrace Change</em> (1999). XP earns its place as a skill because its discipline — small steps, tests first, atomic commits, ruthless feedback — is exactly the discipline an AI agent needs to stay useful past the first turn.</p>
+
+<p>What follows is XP itself, not “XP for AI.” If you want the AI-specific reasons each piece matters even more now, see <a href="/docs/foundations/smart-zone-and-dumb-zone/">the smart zone and the dumb zone</a> — the dumb zone is what the practices below were already designed to defend against, four years before transformers existed.</p>
+<h2 id="what-xp-is">
+  
+  
+    <a href="#what-xp-is" class="anchor-heading" aria-labelledby="what-xp-is"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What XP is
+  
+  
+</h2>
+    
+
+<blockquote>
+  <p>XP is a lightweight methodology for small-to-medium-sized teams developing software in the face of vague or rapidly changing requirements.</p>
+
+  <p>— Beck, Preface</p>
+</blockquote>
+
+<p>The “extreme” is taking commonsense practices and turning every dial up to ten. If code review is good, review continuously (pair programming). If testing is good, test continuously (unit + functional). If integration is good, integrate continuously. If iterations are good, make them very, very short. Beck’s image was a control board where every knob was a known-good practice, all turned to maximum at once. The surprise was that the package was stable.</p>
+
+<p>XP is <strong>a discipline</strong>, not a buffet. <em>“You don’t get to choose whether or not you will write tests — if you don’t, you aren’t extreme: end of discussion.”</em></p>
+<h2 id="the-technical-premise-the-cost-of-change-curve-flattens">
+  
+  
+    <a href="#the-technical-premise-the-cost-of-change-curve-flattens" class="anchor-heading" aria-labelledby="the-technical-premise-the-cost-of-change-curve-flattens"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The technical premise: the cost of change curve flattens
+  
+  
+</h2>
+    
+
+<p>Traditional software engineering assumes the cost of changing code rises exponentially over time, so big decisions must be made early and carefully. XP rests on the opposite bet: with the right practices — simple design, comprehensive automated tests, constant refactoring — the curve flattens. If late changes stay cheap, you should defer decisions to the moment you have the most information, not lock them in at the start when you have the least.</p>
+
+<p>If that bet is wrong for your project, XP is wrong for your project.</p>
+<h2 id="the-four-values">
+  
+  
+    <a href="#the-four-values" class="anchor-heading" aria-labelledby="the-four-values"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The four values
+  
+  
+</h2>
+    
+
+<p>Every practice in XP is downstream of these four. When two practices conflict, you fall back to the values to decide.</p>
+
+<p><strong>Communication.</strong> Most project failures trace back to someone not telling someone else something important. XP picks practices that <em>can’t be done without</em> communicating — pair programming, on-site customer, task estimation, daily integration — so the communication happens whether people feel like it or not.</p>
+
+<p><strong>Simplicity.</strong> <em>“What is the simplest thing that could possibly work?”</em> The bet is that doing the simple thing today and paying a little more tomorrow to extend it beats doing the complicated thing today that may never be needed. Looking ahead is listening to the fear of the exponential change curve.</p>
+
+<p><strong>Feedback.</strong> Optimism is an occupational hazard of programming; feedback is the treatment. Feedback works at every scale — the unit test that runs in a second, the iteration that ends in two weeks, the production system that teaches you what you actually built.</p>
+
+<p><strong>Courage.</strong> Once the first three are in place, go like hell. Throw away code that isn’t working. Try the radical refactor. Put it in production. Without communication, simplicity, and feedback, courage is just hacking. With them, it’s the engine.</p>
+
+<p>A fifth value sits beneath the surface: <strong>respect.</strong> A team where people don’t care about each other and the work cannot run XP. <em>“Given some minimal passion, XP provides some positive feedback.”</em></p>
+<h2 id="the-principles">
+  
+  
+    <a href="#the-principles" class="anchor-heading" aria-labelledby="the-principles"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The principles
+  
+  
+</h2>
+    
+
+<p>The values are too vague to choose practices by. Beck distills them into five core principles:</p>
+
+<ul>
+  <li><strong>Rapid feedback</strong> — close the loop between action and result in seconds, not months.</li>
+  <li><strong>Assume simplicity</strong> — solve today’s problem today; trust your future self to handle tomorrow’s.</li>
+  <li><strong>Incremental change</strong> — big changes don’t work; any problem yields to a series of the smallest changes that make a difference.</li>
+  <li><strong>Embracing change</strong> — the best strategy preserves the most options while solving the pressing problem.</li>
+  <li><strong>Quality work</strong> — quality isn’t a free variable. The only acceptable values are “excellent” and “insanely excellent.”</li>
+</ul>
+
+<p>And a longer list of secondary principles, the ones that decide edge cases: <em>teach learning, small initial investment, play to win, concrete experiments, open honest communication, work with people’s instincts not against them, accepted responsibility, local adaptation, travel light, honest measurement.</em></p>
+
+<p>The two that come up most often in practice: <strong>travel light</strong> (artifacts must be few, simple, valuable; nothing else survives) and <strong>accepted responsibility</strong> (a task assigned is a task half-resented; a task accepted is a task owned).</p>
+<h2 id="the-four-basic-activities">
+  
+  
+    <a href="#the-four-basic-activities" class="anchor-heading" aria-labelledby="the-four-basic-activities"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The four basic activities
+  
+  
+</h2>
+    
+
+<p>XP’s job is to structure the four activities every developer performs:</p>
+
+<ol>
+  <li><strong>Coding</strong> — the one artifact you can’t live without; the medium for testing your own thinking.</li>
+  <li><strong>Testing</strong> — <em>“any program feature without an automated test simply doesn’t exist.”</em> Tests are how confidence becomes part of the system.</li>
+  <li><strong>Listening</strong> — programmers don’t know what business people know; the only way to find out is to ask.</li>
+  <li><strong>Designing</strong> — without it, entropy wins. With it, you can keep coding, testing, and listening indefinitely.</li>
+</ol>
+
+<blockquote>
+  <p>You code because if you don’t code, you haven’t done anything. You test because if you don’t test, you don’t know when you are done coding. You listen because if you don’t listen you don’t know what to code or what to test. And you design so you can keep coding and testing and listening indefinitely.</p>
+
+  <p>— Beck, Chapter 9</p>
+</blockquote>
+<h2 id="the-twelve-practices">
+  
+  
+    <a href="#the-twelve-practices" class="anchor-heading" aria-labelledby="the-twelve-practices"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The twelve practices
+  
+  
+</h2>
+    
+
+<p>These are the heart of XP. Each is simple. None survives in isolation — every practice’s weakness is covered by the strengths of two or three others. That mutual reinforcement is the whole point.</p>
+<h3 id="1-the-planning-game">
+  
+  
+    <a href="#1-the-planning-game" class="anchor-heading" aria-labelledby="1-the-planning-game"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. The Planning Game
+  
+  
+</h3>
+    
+
+<p>Business and Development play a structured game to scope the next release. <strong>Business decides</strong> scope, priority, composition of releases, and dates. <strong>Development decides</strong> estimates, technical consequences, process, and detailed scheduling within the release. Neither side gets to dictate the other’s territory.</p>
+
+<p>Three phases: <strong>exploration</strong> (write stories, estimate them, split them), <strong>commitment</strong> (sort by value, sort by risk, set velocity, choose scope), <strong>steering</strong> (iteration, recovery, new story, reestimate). The plan is updated continuously as reality overtakes it.</p>
+<h3 id="2-small-releases">
+  
+  
+    <a href="#2-small-releases" class="anchor-heading" aria-labelledby="2-small-releases"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2. Small releases
+  
+  
+</h3>
+    
+
+<p>Put a simple system into production fast, then release on a short cycle — a few months at most for a first release, then weeks. The release must make sense as a whole; you don’t ship half a feature just to shorten the cycle. Production teaches you things no other source can.</p>
+<h3 id="3-metaphor">
+  
+  
+    <a href="#3-metaphor" class="anchor-heading" aria-labelledby="3-metaphor"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3. Metaphor
+  
+  
+</h3>
+    
+
+<p>A single shared story for how the whole system works, named in the team’s vocabulary. The metaphor is what XP uses where other methodologies use <em>architecture</em> — not because architecture doesn’t matter but because a metaphor is shareable across business and development in a way that boxes-and-lines diagrams aren’t.</p>
+<h3 id="4-simple-design">
+  
+  
+    <a href="#4-simple-design" class="anchor-heading" aria-labelledby="4-simple-design"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. Simple design
+  
+  
+</h3>
+    
+
+<p>The right design at any moment is the one that:</p>
+
+<ol>
+  <li>Runs all the tests.</li>
+  <li>Contains no duplicated logic (the <em>Once and Only Once</em> rule).</li>
+  <li>States every intention important to the programmers.</li>
+  <li>Has the fewest possible classes and methods.</li>
+</ol>
+
+<p>In that priority order. <em>“Implement for today, design for tomorrow”</em> is the advice XP rejects. If the future is uncertain and change stays cheap, putting in functionality on speculation is crazy.</p>
+<h3 id="5-testing">
+  
+  
+    <a href="#5-testing" class="anchor-heading" aria-labelledby="5-testing"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5. Testing
+  
+  
+</h3>
+    
+
+<p>Two test sources: <strong>programmers write unit tests</strong> for every method they’re not sure runs (which is most of them), and <strong>customers write functional tests</strong> that prove a story is done. Unit tests must run at 100%, always. Functional test scores climb toward 100% over a release.</p>
+
+<p>Tests are isolated (one failure doesn’t cascade) and automatic (the answer is thumbs-up or thumbs-down, no human judgment needed in the moment). You don’t test everything — you test what might break. <em>“When the tests run, you are done.”</em></p>
+<h3 id="6-refactoring">
+  
+  
+    <a href="#6-refactoring" class="anchor-heading" aria-labelledby="6-refactoring"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6. Refactoring
+  
+  
+</h3>
+    
+
+<p>Restructure the code without changing its behavior — to remove duplication, improve communication, simplify, or add flexibility <em>that’s needed now</em>. Never refactor on speculation. Refactor when the system asks you to: when adding a feature is hard, when duplication appears, when a name has gone stale.</p>
+
+<p>The cycle is: when implementing a feature, ask if a refactor would make it simple to add. After implementing, ask if the system can be made simpler now. Both with all tests still green.</p>
+<h3 id="7-pair-programming">
+  
+  
+    <a href="#7-pair-programming" class="anchor-heading" aria-labelledby="7-pair-programming"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 7. Pair programming
+  
+  
+</h3>
+    
+
+<p>All production code is written by two people at one machine. One drives (keyboard); the other thinks strategically (is this approach going to work? what’s the next test? could the whole problem disappear with a simpler design?). Pairs rotate — often twice a day. After a few months, <em>“it should become impossible to say who on the team wrote what code.”</em></p>
+
+<p>Pairing isn’t tutoring, isn’t watching, isn’t being joined at the hip. It’s a continuous conversation focused on a screen.</p>
+<h3 id="8-collective-ownership">
+  
+  
+    <a href="#8-collective-ownership" class="anchor-heading" aria-labelledby="8-collective-ownership"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 8. Collective ownership
+  
+  
+</h3>
+    
+
+<p>Anyone can change any code anywhere at any time. Without this, the design ossifies around whoever owns each module and the team can’t refactor. With it, complex code dies young — someone always finds it and tries to simplify it. Collective ownership only works because of the unit tests; without them, you’d be terrified to touch anyone else’s code.</p>
+<h3 id="9-continuous-integration">
+  
+  
+    <a href="#9-continuous-integration" class="anchor-heading" aria-labelledby="9-continuous-integration"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 9. Continuous integration
+  
+  
+</h3>
+    
+
+<p>Code is integrated and tested <em>after a few hours</em>, never longer than a day. One pair at a time goes to the integration machine, loads the latest, loads their changes, runs every test until 100%. If the tests don’t go green, the changes get thrown away and the work starts over.</p>
+<h3 id="10-40-hour-week">
+  
+  
+    <a href="#10-40-hour-week" class="anchor-heading" aria-labelledby="10-40-hour-week"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 10. 40-hour week
+  
+  
+</h3>
+    
+
+<p>You can’t be fresh and creative and careful and confident on sixty hours a week, week after week. Overtime is allowed for one week at a time and never two in a row. Overtime is treated as a <em>symptom</em> — when it shows up, the project has a problem that more hours will not solve.</p>
+<h3 id="11-on-site-customer">
+  
+  
+    <a href="#11-on-site-customer" class="anchor-heading" aria-labelledby="11-on-site-customer"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 11. On-site customer
+  
+  
+</h3>
+    
+
+<p>A real future user of the system sits with the team full-time. Available to answer questions, resolve disputes, set small-scale priorities, and write functional tests. The objection — <em>“we can’t spare them”</em> — is almost always wrong. The output of one customer on the team beats the output of one customer doing their normal job.</p>
+<h3 id="12-coding-standards">
+  
+  
+    <a href="#12-coding-standards" class="anchor-heading" aria-labelledby="12-coding-standards"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 12. Coding standards
+  
+  
+</h3>
+    
+
+<p>If everyone is editing everyone else’s code, you cannot have stylistic warfare. The standard is voluntarily adopted by the whole team and emphasizes communication. <em>“With a little practice, it should become impossible to say who on the team wrote what code.”</em></p>
+<h3 id="how-the-practices-hold-each-other-up">
+  
+  
+    <a href="#how-the-practices-hold-each-other-up" class="anchor-heading" aria-labelledby="how-the-practices-hold-each-other-up"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How the practices hold each other up
+  
+  
+</h3>
+    
+
+<p>Read any one of those practices in isolation and the objection writes itself: <em>you can’t possibly do that, it would never work.</em> Beck spends a whole chapter answering each objection — and the answer is always the same shape: <em>…unless you’re also doing these other three.</em></p>
+
+<p>A small sample of the web:</p>
+
+<ul>
+  <li>You can’t constantly refactor <em>unless</em> you have the tests, collective ownership, pair programming, simple design, continuous integration, and a 40-hour week.</li>
+  <li>You can’t do continuous integration <em>unless</em> you have fast tests, small refactored pieces, and pair programming halving the streams.</li>
+  <li>You can’t have collective ownership <em>unless</em> you integrate often, write tests, pair, and follow coding standards.</li>
+  <li>You can’t write tests for everything <em>unless</em> the design is simple, you’re pairing, and you feel good when they pass.</li>
+</ul>
+
+<p>Pull any one practice out and the others get harder. Pull two out and the system collapses. This is why XP is described as <strong>discipline</strong> rather than <strong>menu</strong>.</p>
+<h2 id="the-lifecycle-of-a-project">
+  
+  
+    <a href="#the-lifecycle-of-a-project" class="anchor-heading" aria-labelledby="the-lifecycle-of-a-project"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The lifecycle of a project
+  
+  
+</h2>
+    
+
+<ol>
+  <li><strong>Exploration</strong> — the team learns the technology, the customer learns to write stories, both learn to estimate. Done when the customer has enough stories for a good first release and the programmers can’t estimate any better without coding.</li>
+  <li><strong>Planning</strong> — Business and Development play the Planning Game, agreeing on a date and scope for the smallest valuable release. Two to six months out, typically.</li>
+  <li><strong>Iterations to first release</strong> — one- to four-week iterations, each producing functional tests and shipping software. The first iteration produces a skeletal end-to-end system.</li>
+  <li><strong>Productionizing</strong> — tighter iterations (often a week), more rigorous certification, performance tuning. <em>“Make it run, make it right, make it fast”</em> — performance work goes here, not earlier.</li>
+  <li><strong>Maintenance</strong> — the normal state of an XP project. Simultaneously running production, adding features, rotating people on and off the team. Velocity drops (often by ~50%) once production support is part of the load. Plan for it.</li>
+  <li><strong>Death</strong> — either the customer can’t think of new stories (the good death) or entropy has won (the bad death). Either way, the project ends deliberately, with a five-to-ten-page tour of the system written down for whoever comes back to it in five years.</li>
+</ol>
+<h2 id="the-roles">
+  
+  
+    <a href="#the-roles" class="anchor-heading" aria-labelledby="the-roles"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The roles
+  
+  
+</h2>
+    
+
+<p>XP names seven. A person can play more than one; the roles are responsibilities, not job titles.</p>
+
+<ul>
+  <li><strong>Programmer</strong> — analyzes, designs, codes, tests, integrates. The heart of XP.</li>
+  <li><strong>Customer</strong> — chooses stories, sets priorities, writes functional tests, makes scope decisions when reality bites. The other half of the essential duality.</li>
+  <li><strong>Tester</strong> — helps the customer write functional tests; runs them; broadcasts results.</li>
+  <li><strong>Tracker</strong> — measures estimates against reality and feeds the data back so the next round of estimates is better. The team’s conscience. Disturbs the process as little as possible while collecting what’s needed.</li>
+  <li><strong>Coach</strong> — owns the process. Spots when the team is drifting from its own rules. Most powerful when working indirectly. The measure of a coach is <em>how few technical decisions they make.</em></li>
+  <li><strong>Consultant</strong> — brought in for deep technical knowledge the team lacks. Doesn’t solve the problem alone; pairs with team members and teaches as they go.</li>
+  <li><strong>Big Boss</strong> — provides courage, confidence, and occasional insistence that the team does what it says it does. Hears bad news early because the team is wired to surface it.</li>
+</ul>
+<h2 id="what-kills-an-xp-project">
+  
+  
+    <a href="#what-kills-an-xp-project" class="anchor-heading" aria-labelledby="what-kills-an-xp-project"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What kills an XP project
+  
+  
+</h2>
+    
+
+<p>Beck names the absolute showstoppers. If you have any of these, don’t try to run XP — you’ll fail and blame the method.</p>
+
+<ul>
+  <li><strong>A culture that points the car instead of steering it.</strong> Big-up-front-spec organizations cannot tolerate the Planning Game.</li>
+  <li><strong>Long feedback cycles in the technology.</strong> A 24-hour build, a two-month QA gate — XP cannot operate inside these.</li>
+  <li><strong>Geographic separation.</strong> Different floors is fatal; different rooms is hard. XP wants one room.</li>
+  <li><strong>Mandatory overtime as a culture.</strong> XP requires fresh people.</li>
+  <li><strong>A team larger than ~10–12 programmers.</strong> XP scales by getting more done with fewer people, not by adding bodies.</li>
+  <li><strong>An exponential cost-of-change curve in the underlying tech.</strong> If late change is genuinely ruinous (a frozen schema across 200 dependent systems, say), the technical premise fails and XP fails with it.</li>
+</ul>
+<h2 id="the-2080-rule">
+  
+  
+    <a href="#the-2080-rule" class="anchor-heading" aria-labelledby="the-2080-rule"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The 20–80 rule
+  
+  
+</h2>
+    
+
+<p>You can adopt XP one practice at a time, starting with whatever hurts most. You will see real improvement along the way. But the full payoff doesn’t arrive until <em>all</em> the practices are in place, because the value lives in the interactions, not the parts. <em>“There is a huge difference between being on balance and being off balance. If you are a little off balance, you may as well be a lot off balance.”</em></p>
+<h2 id="using-xp-as-a-skill">
+  
+  
+    <a href="#using-xp-as-a-skill" class="anchor-heading" aria-labelledby="using-xp-as-a-skill"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Using XP as a skill
+  
+  
+</h2>
+    
+
+<p>To install this as a skill in an AI coding tool, hand the agent the following invariants and let it run:</p>
+
+<ol>
+  <li><strong>Stories before code.</strong> No production code without a story the customer has accepted.</li>
+  <li><strong>Tests before code.</strong> No implementation without a failing test that defines done.</li>
+  <li><strong>Simplest thing that could possibly work.</strong> Reject any design element that doesn’t earn its place against the four simple-design rules.</li>
+  <li><strong>Once and only once.</strong> No duplicated logic, anywhere, ever.</li>
+  <li><strong>Refactor on demand, never on speculation.</strong> The system asks for refactoring through duplication and friction; don’t pre-empt it.</li>
+  <li><strong>Integrate within hours.</strong> No branch lives longer than a day.</li>
+  <li><strong>Small releases, atomic commits.</strong> One story, one PR; one task, one commit.</li>
+  <li><strong>Production code is reviewed code.</strong> Pair, or have the agent and a human alternate driver/navigator turn-by-turn.</li>
+  <li><strong>40-hour week applies to context, too.</strong> Don’t run a session into the ground; reset before quality drops.</li>
+  <li><strong>Stop the line for a red test.</strong> A failing unit test is the highest-priority work on the team.</li>
+</ol>
+
+<p>That list is the skill. Everything above it is the reason each line is on the list.</p>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/skills/xp-with-ai/">XP with an AI on the team</a> — the spinoff that adapts each practice for an AI collaborator</li>
+  <li><a href="/docs/foundations/smart-zone-and-dumb-zone/">The smart zone and the dumb zone</a> — why XP’s small steps matter even more with an AI collaborator</li>
+  <li><a href="/docs/skills/supporting-skills/">Supporting skills</a> — the small set of skills that compose with this loop</li>
+  <li><a href="/docs/foundations/context-is-a-budget/">Context is a budget, not a bucket</a> — the underlying economics</li>
+</ul>
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<ul>
+  <li>Beck, K. (1999). <em>Extreme Programming Explained: Embrace Change.</em> Addison-Wesley. ISBN 0-201-61641-6. Direct quotations and structure throughout this page are drawn from the first edition.</li>
+</ul>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+        <p class="text-small mb-0">
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/skills/xp-workflow.md" id="edit-this-page">Edit this page on GitHub</a>
+        </p>
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

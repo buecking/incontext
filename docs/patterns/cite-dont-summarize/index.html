@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(5)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(5) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(5) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(5) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Cite, don’t summarize | InContext</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Cite, don’t summarize" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<link rel="canonical" href="https://incontext.info/docs/patterns/cite-dont-summarize/" />
+<meta property="og:url" content="https://incontext.info/docs/patterns/cite-dont-summarize/" />
+<meta property="og:site_name" content="InContext" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Cite, don’t summarize" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"Cite, don’t summarize","url":"https://incontext.info/docs/patterns/cite-dont-summarize/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  InContext
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Foundations submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/foundations/" class="nav-list-link">Foundations</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/foundations/what-is-a-context-resource/" class="nav-list-link">What is a context resource?</a></li><li class="nav-list-item"><a href="/docs/foundations/context-is-a-budget/" class="nav-list-link">Context is a budget, not a bucket</a></li><li class="nav-list-item"><a href="/docs/foundations/long-context-degradation/" class="nav-list-link">Long-context degradation</a></li><li class="nav-list-item"><a href="/docs/foundations/smart-zone-and-dumb-zone/" class="nav-list-link">The smart zone and the dumb zone</a></li><li class="nav-list-item"><a href="/docs/foundations/perception-over-history/" class="nav-list-link">Perception over history</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Per-tool submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/per-tool/" class="nav-list-link">Per-tool</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/per-tool/claude-md/" class="nav-list-link">Crafting a CLAUDE.md</a></li><li class="nav-list-item"><a href="/docs/per-tool/agents-md/" class="nav-list-link">AGENTS.md and the convergence</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Patterns submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/patterns/" class="nav-list-link">Patterns</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/patterns/scope-by-directory/" class="nav-list-link">Scope by directory</a></li><li class="nav-list-item"><a href="/docs/patterns/layered-context/" class="nav-list-link">Layered context</a></li><li class="nav-list-item"><a href="/docs/patterns/role-task-constraints/" class="nav-list-link">Role + task + constraints</a></li><li class="nav-list-item"><a href="/docs/patterns/retrieve-before-generate/" class="nav-list-link">Retrieve before generate</a></li><li class="nav-list-item"><a href="/docs/patterns/cite-dont-summarize/" class="nav-list-link">Cite, don't summarize</a></li><li class="nav-list-item"><a href="/docs/patterns/negative-examples/" class="nav-list-link">Negative examples</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Skills submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/skills/" class="nav-list-link">Skills</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/skills/xp-workflow/" class="nav-list-link">The XP workflow</a></li><li class="nav-list-item"><a href="/docs/skills/xp-with-ai/" class="nav-list-link">XP with an AI on the team</a></li><li class="nav-list-item"><a href="/docs/skills/supporting-skills/" class="nav-list-link">Supporting skills</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/reference/front-matter/" class="nav-list-link">Front matter cheat sheet</a></li><li class="nav-list-item"><a href="/docs/reference/directives/" class="nav-list-link">Directives that work</a></li><li class="nav-list-item"><a href="/docs/reference/failure-modes/" class="nav-list-link">Failure modes</a></li></ul></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search InContext" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search InContext</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/patterns/">Patterns</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Cite, don't summarize</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="cite-dont-summarize">
+  
+  
+    <a href="#cite-dont-summarize" class="anchor-heading" aria-labelledby="cite-dont-summarize"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Cite, don’t summarize
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#the-pattern" id="markdown-toc-the-pattern">The pattern</a></li>
+  <li><a href="#when-citation-works" id="markdown-toc-when-citation-works">When citation works</a></li>
+  <li><a href="#mechanisms-by-tool" id="markdown-toc-mechanisms-by-tool">Mechanisms by tool</a></li>
+  <li><a href="#grounding-the-empirical-case-for-source-over-summary" id="markdown-toc-grounding-the-empirical-case-for-source-over-summary">Grounding: the empirical case for source over summary</a></li>
+  <li><a href="#when-summary-still-wins" id="markdown-toc-when-summary-still-wins">When summary still wins</a></li>
+  <li><a href="#how-citation-and-perception-interact" id="markdown-toc-how-citation-and-perception-interact">How citation and perception interact</a></li>
+  <li><a href="#failure-modes" id="markdown-toc-failure-modes">Failure modes</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+</ol><hr />
+
+<p>When the model needs to know about a file, <em>point at the file</em> — don’t paraphrase its contents in your prompt. Paraphrases go stale the moment the file changes. Citations don’t.</p>
+
+<p>Every major coding tool has a citation mechanism: Claude Code’s <code class="language-plaintext highlighter-rouge">@path</code> imports, Cursor’s <code class="language-plaintext highlighter-rouge">@file</code> references, Continue.dev’s <code class="language-plaintext highlighter-rouge">@-mentions</code>, Aider’s <code class="language-plaintext highlighter-rouge">/read</code> and file mentions. They exist because the alternative — copying summaries into your context file — is one of the most reliable ways to produce <a href="/docs/reference/failure-modes/#3-stale-instructions">stale instructions</a>.</p>
+<h2 id="the-pattern">
+  
+  
+    <a href="#the-pattern" class="anchor-heading" aria-labelledby="the-pattern"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The pattern
+  
+  
+</h2>
+    
+
+<p>Two versions of the same context, one bad and one good:</p>
+
+<p><strong>Bad — paraphrase:</strong></p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># CLAUDE.md</span>
+
+The user model has fields <span class="sb">`id`</span>, <span class="sb">`email`</span>, <span class="sb">`created_at`</span>, and <span class="sb">`is_admin`</span>.
+The API uses JWT tokens with a 24-hour expiry. Migrations live in
+db/migrations/ and the latest one is 0042_add_admin_flag.sql.
+</code></pre></div></div>
+
+<p><strong>Good — cite:</strong></p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># CLAUDE.md</span>
+
+See:
+<span class="p">-</span> @src/models/user.ts for the user model.
+<span class="p">-</span> @docs/auth.md for the JWT setup.
+<span class="p">-</span> @db/migrations/ for migrations; never edit shipped ones.
+</code></pre></div></div>
+
+<p>The good version is shorter, never goes stale, and gives the model the actual source on demand. The bad version is a snapshot — accurate today, wrong next week, silently misleading the model meanwhile.</p>
+<h2 id="when-citation-works">
+  
+  
+    <a href="#when-citation-works" class="anchor-heading" aria-labelledby="when-citation-works"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When citation works
+  
+  
+</h2>
+    
+
+<p>Three conditions where citing beats summarizing:</p>
+
+<ol>
+  <li><strong>The source file is short enough to read in full.</strong> Under ~2,000 lines is usually fine. Above that, paraphrase or use <a href="/docs/patterns/retrieve-before-generate/">retrieval</a>.</li>
+  <li><strong>The source changes faster than you’ll update the paraphrase.</strong> Almost always true for code; usually true for active docs; sometimes true for spec files.</li>
+  <li><strong>The model has tool access to read the file when needed.</strong> Claude Code reads <code class="language-plaintext highlighter-rouge">@path</code> imports at session start; Cursor reads <code class="language-plaintext highlighter-rouge">@file</code> references on demand. Without tool access, citation degrades to “go look at the filename and hope.”</li>
+</ol>
+<h2 id="mechanisms-by-tool">
+  
+  
+    <a href="#mechanisms-by-tool" class="anchor-heading" aria-labelledby="mechanisms-by-tool"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Mechanisms by tool
+  
+  
+</h2>
+    
+
+<p>Each tool’s citation primitive, with the canonical reference:</p>
+
+<ul>
+  <li><strong>Claude Code</strong> — <code class="language-plaintext highlighter-rouge">@path/to/file</code> inside CLAUDE.md or skill content. Imports are expanded and loaded into context at launch. Supports recursive imports up to 5 hops deep. (<a href="https://code.claude.com/docs/en/memory">memory docs</a>)</li>
+  <li><strong>Cursor</strong> — <code class="language-plaintext highlighter-rouge">@file</code>, <code class="language-plaintext highlighter-rouge">@folder</code>, <code class="language-plaintext highlighter-rouge">@symbol</code> references inside rules and chat. Files are attached when the rule fires or when explicitly mentioned.</li>
+  <li><strong>Continue.dev</strong> — <code class="language-plaintext highlighter-rouge">@-mentions</code> in the chat and rules; integrates with the embeddings index.</li>
+  <li><strong>Aider</strong> — <code class="language-plaintext highlighter-rouge">/add</code> for editable, <code class="language-plaintext highlighter-rouge">/read</code> for read-only. <code class="language-plaintext highlighter-rouge">read:</code> in <code class="language-plaintext highlighter-rouge">.aider.conf.yml</code> for persistent inclusion.</li>
+  <li><strong>AGENTS.md</strong> — plain markdown links. Tools that read AGENTS.md often follow them; the spec doesn’t mandate any particular mechanism.</li>
+</ul>
+
+<p>See <a href="/docs/reference/front-matter/">front matter cheat sheet</a> for the exact field names per tool.</p>
+<h2 id="grounding-the-empirical-case-for-source-over-summary">
+  
+  
+    <a href="#grounding-the-empirical-case-for-source-over-summary" class="anchor-heading" aria-labelledby="grounding-the-empirical-case-for-source-over-summary"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Grounding: the empirical case for source over summary
+  
+  
+</h2>
+    
+
+<p>Anthropic’s own prompt-engineering guidance is explicit about this for long-document tasks:</p>
+
+<blockquote>
+  <p>“<strong>Ground responses in quotes:</strong> For long document tasks, ask Claude to quote relevant parts of the documents first before carrying out its task. This helps Claude cut through the noise of the rest of the document’s contents.”
+— <a href="https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic prompting best practices</a></p>
+</blockquote>
+
+<p>The mechanism: a summary in your prompt encodes <em>your</em> current understanding of the source. The source itself encodes <em>what’s true</em>. When they diverge — and they always diverge eventually — the agent acts on the summary instead of reality.</p>
+
+<p><a href="/docs/reference/failure-modes/#3-stale-instructions">Failure modes §3 — stale instructions</a> covers the symptom side: the agent “fights” the actual code, insists on import paths that were renamed, references commands the repo has migrated past. Paraphrase in your CLAUDE.md is the most common cause.</p>
+<h2 id="when-summary-still-wins">
+  
+  
+    <a href="#when-summary-still-wins" class="anchor-heading" aria-labelledby="when-summary-still-wins"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When summary still wins
+  
+  
+</h2>
+    
+
+<p>Citation is the right default but not universal. Three cases where paraphrase wins:</p>
+
+<ol>
+  <li><strong>The source is too long to load.</strong> A 50,000-line file you only need three rules from. Extract the rules into prose — but be honest with yourself about the maintenance cost.</li>
+  <li><strong>The source is structured but the rule isn’t.</strong> A massive Postgres schema where the only thing the agent needs to know is “user PII columns are <code class="language-plaintext highlighter-rouge">email</code>, <code class="language-plaintext highlighter-rouge">phone</code>, <code class="language-plaintext highlighter-rouge">ssn</code> — never log these.” Citing the schema dumps too much; the prose statement is denser.</li>
+  <li><strong>The source doesn’t exist in a readable form.</strong> A binary artifact, a build output, an external API. Paraphrase from the docs, and link to the docs.</li>
+</ol>
+
+<p>Even in these cases, <em>link to the canonical source</em> in the paraphrase. Anyone updating the paraphrase later needs to know what they’re keeping in sync with.</p>
+<h2 id="how-citation-and-perception-interact">
+  
+  
+    <a href="#how-citation-and-perception-interact" class="anchor-heading" aria-labelledby="how-citation-and-perception-interact"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How citation and perception interact
+  
+  
+</h2>
+    
+
+<p>A maintained <a href="/docs/foundations/perception-over-history/">perception.md</a> is itself an exercise in citation discipline. The Working set layer:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">file</span><span class="pi">:</span> <span class="s">src/services/points.ts</span>
+<span class="na">hypothesis</span><span class="pi">:</span> <span class="s">idempotency belongs in the service, not the schema</span>
+<span class="na">recent-tool-results</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">bun test points.spec.ts → 1 failed (idempotency)</span>
+  <span class="pi">-</span> <span class="s">rg "awardPoints" → 0 callers yet</span>
+</code></pre></div></div>
+
+<p>…does not paraphrase <code class="language-plaintext highlighter-rouge">points.ts</code>. It <em>names</em> it. The agent can read the file on demand; what the perception captures is the agent’s belief about the file, not the file itself. Same principle, applied to working memory instead of project context.</p>
+
+<p>If you find your perception.md repeating code that lives in actual files, you’re paraphrasing where you should be citing. Replace with <code class="language-plaintext highlighter-rouge">@</code>-style references.</p>
+<h2 id="failure-modes">
+  
+  
+    <a href="#failure-modes" class="anchor-heading" aria-labelledby="failure-modes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Failure modes
+  
+  
+</h2>
+    
+
+<ul>
+  <li><strong>Stale paraphrase.</strong> You paraphrased <code class="language-plaintext highlighter-rouge">package.json</code> six months ago; the project has since migrated <code class="language-plaintext highlighter-rouge">pnpm</code> → <code class="language-plaintext highlighter-rouge">bun</code>. The agent runs <code class="language-plaintext highlighter-rouge">pnpm test</code> and is confused when it fails. See <a href="/docs/reference/failure-modes/#3-stale-instructions">failure modes §3</a>.</li>
+  <li><strong>Phantom files.</strong> A citation to <code class="language-plaintext highlighter-rouge">@docs/api.md</code> for a file that no longer exists. Some tools warn; most don’t. Lint your citations: a CI check that every <code class="language-plaintext highlighter-rouge">@path</code> resolves saves hours of confused debugging.</li>
+  <li><strong>Over-citation.</strong> A CLAUDE.md that cites 40 files at session start, each of which loads in full, leaves no token budget for the actual task. Cite selectively; let path-scoped rules or skills handle the long tail.</li>
+  <li><strong>Citing without context.</strong> <em>“See @src/services/points.ts”</em> with no hint at <em>why</em> — the agent reads the file but doesn’t know what to look for. Annotate: <em>“See @src/services/points.ts for the idempotency pattern other services should follow.”</em></li>
+</ul>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/patterns/retrieve-before-generate/">Retrieve before generate</a> — citation’s bigger cousin for large external corpora</li>
+  <li><a href="/docs/foundations/perception-over-history/">Perception over history</a> — citation discipline applied to working memory</li>
+  <li><a href="/docs/per-tool/claude-md/">Crafting a CLAUDE.md</a> — what to cite from your CLAUDE.md</li>
+  <li><a href="/docs/reference/failure-modes/#3-stale-instructions">Failure modes §3 — stale instructions</a></li>
+</ul>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+        <p class="text-small mb-0">
+          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/patterns/cite-dont-summarize.md" id="edit-this-page">Edit this page on GitHub</a>
+        </p>
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+
