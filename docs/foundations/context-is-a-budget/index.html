@@ -202,7 +202,7 @@
   <ul class="aux-nav-list">
     
       <li class="aux-nav-list-item">
-        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+        <a href="https://github.com/buecking/incontext" class="site-button"
           
           target="_blank" rel="noopener noreferrer"
           
@@ -240,7 +240,14 @@
 
 <ol id="markdown-toc">
   <li><a href="#what-a-context-window-actually-is" id="markdown-toc-what-a-context-window-actually-is">What a context window actually is</a></li>
+  <li><a href="#the-empirical-case" id="markdown-toc-the-empirical-case">The empirical case</a></li>
   <li><a href="#what-this-means-in-practice" id="markdown-toc-what-this-means-in-practice">What this means in practice</a></li>
+  <li><a href="#where-the-budget-goes" id="markdown-toc-where-the-budget-goes">Where the budget goes</a></li>
+  <li><a href="#how-to-measure-if-youre-over-budget" id="markdown-toc-how-to-measure-if-youre-over-budget">How to measure if you’re over budget</a></li>
+  <li><a href="#common-ways-the-budget-gets-blown" id="markdown-toc-common-ways-the-budget-gets-blown">Common ways the budget gets blown</a></li>
+  <li><a href="#the-deeper-frame" id="markdown-toc-the-deeper-frame">The deeper frame</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+  <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
 </ol><hr />
 
 <p>The first thing people notice about modern models is that the context window has gotten huge. Two hundred thousand tokens. A million. The natural reaction is: stop curating, just dump everything in. Let the model figure out what matters.</p>
@@ -258,12 +265,30 @@
 <p>A context window is a budget, not a bucket. Every token you add does three things:</p>
 
 <ol>
-  <li><strong>Costs money and latency.</strong> Linear in tokens, sometimes worse.</li>
+  <li><strong>Costs money and latency.</strong> Linear in tokens, sometimes worse. Even with prompt caching, the first time a long prefix lands you pay for every token.</li>
   <li><strong>Competes for attention with every other token.</strong> The model’s attention is a finite resource being divided across what you put in front of it. Adding irrelevant material doesn’t sit politely in a corner — it pulls attention away from the relevant material.</li>
   <li><strong>Adds opportunities for confusion.</strong> Every additional document is another chance for the model to anchor on the wrong thing, follow a stale instruction, or pattern-match to the wrong example.</li>
 </ol>
 
 <p>The naive “just dump it all in” intuition treats context like RAM — neutral storage that the model queries. It’s not. Context is more like a meeting agenda. A meeting with twelve agenda items isn’t twice as productive as one with six. It’s usually less productive, because attention fragments and the important items get rushed.</p>
+<h2 id="the-empirical-case">
+  
+  
+    <a href="#the-empirical-case" class="anchor-heading" aria-labelledby="the-empirical-case"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The empirical case
+  
+  
+</h2>
+    
+
+<p>This isn’t a stylistic preference. The published evidence on long-context degradation is now consistent across three lines of research:</p>
+
+<ul>
+  <li><strong>Lost in the middle.</strong> Liu et al. 2023 (<a href="https://arxiv.org/abs/2307.03172">arXiv:2307.03172</a>) showed that information placed mid-context is used worse than the same information at the start or end. The accuracy curve is U-shaped over position. On GPT-3.5-Turbo, retrieval accuracy dropped from ~75% (first position) to ~52% (middle). See <a href="/docs/foundations/long-context-degradation/">long-context degradation</a>.</li>
+  <li><strong>Effective vs. nominal window.</strong> RULER (Hsieh et al. 2024, <a href="https://arxiv.org/abs/2404.06654">arXiv:2404.06654</a>) measured the effective context length of long-context models against their advertised window. Most fall well short of their nameplate spec under any threshold that requires actual reasoning rather than retrieval.</li>
+  <li><strong>Reasoning collapse past ~32k.</strong> NoLiMa (Modarressi et al. 2025, <a href="https://arxiv.org/abs/2502.05167">arXiv:2502.05167</a>) re-ran the lost-in-the-middle eval with one-hop reasoning required. Frontier models with 128k–1M nominal windows lose <strong>50%+ of short-context accuracy by ~32k tokens</strong>.</li>
+</ul>
+
+<p>Anthropic’s own <em>Effective Context Engineering for AI Agents</em> (September 2025) names the phenomenon “context rot” and frames context as a “finite resource with diminishing marginal returns.” The guidance from the people training the models is unambiguous: curate.</p>
 <h2 id="what-this-means-in-practice">
   
   
@@ -273,18 +298,128 @@
 </h2>
     
 
+<p>A few rules of thumb that fall out of the budget framing:</p>
+
 <ul>
-  <li><strong>Cut before you add.</strong> Default to less. The question isn’t “could this be useful?” but “is this load-bearing for the task at hand?”</li>
+  <li><strong>Cut before you add.</strong> Default to less. The question isn’t <em>could this be useful?</em> but <em>is this load-bearing for the task at hand?</em></li>
   <li><strong>Order matters.</strong> Models attend more strongly to the start and end of context. Put the instruction at the top, the critical reference material near the bottom, and the bulk in the middle where it can be skimmed.</li>
-  <li><strong>Repetition is a tool, not a smell.</strong> If something is genuinely critical, restating it at the end is cheap insurance.</li>
-  <li><strong>A clean 8K context usually beats a messy 80K one.</strong></li>
+  <li><strong>Repetition is a tool, not a smell.</strong> If something is genuinely critical, restating it at the end is cheap insurance. See <a href="/docs/reference/directives/#9-bookending--top-and-end-of-long-context">directives §9 — bookending</a>.</li>
+  <li><strong>A clean 8K context usually beats a messy 80K one.</strong> Counterintuitive until you’ve measured it. Once you have, it’s the most useful rule on this list.</li>
 </ul>
 
-<p>This last rule surprises people most and is the most worth internalizing. The shift from “engineering prompts” to “engineering context” is real, but the underlying skill is the same: figure out what the model needs, give it that, and stop.</p>
+<p>That last one surprises people most and is the most worth internalizing. The shift from “engineering prompts” to “engineering context” is real, but the underlying skill is the same: figure out what the model needs, give it that, and stop.</p>
+<h2 id="where-the-budget-goes">
+  
+  
+    <a href="#where-the-budget-goes" class="anchor-heading" aria-labelledby="where-the-budget-goes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Where the budget goes
+  
+  
+</h2>
+    
+
+<p>Looking at a typical Claude Code session before any user input, the <em>baseline</em> context the model is already paying for:</p>
+
+<ul>
+  <li><strong>System prompt</strong> — a few thousand tokens, baked into the harness.</li>
+  <li><strong>Tool definitions</strong> — every tool the harness exposes is described in context. Easily 5–10k tokens for an agent with MCP servers.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">CLAUDE.md</code> and imports</strong> — anything from a few hundred to several thousand tokens, depending on how disciplined the file is.</li>
+  <li><strong>Loaded skills’ descriptions</strong> — every skill’s <code class="language-plaintext highlighter-rouge">description</code> field sits in context so the agent knows what’s available. A workspace with 20 skills can be a couple thousand tokens before the agent has done anything.</li>
+  <li><strong>File reads from the harness</strong> — <code class="language-plaintext highlighter-rouge">git status</code>, <code class="language-plaintext highlighter-rouge">ls</code>, opened-file contents that the harness auto-injects.</li>
+</ul>
+
+<p>The “user task” — the thing you’re actually asking the agent to do — is often less than 5% of the context that’s already in front of the model when it answers. Most of the budget is spent on the <em>frame</em>, not the <em>question</em>. Which means: editing the frame is where most of the leverage is.</p>
+<h2 id="how-to-measure-if-youre-over-budget">
+  
+  
+    <a href="#how-to-measure-if-youre-over-budget" class="anchor-heading" aria-labelledby="how-to-measure-if-youre-over-budget"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How to measure if you’re over budget
+  
+  
+</h2>
+    
+
+<p>Three diagnostics, in increasing order of effort:</p>
+
+<ol>
+  <li><strong>The same task in a fresh session vs. a long one.</strong> If the model handles a task correctly at the start of a session and badly after 30k tokens of accumulated history, the long session is over budget. (This is also the <a href="/docs/foundations/smart-zone-and-dumb-zone/">smart zone / dumb zone</a> signal.)</li>
+  <li><strong>Strip and re-run.</strong> Remove a section of your <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>, or unload a skill, and rerun the task. If output quality doesn’t change, that content wasn’t earning its place. If quality drops, it was. Most teams discover that more than half their <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> falls in the first category.</li>
+  <li><strong>Position swap.</strong> Put your most important instruction at the bottom of the prompt and rerun. If the model follows it now but didn’t before, it was being <a href="/docs/foundations/long-context-degradation/">lost in the middle</a> — and the budget had room for it, just not at that position.</li>
+</ol>
+
+<p>The strip-and-re-run test is the most honest. It’s also the most uncomfortable, because most teams have written more context than they need and don’t want to find out.</p>
+<h2 id="common-ways-the-budget-gets-blown">
+  
+  
+    <a href="#common-ways-the-budget-gets-blown" class="anchor-heading" aria-labelledby="common-ways-the-budget-gets-blown"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Common ways the budget gets blown
+  
+  
+</h2>
+    
+
+<p>The patterns repeat across teams:</p>
+
+<ul>
+  <li><strong>Pasting reference material instead of citing it.</strong> A 5,000-line architecture overview embedded in <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is paying full rent on every session. Cite it with <code class="language-plaintext highlighter-rouge">@docs/architecture.md</code> and the import system loads it on demand. See <a href="/docs/patterns/cite-dont-summarize/">cite, don’t summarize</a>.</li>
+  <li><strong>Aspirational rules.</strong> Conventions the team wishes it followed, written into the context resource as if they were true. The agent now writes against a fiction. See <a href="/docs/reference/failure-modes/#5-aspirational-rules">aspirational rules</a>.</li>
+  <li><strong>Stale instructions.</strong> Commands and paths that used to be true and aren’t anymore. The agent weights the explicit imperative over live evidence and “fights” the code. See <a href="/docs/reference/failure-modes/#3-stale-instructions">stale instructions</a>.</li>
+  <li><strong>The wall of don’ts.</strong> A <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> made of fifty negative instructions, each of which adds a forbidden-noun token without giving the agent a positive direction. See <a href="/docs/patterns/negative-examples/">negative examples</a>.</li>
+  <li><strong>One file for everything.</strong> Frontend rules and backend rules in the same <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>, both loaded on every task, each pulling attention from the other. See <a href="/docs/patterns/scope-by-directory/">scope by directory</a>.</li>
+</ul>
+
+<p>If you find yourself blown over budget, the fix is usually structural, not editorial. Splitting one big file into directory-scoped files, or moving content into <a href="/docs/skills/">skills</a> that load on demand, recovers more budget than any amount of word-trimming.</p>
 
 <blockquote class="tip">
   <p>When you’re tempted to add another document to the context, ask: would I add a fifteenth slide to a ten-slide deck for the same reason? Usually the answer is no.</p>
 </blockquote>
+<h2 id="the-deeper-frame">
+  
+  
+    <a href="#the-deeper-frame" class="anchor-heading" aria-labelledby="the-deeper-frame"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The deeper frame
+  
+  
+</h2>
+    
+
+<p>The budget framing is the gateway to the rest of this site. Once you’ve internalized that context is finite and contested rather than abundant and neutral, the other ideas follow:</p>
+
+<ul>
+  <li><strong>Layering</strong> (<a href="/docs/patterns/layered-context/">layered context</a>) is how you spend the budget on the most-relevant material first.</li>
+  <li><strong>Scope</strong> (<a href="/docs/patterns/scope-by-directory/">scope by directory</a>) is how you make rules pay rent only when they’re relevant.</li>
+  <li><strong>Perception</strong> (<a href="/docs/foundations/perception-over-history/">perception over history</a>) is how you replace expensive trajectory with cheap belief state.</li>
+  <li><strong>The smart zone</strong> (<a href="/docs/foundations/smart-zone-and-dumb-zone/">smart-zone framing</a>) is the operating stance for staying under budget across a working session.</li>
+</ul>
+
+<p>The patterns differ in form. They all answer the same question: <em>given that context is a budget, how do I spend it?</em></p>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/foundations/long-context-degradation/">Long-context degradation</a> — the empirical “lost in the middle” finding</li>
+  <li><a href="/docs/foundations/smart-zone-and-dumb-zone/">The smart zone and the dumb zone</a> — the working stance that falls out of the budget</li>
+  <li><a href="/docs/patterns/layered-context/">Layered context</a> — how to spend the budget by scope and cadence</li>
+  <li><a href="/docs/reference/failure-modes/#2-context-bloat--token-budget-exhaustion">Failure modes §2 — context bloat</a> — what budget exhaustion looks like in practice</li>
+  <li><a href="/docs/reference/directives/#1-specificity-beats-qualifier-words">Directives §1 — specificity beats qualifier words</a> — getting more behavior change per token</li>
+</ul>
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<ul>
+  <li>Liu, N. F., et al. (2023). <em>Lost in the Middle.</em> <a href="https://arxiv.org/abs/2307.03172">arXiv:2307.03172</a>.</li>
+  <li>Hsieh, C.-P., et al. (2024). <em>RULER: What’s the Real Context Size of Your Long-Context Language Models?</em> <a href="https://arxiv.org/abs/2404.06654">arXiv:2404.06654</a>.</li>
+  <li>Modarressi, A., et al. (2025). <em>NoLiMa: Long-Context Evaluation Beyond Literal Matching.</em> <a href="https://arxiv.org/abs/2502.05167">arXiv:2502.05167</a>.</li>
+  <li>Anthropic (2025). <em>Effective Context Engineering for AI Agents.</em> <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents</a>.</li>
+</ul>
 
           
 
@@ -299,14 +434,14 @@
     <p><a href="#top" id="back-to-top">Back to top</a></p>
   
 
-  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/buecking/incontext">Source on GitHub</a></p>
 
   
     <div class="d-flex mt-2">
       
       
         <p class="text-small mb-0">
-          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/foundations/context-is-a-budget.md" id="edit-this-page">Edit this page on GitHub</a>
+          <a href="https://github.com/buecking/incontext/tree/main/docs/foundations/context-is-a-budget.md" id="edit-this-page">Edit this page on GitHub</a>
         </p>
       
     </div>

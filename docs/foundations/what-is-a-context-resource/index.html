@@ -202,7 +202,7 @@
   <ul class="aux-nav-list">
     
       <li class="aux-nav-list-item">
-        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+        <a href="https://github.com/buecking/incontext" class="site-button"
           
           target="_blank" rel="noopener noreferrer"
           
@@ -241,7 +241,11 @@
 <ol id="markdown-toc">
   <li><a href="#the-short-version" id="markdown-toc-the-short-version">The short version</a></li>
   <li><a href="#the-common-examples" id="markdown-toc-the-common-examples">The common examples</a></li>
+  <li><a href="#a-test-for-is-this-a-context-resource" id="markdown-toc-a-test-for-is-this-a-context-resource">A test for “is this a context resource?”</a></li>
   <li><a href="#why-the-category-matters" id="markdown-toc-why-the-category-matters">Why the category matters</a></li>
+  <li><a href="#the-taxonomy-by-scope-and-cadence" id="markdown-toc-the-taxonomy-by-scope-and-cadence">The taxonomy by scope and cadence</a></li>
+  <li><a href="#the-lifecycle" id="markdown-toc-the-lifecycle">The lifecycle</a></li>
+  <li><a href="#what-it-isnt" id="markdown-toc-what-it-isnt">What it isn’t</a></li>
   <li><a href="#related" id="markdown-toc-related">Related</a></li>
 </ol><hr />
 <h2 id="the-short-version">
@@ -266,14 +270,42 @@
     
 
 <ul>
-  <li><strong><code class="language-plaintext highlighter-rouge">CLAUDE.md</code></strong> — the project file Claude Code reads on every run.</li>
-  <li><strong><code class="language-plaintext highlighter-rouge">AGENTS.md</code></strong> — the increasingly common cross-tool equivalent. Cursor, Aider, Continue, and several others read this now.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">CLAUDE.md</code></strong> — the project file <a href="/docs/per-tool/claude-md/">Claude Code reads on every run</a>.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">AGENTS.md</code></strong> — the increasingly common <a href="/docs/per-tool/agents-md/">cross-tool equivalent</a>. Cursor, Aider, Continue, Codex, Copilot, and 20+ others read this now.</li>
   <li><strong><code class="language-plaintext highlighter-rouge">.cursor/rules/</code></strong> — Cursor’s per-project rule files, broken up by scope.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">SKILL.md</code></strong> — <a href="/docs/reference/">Agent Skills format</a> files: named, reusable workflows that load on demand.</li>
+  <li><strong>Sub-agent definitions</strong> — <code class="language-plaintext highlighter-rouge">.claude/agents/*.md</code> files describing specialized agents the main agent can delegate to.</li>
   <li><strong>System prompts</strong> — the top-level frame for chat-style use.</li>
   <li><strong>RAG sources</strong> — the documents your retrieval layer surfaces to the model.</li>
+  <li><strong>MCP server descriptions</strong> — the natural-language <code class="language-plaintext highlighter-rouge">description</code> fields on tools the agent calls.</li>
 </ul>
 
-<p>What unites these is that they’re all <em>deliberate context</em>: material you’ve curated specifically to shape the model’s behavior.</p>
+<p>What unites these is that they’re all <em>deliberate context</em>: material someone has curated specifically to shape the model’s behavior. They are not training data (which the model already has). They are not the user’s task (which is ephemeral, scoped to one request). They live in between — between <em>what the model knows</em> and <em>what you want it to do right now</em>.</p>
+<h2 id="a-test-for-is-this-a-context-resource">
+  
+  
+    <a href="#a-test-for-is-this-a-context-resource" class="anchor-heading" aria-labelledby="a-test-for-is-this-a-context-resource"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A test for “is this a context resource?”
+  
+  
+</h2>
+    
+
+<p>Three questions. All three should land <em>yes</em>:</p>
+
+<ol>
+  <li><strong>Was it written specifically to be read by the model?</strong> A README written for humans that the model also happens to read is not a context resource. A CLAUDE.md is.</li>
+  <li><strong>Is it deliberately curated, not incidentally produced?</strong> A chat transcript is not a context resource; it’s a log. A <code class="language-plaintext highlighter-rouge">perception.md</code> that summarizes the same content into belief state is.</li>
+  <li><strong>Does it persist across at least one interaction?</strong> A one-off prompt is not a context resource; a system prompt that frames every prompt for the next month is.</li>
+</ol>
+
+<p>A few edge cases the test resolves:</p>
+
+<ul>
+  <li><strong>Tool descriptions in MCP manifests.</strong> Yes — written for the model, deliberately curated, persistent. (And, as the <a href="/docs/reference/failure-modes/#14-tool-poisoning-mcp">tool-poisoning failure mode</a> shows, also a vector when an adversary controls the curation.)</li>
+  <li><strong>Slash command markdown files in <code class="language-plaintext highlighter-rouge">.claude/commands/</code>.</strong> Yes — same shape as skills.</li>
+  <li><strong>Type definitions and JSDoc comments.</strong> Borderline. Written for humans but read by the model. Treat as context-adjacent.</li>
+  <li><strong>Git history.</strong> No — produced incidentally, not curated to shape behavior.</li>
+</ul>
 <h2 id="why-the-category-matters">
   
   
@@ -290,14 +322,98 @@
 <p>Once you start treating these artifacts as a category, useful questions appear:</p>
 
 <ul>
-  <li>What’s the right size? (Almost always: smaller than your first instinct.)</li>
-  <li>What scope — repo, directory, task, session?</li>
-  <li>How does it interact with other context the model is seeing?</li>
-  <li>How do you keep it from going stale as the project changes?</li>
-  <li>How do you test that it’s actually doing something?</li>
+  <li><strong>What’s the right size?</strong> Almost always: smaller than your first instinct. See <a href="/docs/foundations/context-is-a-budget/">context is a budget</a>.</li>
+  <li><strong>What scope?</strong> Repo, directory, task, session, user? Each scope has a natural file location and a natural cadence of update.</li>
+  <li><strong>How does it interact with other context the model is seeing?</strong> Conflicts between sources cause <a href="/docs/reference/failure-modes/#4-instruction-conflict">instruction-conflict failures</a>. Designate one source of truth per topic.</li>
+  <li><strong>How do you keep it from going stale?</strong> Treat it as code. Review in PRs. Lint commands against <code class="language-plaintext highlighter-rouge">package.json</code>. Re-read quarterly.</li>
+  <li><strong>How do you test that it’s actually doing something?</strong> Remove it for a session and see what changes. If nothing changes, the line wasn’t doing work.</li>
 </ul>
 
 <p>The rest of this site works through those questions, one resource type at a time.</p>
+<h2 id="the-taxonomy-by-scope-and-cadence">
+  
+  
+    <a href="#the-taxonomy-by-scope-and-cadence" class="anchor-heading" aria-labelledby="the-taxonomy-by-scope-and-cadence"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The taxonomy by scope and cadence
+  
+  
+</h2>
+    
+
+<p>Context resources differ on two axes that matter more than any other: <strong>scope</strong> (who or what does it apply to) and <strong>cadence</strong> (how often does it change).</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Changes rarely</th>
+      <th>Changes per-feature</th>
+      <th>Changes per-action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Personal</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">~/.claude/CLAUDE.md</code> (your conventions)</td>
+      <td>personal scratch notes</td>
+      <td>the chat itself</td>
+    </tr>
+    <tr>
+      <td><strong>Project</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">CLAUDE.md</code>, <code class="language-plaintext highlighter-rouge">AGENTS.md</code> (stack, rules)</td>
+      <td><code class="language-plaintext highlighter-rouge">.claude/commands/</code>, perception.md frame</td>
+      <td>the current user message</td>
+    </tr>
+    <tr>
+      <td><strong>Subdirectory</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">frontend/CLAUDE.md</code> (local conventions)</td>
+      <td><code class="language-plaintext highlighter-rouge">.cursor/rules/*.mdc</code> with paths</td>
+      <td>tool results for files there</td>
+    </tr>
+    <tr>
+      <td><strong>Skill / task</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">SKILL.md</code> invariants</td>
+      <td><code class="language-plaintext highlighter-rouge">SKILL.md</code> body for a workflow</td>
+      <td>the current invocation</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>That table is the map. Each cell has a natural home in the filesystem and a natural lifecycle. Putting a fact in the wrong cell is the most common authoring mistake — see <a href="/docs/patterns/layered-context/">layered context</a> for the full discussion.</p>
+<h2 id="the-lifecycle">
+  
+  
+    <a href="#the-lifecycle" class="anchor-heading" aria-labelledby="the-lifecycle"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The lifecycle
+  
+  
+</h2>
+    
+
+<p>A context resource has four phases, and most teams handle only the first one well.</p>
+
+<ol>
+  <li><strong>Authoring.</strong> Someone writes it. Usually with too much detail and too much aspirational content; see <a href="/docs/reference/failure-modes/#5-aspirational-rules">aspirational rules</a>.</li>
+  <li><strong>Use.</strong> The model reads it, on every session, for as long as it exists. Every line is paying recurring rent.</li>
+  <li><strong>Maintenance.</strong> The project moves. Conventions change. Commands get renamed. The file does not move with the project unless someone makes it.</li>
+  <li><strong>Retirement.</strong> A piece of the file stops being true. Either the file is updated or — far more commonly — the line just rots, and the model starts being told things that aren’t real.</li>
+</ol>
+
+<p>The lifecycle implies the maintenance discipline: every PR that changes a convention should change the corresponding context resource. Reviewers should reject PRs that drift them apart. CI can lint commands against the real toolchain. None of this is exotic; it just requires <em>treating context resources as code</em> — version-controlled, reviewed, and tested.</p>
+<h2 id="what-it-isnt">
+  
+  
+    <a href="#what-it-isnt" class="anchor-heading" aria-labelledby="what-it-isnt"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What it isn’t
+  
+  
+</h2>
+    
+
+<p>Three distinctions that come up repeatedly:</p>
+
+<ul>
+  <li><strong>Not training data.</strong> Training data is what the model already knows. Context resources are what it reads <em>now</em>. The model doesn’t learn from a CLAUDE.md across sessions; each session re-reads it. This is also why context resources can be edited without retraining anything.</li>
+  <li><strong>Not the user’s prompt.</strong> The user’s prompt is the task. The context resource is the frame in which the task is interpreted. The same prompt produces different output under different context resources — that’s the entire point.</li>
+  <li><strong>Not documentation for humans.</strong> The README and the CLAUDE.md overlap but are not the same file. Humans skim; models read literally. Aspirational documentation that humans tolerate (“we <em>should</em> be writing tests”) becomes confused output when a model reads it as fact.</li>
+</ul>
 <h2 id="related">
   
   
@@ -308,8 +424,10 @@
     
 
 <ul>
-  <li><a href="/docs/foundations/context-is-a-budget/">Context is a budget, not a bucket</a></li>
-  <li><a href="/docs/per-tool/claude-md/">Crafting a CLAUDE.md</a></li>
+  <li><a href="/docs/foundations/context-is-a-budget/">Context is a budget, not a bucket</a> — the economics</li>
+  <li><a href="/docs/patterns/layered-context/">Layered context</a> — the scope/cadence taxonomy made operational</li>
+  <li><a href="/docs/per-tool/claude-md/">Crafting a CLAUDE.md</a> — the most consequential context resource in a Claude Code project</li>
+  <li><a href="/docs/per-tool/agents-md/">AGENTS.md and the convergence</a> — the cross-tool form</li>
 </ul>
 
           
@@ -325,14 +443,14 @@
     <p><a href="#top" id="back-to-top">Back to top</a></p>
   
 
-  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/buecking/incontext">Source on GitHub</a></p>
 
   
     <div class="d-flex mt-2">
       
       
         <p class="text-small mb-0">
-          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/foundations/what-is-a-context-resource.md" id="edit-this-page">Edit this page on GitHub</a>
+          <a href="https://github.com/buecking/incontext/tree/main/docs/foundations/what-is-a-context-resource.md" id="edit-this-page">Edit this page on GitHub</a>
         </p>
       
     </div>

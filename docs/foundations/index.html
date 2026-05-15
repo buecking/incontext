@@ -199,7 +199,7 @@
   <ul class="aux-nav-list">
     
       <li class="aux-nav-list-item">
-        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+        <a href="https://github.com/buecking/incontext" class="site-button"
           
           target="_blank" rel="noopener noreferrer"
           
@@ -219,7 +219,7 @@
       <div id="main-content" class="main-content">
         <main>
           
-            <h1 id="foundations">
+            <h1 class="no_toc" id="foundations">
   
   
     <a href="#foundations" class="anchor-heading" aria-labelledby="foundations"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Foundations
@@ -228,7 +228,138 @@
 </h1>
     
 
-<p>The vocabulary and the underlying ideas. Read these first if anything in the rest of the site doesn’t make sense — most of the per-tool and pattern pages assume the framing here.</p>
+<ol id="markdown-toc">
+  <li><a href="#what-this-site-is-a-bet-on" id="markdown-toc-what-this-site-is-a-bet-on">What this site is a bet on</a></li>
+  <li><a href="#the-diagnosis" id="markdown-toc-the-diagnosis">The diagnosis</a></li>
+  <li><a href="#the-map" id="markdown-toc-the-map">The map</a></li>
+  <li><a href="#where-this-is-going" id="markdown-toc-where-this-is-going">Where this is going</a></li>
+  <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
+</ol><hr />
+
+<p>The vocabulary and the underlying ideas. Most of the per-tool, pattern, and skill pages assume the framing on this page; read it first if anything later doesn’t make sense.</p>
+<h2 id="what-this-site-is-a-bet-on">
+  
+  
+    <a href="#what-this-site-is-a-bet-on" class="anchor-heading" aria-labelledby="what-this-site-is-a-bet-on"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What this site is a bet on
+  
+  
+</h2>
+    
+
+<p>For three years the work was called <em>prompt engineering</em>. The phrase covered everything from “phrase your question better” to “wrap the answer in JSON” to “give the model a persona.” Then the work outgrew the phrase, and around 2024 the field started saying <em>context engineering</em> — admitting that the thing you tune isn’t a sentence, it’s a layered, scoped, time-varying body of material the model reads alongside whatever you’re asking.</p>
+
+<p>That rename was the right move. It is also not the last one.</p>
+
+<p>The next shift is already visible in the failure modes of every long-running agent. Conversation grows, context fills, the agent forgets what it was doing, and the standard answer — compress the history, summarize, retrieve — turns out to be solving the wrong problem. The agent doesn’t need its history. It needs a current model of where it is, what’s true, and what it’s about to do.</p>
+
+<p><strong>The bet this site is built on: the unit of intelligence is not the model. It is the model plus its context apparatus.</strong> A better apparatus on the same model beats a better model on a worse apparatus, and the gap is widening.</p>
+<h2 id="the-diagnosis">
+  
+  
+    <a href="#the-diagnosis" class="anchor-heading" aria-labelledby="the-diagnosis"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The diagnosis
+  
+  
+</h2>
+    
+
+<p>Today’s agents run on a single undifferentiated stream. System prompt, conversation history, tool results, retrieved chunks, file contents — all jammed into one context window, all competing for the same attention, all subject to the same <a href="/docs/foundations/long-context-degradation/">lost-in-the-middle</a> decay. It is roughly how a person with severe anterograde amnesia tries to do their job: re-reading the diary every five minutes to figure out where they are.</p>
+
+<p>Humans don’t run on one stream. We have at least five distinct memory systems, each with its own lifetime, structure, and update rule:</p>
+
+<ul>
+  <li><strong>Working memory</strong> — small, volatile, refreshed continuously. Holds <em>what I am doing right now</em>.</li>
+  <li><strong>Semantic memory</strong> — slow to form, slow to forget. Holds <em>what is true</em> about the world.</li>
+  <li><strong>Procedural memory</strong> — encoded by repetition, runs without conscious access. Holds <em>how to do things</em>.</li>
+  <li><strong>Episodic memory</strong> — what happened, where, when. Durable, searchable, decays on a schedule.</li>
+  <li><strong>Forward models</strong> — the imagined consequence of an action before you take it.</li>
+</ul>
+
+<p>These are not metaphors. They are separate neural systems, with different anatomies and different failure modes. The reason a person with advanced Alzheimer’s can still play piano while forgetting their grandchildren’s names is that procedural memory and declarative memory are <em>different machinery</em>. One can be damaged without the other.</p>
+
+<p>Everyday language hides this. Most discussion of “AI memory” treats it as one thing. It isn’t, and it never was.</p>
+<h2 id="the-map">
+  
+  
+    <a href="#the-map" class="anchor-heading" aria-labelledby="the-map"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The map
+  
+  
+</h2>
+    
+
+<p>Match today’s context tools to the memory systems and the gaps become legible.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Memory system</th>
+      <th>Today’s analogue</th>
+      <th>State of the art</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Semantic</td>
+      <td><code class="language-plaintext highlighter-rouge">CLAUDE.md</code>, <code class="language-plaintext highlighter-rouge">AGENTS.md</code>, Cursor rules</td>
+      <td>Flat markdown, manual maintenance, no decay or consolidation. Primitive but the role is right.</td>
+    </tr>
+    <tr>
+      <td>Procedural</td>
+      <td>Skills (<code class="language-plaintext highlighter-rouge">SKILL.md</code>), slash commands</td>
+      <td>Named, reusable workflows, loaded on demand. Closer to muscle memory than to knowledge.</td>
+    </tr>
+    <tr>
+      <td>Working</td>
+      <td><code class="language-plaintext highlighter-rouge">perception.md</code> (proposed)</td>
+      <td>Belief state instead of transcript. <a href="/docs/foundations/perception-over-history/">Designed here</a>, not yet deployed in production.</td>
+    </tr>
+    <tr>
+      <td>Episodic</td>
+      <td>—</td>
+      <td>No real implementation. Compaction is lossy stream compression; chat history is a log. A real episodic memory would be durable, indexed by event-context, decay on a schedule, and be queryable on demand. The slot is empty.</td>
+    </tr>
+    <tr>
+      <td>Forward models</td>
+      <td>—</td>
+      <td>No durable implementation. The agent can plan inside its working context, but no surface holds <em>“if I did X, the consequence would be Y”</em> across sessions. Hooks and tool-call gates are early gestures. The full thing is missing.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>That is the shape of the gap. The <a href="/docs/patterns/">patterns</a> elsewhere on this site — layering, scope-by-directory, cite-don’t-summarize, retrieve-before-generate, role + task + constraints — are the local choices that build the apparatus. The <a href="/docs/reference/failure-modes/">failure modes</a> are what goes wrong when the apparatus is wrong. The <a href="/docs/skills/">skills</a> are the procedural layer. The <a href="/docs/reference/">reference</a> is the spec.</p>
+<h2 id="where-this-is-going">
+  
+  
+    <a href="#where-this-is-going" class="anchor-heading" aria-labelledby="where-this-is-going"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Where this is going
+  
+  
+</h2>
+    
+
+<p>If the trajectory closes the gap, the next few years will fill in the missing systems. Working memory will get the layering treatment first — it is the most painful gap, and the cleanest to fix with the tools already in hand. Episodic memory will arrive next, probably as something between a journal and a database, with deliberate decay built in. Forward models will come last and look the strangest at first; there isn’t yet a name for what a durable, externalized imagination layer should look like.</p>
+
+<p>The teams that win this period will treat the context apparatus the way operating-system designers treat memory hierarchies: as a thing with structure, with lifetimes, with deliberate tradeoffs. The model is the engine. Everything around the model is the cognitive architecture. <em>Designing an agent</em> stops looking like prompt-writing and starts looking like designing a small operating system.</p>
+
+<p>The endpoint — if there is one — is not “the model gets smart enough to not need any of this.” It is the opposite. Enough of the apparatus exists that you stop noticing the model. You notice the agent.</p>
+
+<p>Which means, in a real sense: enough of the apparatus exists that the agent is recognizably <em>like us</em>. Not because the goal is to copy biology. Because the constraints — finite attention, finite time, finite memory, an unbounded world — are the same.</p>
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<p>The multiple-memory-systems framework is standard in cognitive neuroscience. The specific five-bucket grouping above is an engineering-oriented synthesis — not a one-to-one mapping to any single paper, but consistent with the literature. The point is functional: these capabilities are <em>separable</em> in humans, with different update rules and failure modes. Real AI memory systems should be separable too.</p>
+
+<ul>
+  <li>Squire, L. R. (2004). <em>Memory systems of the brain: A brief history and current perspective.</em> Neurobiology of Learning and Memory 82, 171–177 — the declarative / non-declarative split.</li>
+  <li>Baddeley, A. (1992). <em>Working memory.</em> Science 255, 556–559 — the working-memory model.</li>
+  <li>Wolpert, D. M., Ghahramani, Z., &amp; Jordan, M. I. (1995). <em>An internal model for sensorimotor integration.</em> Science 269, 1880–1882 — the forward-model framework, originally from motor control, now generalized in predictive-processing accounts.</li>
+  <li>Anthropic (2025). <em>Effective Context Engineering for AI Agents.</em> <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents</a> — the “context rot” frame and the case for minimal viable tool sets.</li>
+  <li>Kaelbling, L. P., Littman, M. L., &amp; Cassandra, A. R. (1998). <em>Planning and acting in partially observable stochastic domains.</em> Artificial Intelligence 101, 99–134 — the canonical belief-state reference in reinforcement learning, where the trajectory-vs-state distinction comes from.</li>
+</ul>
 
           
 
@@ -268,14 +399,14 @@
     <p><a href="#top" id="back-to-top">Back to top</a></p>
   
 
-  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/buecking/incontext">Source on GitHub</a></p>
 
   
     <div class="d-flex mt-2">
       
       
         <p class="text-small mb-0">
-          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/foundations/index.md" id="edit-this-page">Edit this page on GitHub</a>
+          <a href="https://github.com/buecking/incontext/tree/main/docs/foundations/index.md" id="edit-this-page">Edit this page on GitHub</a>
         </p>
       
     </div>

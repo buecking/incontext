@@ -202,7 +202,7 @@
   <ul class="aux-nav-list">
     
       <li class="aux-nav-list-item">
-        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+        <a href="https://github.com/buecking/incontext" class="site-button"
           
           target="_blank" rel="noopener noreferrer"
           
@@ -241,12 +241,20 @@
 <ol id="markdown-toc">
   <li><a href="#should-you-use-it" id="markdown-toc-should-you-use-it">Should you use it?</a></li>
   <li><a href="#what-goes-in-it" id="markdown-toc-what-goes-in-it">What goes in it</a></li>
+  <li><a href="#nested-files-for-monorepos" id="markdown-toc-nested-files-for-monorepos">Nested files for monorepos</a></li>
+  <li><a href="#how-it-composes-with-tool-native-files" id="markdown-toc-how-it-composes-with-tool-native-files">How it composes with tool-native files</a></li>
+  <li><a href="#a-worked-example" id="markdown-toc-a-worked-example">A worked example</a></li>
+  <li><a href="#common-mistakes" id="markdown-toc-common-mistakes">Common mistakes</a></li>
   <li><a href="#the-pattern-thats-emerging" id="markdown-toc-the-pattern-thats-emerging">The pattern that’s emerging</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+  <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
 </ol><hr />
 
-<p>For a while, every agentic coding tool wanted its own context file. Cursor had <code class="language-plaintext highlighter-rouge">.cursorrules</code>, then <code class="language-plaintext highlighter-rouge">.cursor/rules/</code>. Claude Code introduced <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>. Aider had its own thing. Continue had its own thing. If you used more than one, you maintained three or four near-duplicate files.</p>
+<p>For a while, every agentic coding tool wanted its own context file. Cursor had <code class="language-plaintext highlighter-rouge">.cursorrules</code>, then <code class="language-plaintext highlighter-rouge">.cursor/rules/</code>. Claude Code introduced <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>. Aider had <code class="language-plaintext highlighter-rouge">CONVENTIONS.md</code>. Continue.dev had <code class="language-plaintext highlighter-rouge">.continue/rules/</code>. Copilot had <code class="language-plaintext highlighter-rouge">.github/copilot-instructions.md</code>. Anyone using more than one tool was maintaining three or four near-duplicate files and praying they stayed in sync.</p>
 
-<p><code class="language-plaintext highlighter-rouge">AGENTS.md</code> is the convergence. It’s a deliberately tool-agnostic file — same idea as <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> but framed as a shared standard rather than one vendor’s format. A growing number of agent runners read it, and the trajectory is toward more.</p>
+<p><code class="language-plaintext highlighter-rouge">AGENTS.md</code> is the convergence. A deliberately tool-agnostic file — same idea as <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>, framed as a shared standard rather than one vendor’s format. As of 2026 it is read by 25+ agent tools including Codex, Cursor, Aider, Copilot, Claude Code (via import), Zed, JetBrains Junie, Devin, and others. The <a href="https://agents.md/">spec at agents.md</a> says itself: <em>“AGENTS.md is just standard Markdown. Use any headings you like; the agent simply parses the text you provide.”</em></p>
+
+<p>That minimalism is the point. The format is a coordination move, not a feature.</p>
 <h2 id="should-you-use-it">
   
   
@@ -256,9 +264,13 @@
 </h2>
     
 
-<p>If you’re working in a single tool exclusively, the tool-native file is fine. <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> for Claude Code, Cursor rules for Cursor.</p>
+<p>Three cases, three answers.</p>
 
-<p>If you’re working across tools, or want your project to be portable for collaborators using different setups, <code class="language-plaintext highlighter-rouge">AGENTS.md</code> at the repo root is the lower-friction choice. Some tools will read both, with the tool-native file taking precedence — meaning you can put the shared baseline in <code class="language-plaintext highlighter-rouge">AGENTS.md</code> and put tool-specific overrides in <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> or <code class="language-plaintext highlighter-rouge">.cursor/rules/</code>.</p>
+<p><strong>Single-tool, no portability concerns.</strong> Tool-native is fine. If your team is on Claude Code only, <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> gives you <code class="language-plaintext highlighter-rouge">@path</code> imports, multi-level loading, and the specific behaviors Anthropic’s docs guarantee. Cursor-only teams should write <code class="language-plaintext highlighter-rouge">.cursor/rules/</code>. Don’t add <code class="language-plaintext highlighter-rouge">AGENTS.md</code> just because it exists.</p>
+
+<p><strong>Mixed tools across a team, or open-source project.</strong> <code class="language-plaintext highlighter-rouge">AGENTS.md</code> at the repo root, full stop. Anyone cloning the repo gets working context regardless of what they edit with. Several tools (Cursor, Aider, Codex) read it directly; others (Claude Code) read it via an <code class="language-plaintext highlighter-rouge">@AGENTS.md</code> import or a symlink. The cost is one file you maintain; the benefit is your project working out-of-the-box for every contributor.</p>
+
+<p><strong>Already maintaining a long <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>.</strong> Move the tool-agnostic content to <code class="language-plaintext highlighter-rouge">AGENTS.md</code>, leave only the Claude-specific overrides in <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>. The result reads better and your project becomes portable for free.</p>
 <h2 id="what-goes-in-it">
   
   
@@ -268,7 +280,182 @@
 </h2>
     
 
-<p>Everything from <a href="/docs/per-tool/claude-md/">the CLAUDE.md guidance</a> applies. Stack, commands, conventions, gotchas. The cross-tool framing is mostly about <em>what to leave out</em>: avoid instructions that only make sense for one tool’s UI or workflow, since <code class="language-plaintext highlighter-rouge">AGENTS.md</code> will be read by tools that don’t have those affordances.</p>
+<p>Everything from <a href="/docs/per-tool/claude-md/">the CLAUDE.md guidance</a> applies — stack, commands, conventions, gotchas. The cross-tool framing is mostly about <em>what to leave out</em>. Avoid instructions that only make sense for one tool’s UI or workflow, since <code class="language-plaintext highlighter-rouge">AGENTS.md</code> will be read by agents that don’t have those affordances.</p>
+
+<p>The conventional section structure that’s emerging in the wild (from looking at 60,000+ OSS projects with the file at repo root):</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Project name</span>
+
+One-sentence description.
+
+<span class="gu">## Setup</span>
+<span class="p">-</span> Install: <span class="sb">`&lt;command&gt;`</span>
+<span class="p">-</span> Run: <span class="sb">`&lt;command&gt;`</span>
+<span class="p">-</span> Test: <span class="sb">`&lt;command&gt;`</span>
+<span class="p">-</span> Lint: <span class="sb">`&lt;command&gt;`</span>
+
+<span class="gu">## Stack</span>
+<span class="p">-</span> Language + version
+<span class="p">-</span> Test runner
+<span class="p">-</span> Anything non-obvious
+
+<span class="gu">## Conventions</span>
+<span class="p">-</span> <span class="nt">&lt;rule&gt;</span>
+<span class="p">-</span> <span class="nt">&lt;rule&gt;</span>
+
+<span class="gu">## Code style</span>
+<span class="p">-</span> <span class="nt">&lt;rule&gt;</span>
+<span class="p">-</span> <span class="nt">&lt;rule&gt;</span>
+
+<span class="gu">## Gotchas</span>
+<span class="p">-</span> <span class="nt">&lt;thing</span> <span class="na">that</span> <span class="na">bites</span><span class="nt">&gt;</span>
+
+<span class="gu">## Out of scope</span>
+<span class="p">-</span> <span class="nt">&lt;thing</span> <span class="na">the</span> <span class="na">agent</span> <span class="na">should</span> <span class="na">not</span> <span class="na">touch</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Not all sections will apply to every project. The spec is intentionally non-prescriptive — pick the headings you need, drop the rest. Two principles cut across:</p>
+
+<ul>
+  <li><strong>Make commands copy-pasteable.</strong> Agents will try to run them verbatim. If your test command needs a flag, write the flag.</li>
+  <li><strong>Cite, don’t paraphrase.</strong> When the rule lives somewhere else (<code class="language-plaintext highlighter-rouge">package.json</code>, <code class="language-plaintext highlighter-rouge">Makefile</code>, a real doc), point at it. See <a href="/docs/patterns/cite-dont-summarize/">cite, don’t summarize</a>.</li>
+</ul>
+<h2 id="nested-files-for-monorepos">
+  
+  
+    <a href="#nested-files-for-monorepos" class="anchor-heading" aria-labelledby="nested-files-for-monorepos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Nested files for monorepos
+  
+  
+</h2>
+    
+
+<p>The spec is explicit: <em>“Place another AGENTS.md inside each package. Agents automatically read the nearest file in the directory tree, so the closest one takes precedence and every subproject can ship tailored instructions.”</em></p>
+
+<p>OpenAI’s own monorepo reportedly ships 88 <code class="language-plaintext highlighter-rouge">AGENTS.md</code> files. The pattern at scale:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>your-monorepo/
+├── AGENTS.md                        # repo-wide: language, setup, common rules
+├── packages/
+│   ├── api/
+│   │   └── AGENTS.md                # API conventions
+│   ├── frontend/
+│   │   └── AGENTS.md                # React conventions
+│   └── migrations/
+│       └── AGENTS.md                # immutability rule
+</code></pre></div></div>
+
+<p>When an agent works in <code class="language-plaintext highlighter-rouge">packages/api/</code>, it reads the root file <em>and</em> the API file, with the API file winning on conflict. See <a href="/docs/patterns/scope-by-directory/">scope by directory</a> for the broader pattern.</p>
+<h2 id="how-it-composes-with-tool-native-files">
+  
+  
+    <a href="#how-it-composes-with-tool-native-files" class="anchor-heading" aria-labelledby="how-it-composes-with-tool-native-files"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How it composes with tool-native files
+  
+  
+</h2>
+    
+
+<p>Each major tool has its own way of integrating <code class="language-plaintext highlighter-rouge">AGENTS.md</code> alongside the tool-native file. The pattern that emerged:</p>
+
+<p><strong>Claude Code.</strong> <code class="language-plaintext highlighter-rouge">AGENTS.md</code> is not loaded by default. Either import it from <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@AGENTS.md
+
+<span class="gu">## Claude Code specific</span>
+<span class="p">-</span> Use plan mode for changes under <span class="sb">`src/billing/`</span>.
+<span class="p">-</span> The agent has filesystem access; the human reviews every diff.
+</code></pre></div></div>
+
+<p>…or symlink (Unix-y systems only):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> AGENTS.md CLAUDE.md
+</code></pre></div></div>
+
+<p>The import approach is cleaner because it lets you keep Claude-specific guidance separate. The symlink approach is fine for projects with no Claude-specific overrides.</p>
+
+<p><strong>Cursor.</strong> Reads <code class="language-plaintext highlighter-rouge">AGENTS.md</code> automatically alongside <code class="language-plaintext highlighter-rouge">.cursor/rules/</code>. The rules files take precedence for matching paths.</p>
+
+<p><strong>Aider.</strong> Read explicitly via <code class="language-plaintext highlighter-rouge">aider --read AGENTS.md</code> or persistently in <code class="language-plaintext highlighter-rouge">.aider.conf.yml</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">read</span><span class="pi">:</span> <span class="s">AGENTS.md</span>
+</code></pre></div></div>
+
+<p><strong>OpenAI Codex.</strong> Reads <code class="language-plaintext highlighter-rouge">AGENTS.md</code> from the repo root automatically; no configuration needed.</p>
+
+<p><strong>GitHub Copilot Coding Agent.</strong> Reads <code class="language-plaintext highlighter-rouge">AGENTS.md</code> for cloud-agent runs alongside <code class="language-plaintext highlighter-rouge">.github/copilot-instructions.md</code>.</p>
+
+<p>See <a href="/docs/reference/front-matter/">front matter cheat sheet</a> for the exact loading behavior per tool.</p>
+<h2 id="a-worked-example">
+  
+  
+    <a href="#a-worked-example" class="anchor-heading" aria-labelledby="a-worked-example"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A worked example
+  
+  
+</h2>
+    
+
+<p>A real <code class="language-plaintext highlighter-rouge">AGENTS.md</code> for a TypeScript / Bun monorepo, kept under 60 lines:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Acme platform</span>
+
+E-commerce platform for the Acme catalog. TypeScript / Bun monorepo.
+
+<span class="gu">## Setup</span>
+<span class="p">-</span> Install: <span class="sb">`bun install`</span>
+<span class="p">-</span> Dev server: <span class="sb">`bun dev`</span>
+<span class="p">-</span> Test: <span class="sb">`bun test`</span>
+<span class="p">-</span> Test one file: <span class="sb">`bun test path/to/file.test.ts`</span>
+<span class="p">-</span> Lint: <span class="sb">`bun lint`</span>
+<span class="p">-</span> Typecheck: <span class="sb">`bun typecheck`</span>
+
+<span class="gu">## Stack</span>
+<span class="p">-</span> Runtime: Bun 1.1+
+<span class="p">-</span> Database: Postgres 16 via <span class="sb">`db/`</span> package
+<span class="p">-</span> Frontend: React 19 + Vite (in <span class="sb">`packages/web/`</span>)
+<span class="p">-</span> Test framework: <span class="sb">`bun test`</span> (not Vitest, not Jest)
+
+<span class="gu">## Conventions</span>
+<span class="p">-</span> Commit messages: conventional commits (<span class="sb">`feat:`</span>, <span class="sb">`fix:`</span>, <span class="sb">`docs:`</span>).
+<span class="p">-</span> One PR = one slice. Vertical (schema → service → API → UI), not horizontal.
+<span class="p">-</span> Tests before code. Red-green-refactor. No exceptions.
+<span class="p">-</span> Public service methods get unit tests; private helpers don't.
+
+<span class="gu">## Code style</span>
+<span class="p">-</span> TypeScript with strict mode. No <span class="sb">`any`</span> — use <span class="sb">`unknown`</span> for untyped values.
+<span class="p">-</span> snake_case for SQL columns, camelCase for TypeScript identifiers.
+<span class="p">-</span> React components in <span class="sb">`PascalCase.tsx`</span>, hooks in <span class="sb">`useThing.ts`</span>.
+
+<span class="gu">## Gotchas</span>
+<span class="p">-</span> Migrations in <span class="sb">`db/migrations/`</span> are immutable once on <span class="sb">`main`</span>. Add a new
+  migration for schema changes — never edit an existing one.
+<span class="p">-</span> <span class="sb">`bun build`</span> produces a single binary; do not commit <span class="sb">`dist/`</span>.
+<span class="p">-</span> The Stripe webhook handler in <span class="sb">`packages/api/src/stripe/`</span> has rate-limit
+  logic that depends on Redis. Local dev requires <span class="sb">`bun dev:redis`</span> first.
+
+<span class="gu">## Out of scope</span>
+<span class="p">-</span> The <span class="sb">`vendor/`</span> directory is third-party code. Never edit.
+<span class="p">-</span> The <span class="sb">`legacy/`</span> directory is being deleted slice by slice. Don't add features.
+</code></pre></div></div>
+
+<p>That file works in any of the 25+ tools that read <code class="language-plaintext highlighter-rouge">AGENTS.md</code>. Editing it is the maintenance cost of being multi-tool compatible.</p>
+<h2 id="common-mistakes">
+  
+  
+    <a href="#common-mistakes" class="anchor-heading" aria-labelledby="common-mistakes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Common mistakes
+  
+  
+</h2>
+    
+
+<ul>
+  <li><strong>Duplicating content across <code class="language-plaintext highlighter-rouge">AGENTS.md</code> and <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>.</strong> Pick one source of truth. If the rule belongs in both, put it in <code class="language-plaintext highlighter-rouge">AGENTS.md</code> and import from <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>.</li>
+  <li><strong>Putting tool-specific UI references in <code class="language-plaintext highlighter-rouge">AGENTS.md</code>.</strong> “Use the plan mode” only makes sense in Claude Code. Keep it in the tool-native file.</li>
+  <li><strong>Letting it grow past a screen.</strong> The same advice applies as for <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>: under 200 lines, ideally under 100. Long files don’t get followed; they get skimmed. See <a href="/docs/foundations/context-is-a-budget/">context is a budget</a>.</li>
+  <li><strong>Treating it as documentation.</strong> The README is for humans. <code class="language-plaintext highlighter-rouge">AGENTS.md</code> is for the model. They overlap but they aren’t the same file. (If you have neither, <em>write the README first.</em>)</li>
+</ul>
+
+<blockquote class="tip">
+  <p>When you’re about to add something to <code class="language-plaintext highlighter-rouge">AGENTS.md</code>, ask: would this also help a new human contributor on their first day? If yes, it might belong in the README and be linked from <code class="language-plaintext highlighter-rouge">AGENTS.md</code>. If no, it stays.</p>
+</blockquote>
 <h2 id="the-pattern-thats-emerging">
   
   
@@ -278,9 +465,39 @@
 </h2>
     
 
-<p>The interesting thing about <code class="language-plaintext highlighter-rouge">AGENTS.md</code> isn’t the file format — it’s barely a format at all, just markdown. It’s the implicit acknowledgment that <strong>the context resource is now part of the project</strong>, the same way a <code class="language-plaintext highlighter-rouge">Makefile</code> or a <code class="language-plaintext highlighter-rouge">.editorconfig</code> is. It’s a piece of the repo that exists to make tooling work, and it’s expected to be there.</p>
+<p>The interesting thing about <code class="language-plaintext highlighter-rouge">AGENTS.md</code> isn’t the file format — it’s barely a format, just markdown. It is the implicit acknowledgment that <strong>the context resource is now part of the project</strong>, the same way a <code class="language-plaintext highlighter-rouge">Makefile</code> or a <code class="language-plaintext highlighter-rouge">.editorconfig</code> is. A piece of the repo that exists to make tooling work, expected to be there, version-controlled like everything else.</p>
 
-<p>Five years ago this category didn’t exist. Today it’s converging on a name. Worth paying attention to.</p>
+<p>Five years ago this category didn’t exist. Today it is converging on a name and a location.</p>
+
+<p>In a year or two the question won’t be “should I have an <code class="language-plaintext highlighter-rouge">AGENTS.md</code>?” The question will be “what’s in your <code class="language-plaintext highlighter-rouge">AGENTS.md</code>?” Worth getting ahead of.</p>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/per-tool/claude-md/">Crafting a CLAUDE.md</a> — the Claude-specific guidance that <code class="language-plaintext highlighter-rouge">AGENTS.md</code> generalizes</li>
+  <li><a href="/docs/patterns/scope-by-directory/">Scope by directory</a> — how nested <code class="language-plaintext highlighter-rouge">AGENTS.md</code> files compose</li>
+  <li><a href="/docs/reference/front-matter/">Front matter cheat sheet</a> — exact load behavior across tools</li>
+  <li><a href="/docs/foundations/context-is-a-budget/">Context is a budget</a> — why “under 200 lines” matters</li>
+</ul>
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="https://agents.md/">AGENTS.md spec</a> — the canonical reference.</li>
+  <li><a href="https://agentskills.io">agentskills.io — Client Showcase</a> — the cross-tool implementer list (overlapping with AGENTS.md adopters).</li>
+</ul>
 
           
 
@@ -295,14 +512,14 @@
     <p><a href="#top" id="back-to-top">Back to top</a></p>
   
 
-  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/buecking/incontext">Source on GitHub</a></p>
 
   
     <div class="d-flex mt-2">
       
       
         <p class="text-small mb-0">
-          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/per-tool/agents-md.md" id="edit-this-page">Edit this page on GitHub</a>
+          <a href="https://github.com/buecking/incontext/tree/main/docs/per-tool/agents-md.md" id="edit-this-page">Edit this page on GitHub</a>
         </p>
       
     </div>

@@ -202,7 +202,7 @@
   <ul class="aux-nav-list">
     
       <li class="aux-nav-list-item">
-        <a href="https://github.com/YOUR-USER/incontext" class="site-button"
+        <a href="https://github.com/buecking/incontext" class="site-button"
           
           target="_blank" rel="noopener noreferrer"
           
@@ -239,21 +239,46 @@
     
 
 <ol id="markdown-toc">
+  <li><a href="#how-claude-code-loads-it" id="markdown-toc-how-claude-code-loads-it">How Claude Code loads it</a></li>
   <li><a href="#the-shape-that-works" id="markdown-toc-the-shape-that-works">The shape that works</a></li>
   <li><a href="#what-to-leave-out" id="markdown-toc-what-to-leave-out">What to leave out</a></li>
-  <li><a href="#a-useful-pattern-scope-by-directory" id="markdown-toc-a-useful-pattern-scope-by-directory">A useful pattern: scope by directory</a></li>
+  <li><a href="#using-path-imports" id="markdown-toc-using-path-imports">Using <code class="language-plaintext highlighter-rouge">@path</code> imports</a></li>
+  <li><a href="#before-and-after" id="markdown-toc-before-and-after">Before and after</a></li>
   <li><a href="#keeping-it-alive" id="markdown-toc-keeping-it-alive">Keeping it alive</a></li>
+  <li><a href="#when-agentsmd-is-the-better-choice" id="markdown-toc-when-agentsmd-is-the-better-choice">When <code class="language-plaintext highlighter-rouge">AGENTS.md</code> is the better choice</a></li>
   <li><a href="#a-starter-template" id="markdown-toc-a-starter-template">A starter template</a></li>
   <li><a href="#related" id="markdown-toc-related">Related</a></li>
+  <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
 </ol><hr />
 
-<p><code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is a markdown file Claude Code reads automatically when it starts working in a directory. Its job is simple: tell the model the things it would otherwise have to guess about your project.</p>
+<p><code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is the project file Claude Code reads automatically when it starts working in a directory. It is the single most consequential context resource in a Claude Code project — every session reads it, every action is shaped by it, every stale line in it silently makes the model worse for as long as it sits there.</p>
 
 <p>This page is about how to write one well.</p>
 
 <blockquote class="note">
-  <p>The format and behavior evolve. When something here disagrees with Anthropic’s official docs, trust theirs.</p>
+  <p>The format and behavior evolve. When something here disagrees with <a href="https://code.claude.com/docs/en/memory">Anthropic’s official memory docs</a>, trust theirs.</p>
 </blockquote>
+<h2 id="how-claude-code-loads-it">
+  
+  
+    <a href="#how-claude-code-loads-it" class="anchor-heading" aria-labelledby="how-claude-code-loads-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How Claude Code loads it
+  
+  
+</h2>
+    
+
+<p>Five locations, loaded in this order — broadest scope first, so the closer-to-cwd files end up <em>later</em> in context and win on conflict:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Library/Application Support/ClaudeCode/CLAUDE.md   # macOS managed policy
+/etc/claude-code/CLAUDE.md                          # Linux managed policy
+~/.claude/CLAUDE.md                                 # personal (all projects)
+./CLAUDE.md  or  ./.claude/CLAUDE.md                # project, committed
+./CLAUDE.local.md                                   # project, gitignored
+</code></pre></div></div>
+
+<p>Files in <em>subdirectories</em> of the project are also discovered. When Claude reads a file in <code class="language-plaintext highlighter-rouge">frontend/</code>, it loads <code class="language-plaintext highlighter-rouge">frontend/CLAUDE.md</code> if present — adding to the context for that work without bloating the root file. See <a href="/docs/patterns/scope-by-directory/">scope by directory</a> for the broader pattern.</p>
+
+<p>This layering is the single most underused feature of the format. Most people put everything in the root file and watch it grow into an unreadable wall.</p>
 <h2 id="the-shape-that-works">
   
   
@@ -263,18 +288,24 @@
 </h2>
     
 
-<p>A <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is not a manifesto. It’s a working document the model reads on <em>every</em> run, which means every line you add costs you something on every run forever. The discipline is brutal subtraction.</p>
+<p>A <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is not a manifesto. It is a working document the model reads on <em>every</em> run, which means every line costs you something on every run forever. The discipline is brutal subtraction.</p>
 
 <p>A good <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> typically covers:</p>
 
 <ol>
-  <li><strong>What this project is.</strong> One or two sentences. The model can usually figure this out from the code, but stating it directly removes ambiguity for free.</li>
+  <li><strong>What this project is.</strong> One or two sentences. The model can usually figure it out from the code, but stating it directly removes ambiguity for free.</li>
   <li><strong>Stack and conventions.</strong> Language, package manager, test runner, formatter. The non-obvious choices.</li>
-  <li><strong>Directory map, only where it’s non-obvious.</strong> Don’t recreate <code class="language-plaintext highlighter-rouge">tree</code>. Do flag things like “schemas live in <code class="language-plaintext highlighter-rouge">db/schema/</code> and are the source of truth for migrations.”</li>
-  <li><strong>Commands the model should use.</strong> <code class="language-plaintext highlighter-rouge">pnpm test</code>, <code class="language-plaintext highlighter-rouge">make lint</code>, the deploy script — whatever the model would otherwise re-derive every time.</li>
-  <li><strong>Standing rules.</strong> “Never edit generated files in <code class="language-plaintext highlighter-rouge">dist/</code>.” “All new endpoints go in <code class="language-plaintext highlighter-rouge">routes/v2/</code>.” Things that are true across tasks.</li>
+  <li><strong>Commands the model should use.</strong> <code class="language-plaintext highlighter-rouge">pnpm test</code>, <code class="language-plaintext highlighter-rouge">make lint</code>, the deploy script — whatever the model would otherwise re-derive every time. Make them copy-pasteable.</li>
+  <li><strong>Directory map, only where it’s non-obvious.</strong> Don’t recreate <code class="language-plaintext highlighter-rouge">tree</code>. Do flag things like <em>“schemas live in <code class="language-plaintext highlighter-rouge">db/schema/</code> and are the source of truth for migrations.”</em></li>
+  <li><strong>Standing rules.</strong> <em>“Never edit generated files in <code class="language-plaintext highlighter-rouge">dist/</code>.” “All new endpoints go in <code class="language-plaintext highlighter-rouge">routes/v2/</code>.”</em> Things that are true across tasks.</li>
   <li><strong>Known gotchas.</strong> The thing that bit you last week and will bite the model next week.</li>
 </ol>
+
+<p>Anthropic’s own guidance is to keep each <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> under 200 lines. Pages that grow beyond that stop being followed reliably — adherence drops as length grows. The <a href="/docs/foundations/smart-zone-and-dumb-zone/">smart-zone framing</a> is one reason; the <a href="/docs/foundations/long-context-degradation/">lost-in-the-middle effect</a> is another.</p>
+
+<blockquote class="tip">
+  <p>When in doubt, write the rule and then immediately ask: <em>would the model do the wrong thing without this line?</em> If you can’t name the wrong thing, the line probably doesn’t belong.</p>
+</blockquote>
 <h2 id="what-to-leave-out">
   
   
@@ -285,23 +316,137 @@
     
 
 <ul>
-  <li><strong>Anything obvious from looking at the repo.</strong> If the model can see <code class="language-plaintext highlighter-rouge">package.json</code>, it doesn’t need to be told you use TypeScript.</li>
-  <li><strong>Aspirational rules.</strong> If you don’t actually follow it, the model shouldn’t either — it’ll produce confused output that mixes the rule with the actual codebase.</li>
+  <li><strong>Anything obvious from the repo.</strong> If the model can see <code class="language-plaintext highlighter-rouge">package.json</code>, it doesn’t need to be told you use TypeScript. Anthropic’s documentation puts this bluntly: include what the model <em>will get wrong without</em>, not everything true about the project.</li>
+  <li><strong>Aspirational rules.</strong> If you don’t actually follow it, the model shouldn’t either — it produces confused output that mixes the rule with the actual codebase. See <a href="/docs/reference/failure-modes/#5-aspirational-rules">failure modes §5</a>.</li>
   <li><strong>Marketing copy or backstory.</strong> The README is for humans. <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is for the model.</li>
-  <li><strong>Long examples.</strong> If you need an example, point at a real file in the repo.</li>
+  <li><strong>Long examples.</strong> If you need an example, point at a real file. Imports cost nothing on stable code; embedded examples go stale.</li>
+  <li><strong>Expert-persona claims.</strong> <em>“You are a senior backend engineer with 20 years of experience”</em> — empirical evidence is that this does not boost factual accuracy and may increase confident hallucinations. See <a href="/docs/reference/directives/#6-role--persona-prompts--for-style-not-for-capability">directives §6</a>.</li>
+  <li><strong>“Let’s think step by step.”</strong> Useful on non-reasoning models; counterproductive on Claude with extended thinking. See <a href="/docs/reference/directives/#5-chain-of-thought-triggers--only-on-non-reasoning-models">directives §5</a>.</li>
 </ul>
-<h2 id="a-useful-pattern-scope-by-directory">
+<h2 id="using-path-imports">
   
   
-    <a href="#a-useful-pattern-scope-by-directory" class="anchor-heading" aria-labelledby="a-useful-pattern-scope-by-directory"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A useful pattern: scope by directory
+    <a href="#using-path-imports" class="anchor-heading" aria-labelledby="using-path-imports"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Using <code class="language-plaintext highlighter-rouge">@path</code> imports
   
   
 </h2>
     
 
-<p>Claude Code reads <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> files at multiple levels of the tree, with closer files taking precedence. This means you can put repo-wide rules at the root and put narrower rules deeper. A <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> in <code class="language-plaintext highlighter-rouge">frontend/</code> can talk about React conventions without bloating the root file for backend work.</p>
+<p>Claude Code expands <code class="language-plaintext highlighter-rouge">@path</code> references inside <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> into the actual file contents at session start. This means you can keep <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> small and pull in deeper material only where it’s load-bearing:</p>
 
-<p>This is the single most underused feature of the format. Most people put everything in the root file and watch it grow into an unreadable wall.</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Acme platform</span>
+
+E-commerce platform for the Acme catalog.
+
+See @README.md for project overview and @package.json for npm commands.
+
+<span class="gh"># Coding rules</span>
+@docs/conventions.md
+
+<span class="gh"># Architecture</span>
+@docs/architecture-overview.md
+</code></pre></div></div>
+
+<p>A few rules of thumb:</p>
+
+<ul>
+  <li><strong>Imports recurse up to 5 hops deep.</strong> Don’t build deep import chains; the deepest layer often gets truncated or lost.</li>
+  <li><strong>Block-level HTML comments (<code class="language-plaintext highlighter-rouge">&lt;!-- ... --&gt;</code>) are stripped</strong> before injection. Use them to leave notes for humans without paying tokens.</li>
+  <li><strong>The imported file’s full content is loaded.</strong> If you import a 5,000-line <code class="language-plaintext highlighter-rouge">architecture-overview.md</code>, that’s now in every session. Either trim the imported file or extract only the relevant section.</li>
+  <li><strong>Imports beat copy-paste.</strong> A copied snippet goes stale the moment the source changes. See <a href="/docs/patterns/cite-dont-summarize/">cite, don’t summarize</a>.</li>
+</ul>
+<h2 id="before-and-after">
+  
+  
+    <a href="#before-and-after" class="anchor-heading" aria-labelledby="before-and-after"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Before and after
+  
+  
+</h2>
+    
+
+<p>A common <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> that has grown wrong:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Acme</span>
+
+Acme is a fast-growing e-commerce startup serving the catalog space.
+We pride ourselves on customer obsession and operational excellence.
+
+<span class="gu">## You</span>
+
+You are a world-class senior engineer with 20+ years of experience
+in TypeScript, React, Node.js, Postgres, Redis, AWS, GCP, Docker,
+Kubernetes, and microservices architecture. Let's think step by step.
+
+<span class="gu">## Stack</span>
+
+We use TypeScript, React, Bun, Postgres. Our package manager is bun
+which we migrated to from pnpm last quarter. Tests are written in
+Vitest. Wait, actually we use Bun test now. Both still work.
+
+<span class="gu">## Conventions</span>
+
+Please always write clean code. Make sure to handle errors properly.
+Use descriptive variable names. Don't use any. Don't use var.
+Don't write tests after the code. Don't add comments unless needed.
+
+<span class="gu">## Things to know</span>
+
+[850 lines of architecture decisions, rationale, and historical context]
+</code></pre></div></div>
+
+<p>What’s wrong:</p>
+<ul>
+  <li>Marketing intro (“customer obsession”) — fluff.</li>
+  <li>Expert persona — no measurable benefit, potential for over-confident output.</li>
+  <li>“Let’s think step by step” — counterproductive on extended thinking.</li>
+  <li>Stack section is internally contradictory (Vitest vs Bun test) — agent will pick one, often wrong.</li>
+  <li>“Please always write clean code” — vague, unmeasurable, <a href="/docs/reference/directives/#2-bare-imperatives-second-person">bare imperatives</a> would beat this.</li>
+  <li>Negative-only constraints (“don’t use any”) — see <a href="/docs/patterns/negative-examples/">negative examples</a>.</li>
+  <li>850 lines of architecture — over budget by a factor of four.</li>
+</ul>
+
+<p>The rewrite, under 60 lines:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Acme</span>
+
+E-commerce platform for the Acme catalog. TypeScript / Bun monorepo.
+
+<span class="gu">## Setup</span>
+<span class="p">-</span> Install: <span class="sb">`bun install`</span>
+<span class="p">-</span> Test: <span class="sb">`bun test`</span>
+<span class="p">-</span> Test one file: <span class="sb">`bun test path/to/file.test.ts`</span>
+<span class="p">-</span> Lint: <span class="sb">`bun lint`</span>
+<span class="p">-</span> Typecheck: <span class="sb">`bun typecheck`</span>
+<span class="p">-</span> Dev server: <span class="sb">`bun dev`</span>
+
+<span class="gu">## Stack</span>
+<span class="p">-</span> Runtime: Bun 1.1+ (migrated from pnpm/Node — <span class="sb">`pnpm`</span> and <span class="sb">`vitest`</span> no longer work)
+<span class="p">-</span> Database: Postgres 16 via the <span class="sb">`db/`</span> package
+<span class="p">-</span> Frontend: React 19 + Vite (in <span class="sb">`packages/web/`</span>)
+
+<span class="gu">## Conventions</span>
+<span class="p">-</span> Commit messages: conventional commits (<span class="sb">`feat:`</span>, <span class="sb">`fix:`</span>, <span class="sb">`docs:`</span>).
+<span class="p">-</span> Vertical slices: one PR cuts through schema → service → API → UI.
+<span class="p">-</span> Tests before code. Red, green, refactor.
+<span class="p">-</span> TypeScript strict mode. Use <span class="sb">`unknown`</span> over <span class="sb">`any`</span> for untyped values.
+<span class="p">-</span> snake_case for SQL columns; camelCase for TypeScript identifiers.
+
+<span class="gu">## Architecture</span>
+See @docs/architecture/overview.md for the system map.
+See @docs/architecture/services.md for service boundaries.
+
+<span class="gu">## Gotchas</span>
+<span class="p">-</span> Migrations in <span class="sb">`db/migrations/`</span> are immutable once on <span class="sb">`main`</span>. For schema
+  changes, create a new migration with the next number.
+<span class="p">-</span> <span class="sb">`bun build`</span> produces a single binary; do not commit <span class="sb">`dist/`</span>.
+<span class="p">-</span> The Stripe webhook handler depends on Redis. Run <span class="sb">`bun dev:redis`</span> first.
+
+<span class="gu">## Out of scope</span>
+<span class="p">-</span> <span class="sb">`vendor/`</span> is third-party code — never edit.
+<span class="p">-</span> <span class="sb">`legacy/`</span> is being deleted slice by slice — don't add features.
+</code></pre></div></div>
+
+<p>Every line earns its place. The architecture material lives in cited files, not pasted in. The expert persona is gone. The conflicting stack info is reconciled (with the migration noted explicitly so the agent doesn’t try the old commands).</p>
 <h2 id="keeping-it-alive">
   
   
@@ -311,12 +456,35 @@
 </h2>
     
 
-<p>The failure mode for <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is the same as for any documentation: it goes stale, the project moves, and now the model is being told things that aren’t true anymore. Two habits help:</p>
+<p>The failure mode for <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> is the same as for any documentation: it goes stale, the project moves, and now the model is being told things that aren’t true. The agent will weight the stale imperative over live evidence — see <a href="/docs/reference/failure-modes/#3-stale-instructions">stale instructions</a>.</p>
+
+<p>Three habits:</p>
 
 <ul>
-  <li><strong>Treat staleness as a bug.</strong> When you change a convention, change the file in the same commit.</li>
+  <li><strong>Treat staleness as a bug.</strong> When you change a convention, change the file in the same commit. Reviewers should reject PRs that change conventions without updating <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>.</li>
+  <li><strong>Lint commands.</strong> A CI check that every command in <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> exists in <code class="language-plaintext highlighter-rouge">package.json</code> / <code class="language-plaintext highlighter-rouge">Makefile</code> / wherever costs nothing and catches the most common drift.</li>
   <li><strong>Re-read it quarterly.</strong> Out loud, ideally. Anything you flinch at — outdated, aspirational, redundant — cut it.</li>
 </ul>
+
+<p>The Claude Code <code class="language-plaintext highlighter-rouge">/init</code> command can regenerate a <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> from current repo state. Useful for the first draft and as a quarterly diff against the live file.</p>
+<h2 id="when-agentsmd-is-the-better-choice">
+  
+  
+    <a href="#when-agentsmd-is-the-better-choice" class="anchor-heading" aria-labelledby="when-agentsmd-is-the-better-choice"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When <code class="language-plaintext highlighter-rouge">AGENTS.md</code> is the better choice
+  
+  
+</h2>
+    
+
+<p>If your team uses more than one agent tool, or your project is open source, <a href="/docs/per-tool/agents-md/"><code class="language-plaintext highlighter-rouge">AGENTS.md</code></a> at the repo root is the lower-friction choice. The same content shape works; the file is just portable across tools. You can then keep a minimal <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> that imports the shared file and adds Claude-specific overrides:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@AGENTS.md
+
+<span class="gu">## Claude Code specific</span>
+<span class="p">-</span> Use plan mode for changes under <span class="sb">`src/billing/`</span>.
+<span class="p">-</span> The agent should not start work on tasks tagged <span class="sb">`[design-review]`</span> —
+  those need human design sign-off first.
+</code></pre></div></div>
 <h2 id="a-starter-template">
   
   
@@ -328,24 +496,24 @@
 
 <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># &lt;Project name&gt;</span>
 
-<span class="nt">&lt;One-sentence</span> <span class="na">description</span> <span class="na">of</span> <span class="na">what</span> <span class="na">this</span> <span class="na">is.</span><span class="nt">&gt;</span>
+<span class="nt">&lt;One-sentence</span> <span class="na">description.</span><span class="nt">&gt;</span>
+
+<span class="gu">## Setup</span>
+<span class="p">-</span> Install: <span class="sb">`&lt;command&gt;`</span>
+<span class="p">-</span> Test: <span class="sb">`&lt;command&gt;`</span>
+<span class="p">-</span> Lint: <span class="sb">`&lt;command&gt;`</span>
 
 <span class="gu">## Stack</span>
 <span class="p">-</span> <span class="nt">&lt;Language</span> <span class="err">+</span> <span class="na">version</span><span class="nt">&gt;</span>
-<span class="p">-</span> <span class="nt">&lt;Package</span> <span class="na">manager</span><span class="nt">&gt;</span>
 <span class="p">-</span> <span class="nt">&lt;Test</span> <span class="na">runner</span><span class="nt">&gt;</span>
-<span class="p">-</span> <span class="nt">&lt;Anything</span> <span class="na">else</span> <span class="na">non-obvious</span><span class="nt">&gt;</span>
-
-<span class="gu">## Commands</span>
-<span class="p">-</span> <span class="sb">`&lt;command&gt;`</span> — <span class="nt">&lt;what</span> <span class="na">it</span> <span class="na">does</span><span class="nt">&gt;</span>
-<span class="p">-</span> <span class="sb">`&lt;command&gt;`</span> — <span class="nt">&lt;what</span> <span class="na">it</span> <span class="na">does</span><span class="nt">&gt;</span>
+<span class="p">-</span> <span class="nt">&lt;Anything</span> <span class="na">non-obvious</span><span class="nt">&gt;</span>
 
 <span class="gu">## Conventions</span>
 <span class="p">-</span> <span class="nt">&lt;Rule&gt;</span>
 <span class="p">-</span> <span class="nt">&lt;Rule&gt;</span>
 
 <span class="gu">## Gotchas</span>
-<span class="p">-</span> <span class="nt">&lt;Thing</span> <span class="na">that</span> <span class="na">will</span> <span class="na">bite</span> <span class="na">you</span><span class="nt">&gt;</span>
+<span class="p">-</span> <span class="nt">&lt;Thing</span> <span class="na">that</span> <span class="na">bites</span><span class="nt">&gt;</span>
 </code></pre></div></div>
 
 <p>Start there. Add only when you’ve watched the model do the wrong thing twice and can articulate the rule that would have prevented it. Resist the urge to pre-populate.</p>
@@ -359,8 +527,24 @@
     
 
 <ul>
-  <li><a href="/docs/per-tool/agents-md/">AGENTS.md and the convergence</a></li>
-  <li><a href="/docs/foundations/context-is-a-budget/">Context is a budget</a></li>
+  <li><a href="/docs/per-tool/agents-md/">AGENTS.md and the convergence</a> — the cross-tool form of the same idea</li>
+  <li><a href="/docs/patterns/scope-by-directory/">Scope by directory</a> — multi-level <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> files</li>
+  <li><a href="/docs/patterns/cite-dont-summarize/">Cite, don’t summarize</a> — why <code class="language-plaintext highlighter-rouge">@path</code> imports beat copy-paste</li>
+  <li><a href="/docs/foundations/context-is-a-budget/">Context is a budget</a> — why “under 200 lines” matters</li>
+  <li><a href="/docs/reference/failure-modes/#3-stale-instructions">Failure modes §3 — stale instructions</a></li>
+  <li><a href="/docs/reference/failure-modes/#5-aspirational-rules">Failure modes §5 — aspirational rules</a></li>
+</ul>
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="https://code.claude.com/docs/en/memory">Claude Code — CLAUDE.md and auto memory</a> — the canonical reference for loading behavior, <code class="language-plaintext highlighter-rouge">@path</code> imports, and recommended length.</li>
 </ul>
 
           
@@ -376,14 +560,14 @@
     <p><a href="#top" id="back-to-top">Back to top</a></p>
   
 
-  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/YOUR-USER/incontext">Source on GitHub</a></p>
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/buecking/incontext">Source on GitHub</a></p>
 
   
     <div class="d-flex mt-2">
       
       
         <p class="text-small mb-0">
-          <a href="https://github.com/YOUR-USER/incontext/tree/main/docs/per-tool/claude-md.md" id="edit-this-page">Edit this page on GitHub</a>
+          <a href="https://github.com/buecking/incontext/tree/main/docs/per-tool/claude-md.md" id="edit-this-page">Edit this page on GitHub</a>
         </p>
       
     </div>
