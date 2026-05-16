@@ -8,7 +8,7 @@ permalink: /docs/patterns/
 
 # Patterns
 
-Recurring shapes for organizing context that earn their keep across tools and models. Each page below covers one pattern: what it is, when to reach for it, how to apply it, and where it breaks. Grounded in the official docs of the tools that implement them and in the published research behind the claims.
+Six recurring shapes for organizing context — local choices that, in aggregate, compose the apparatus [perception over history](/docs/foundations/perception-over-history/) names from a different angle. Each page covers one pattern: what it is, when to reach for it, how to apply it, and where it breaks. Grounded in the official docs of the tools that implement them and the published research behind the claims.
 
 ## In this section
 

@@ -14,7 +14,7 @@ permalink: /docs/foundations/long-context-degradation/
 
 ---
 
-## The short version
+## The finding
 
 Modern models advertise context windows of 200K, 1M, even 2M tokens. **Performance does not stay flat across that window.** Information placed in the middle of a long context is used worse than information placed at the beginning or the end — sometimes dramatically worse.
 

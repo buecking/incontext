@@ -14,11 +14,9 @@ permalink: /docs/skills/xp-with-ai/
 
 ---
 
-This page is the companion to [the XP workflow](/docs/skills/xp-workflow/). That page is faithful Beck, written for human teams. This one is the spinoff: what changes — and what doesn't — when one of the seats at the table is occupied by an AI coding agent.
+This page is the companion to [the XP workflow](/docs/skills/xp-workflow/) — faithful Beck, written for human teams. It is also where the [foundations diagnosis](/docs/foundations/#the-diagnosis) becomes a workflow. Beck's 1999 discipline was a safety net for humans, who drift slowly. Agents drift faster, in different directions, and with more confidence. **XP gets more valuable, not less; the same net catches more.**
 
-The short version: **XP gets more valuable, not less.** The discipline Beck designed in 1999 was a safety net for humans, who drift slowly. AI agents drift faster, in different directions, and with more confidence. The same net catches more.
-
-But the practices need adapting. Some get easier. Some get harder. A few break entirely if you apply them naively. The rest of this page works through which is which.
+The practices need adapting. Some get easier. Some get harder. A few break entirely if you apply them naively. The rest of this page works through which is which, and ends with a 12-point invariant list short enough to install as a skill.
 
 ## What XP got right that matters more now
 
@@ -189,6 +187,8 @@ The full SKILL.md file — written to the [Agent Skills](https://agentskills.io)
 12. **Customer stays human.** Scope, priority, and acceptance are not delegable.
 
 The first ten are XP turned up to ten on a workflow that includes an agent. The last two are the ones the AI variant adds, and they are the ones that fail first when teams skip them.
+
+These twelve land hard because they operate the slot the manifesto called [*procedural memory*](/docs/foundations/#the-map) — the layer of the apparatus closest to deployed today. The other slots are still open. Working memory has [a proposal](/docs/foundations/perception-over-history/). Episodic memory and forward models don't, yet. When they do, the XP loop will need another revision.
 
 ## Related
 

@@ -14,7 +14,7 @@ permalink: /docs/foundations/smart-zone-and-dumb-zone/
 
 ---
 
-## The short version
+## The headline
 
 A model starts every session sharp and gets duller with every token added to its context. The early part of a session — small context, fresh attention — is the **smart zone**. The later part of a session — bloated context, attention spread thin, earlier mistakes still in scope — is the **dumb zone**.
 

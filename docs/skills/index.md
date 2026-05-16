@@ -12,7 +12,7 @@ A **skill** is a reusable, named workflow that an AI coding tool can invoke on d
 
 Skills are a context resource in the sense that [the rest of this site](/docs/foundations/what-is-a-context-resource/) uses the term. They live next to your `CLAUDE.md` and `AGENTS.md` and load on demand instead of on every run, which makes them cheap to keep around and easy to compose.
 
-This section is short on purpose. There are hundreds of skills floating around. Most of them are noise. The ones below are the small set that real engineers reach for repeatedly, with the [XP workflow](/docs/skills/xp-workflow/) as the headline because it's the one that changes how you work, not just what you can ask for.
+This is the [procedural-memory layer](/docs/foundations/#the-map) the manifesto named — workflows packaged densely enough that the agent doesn't need them re-explained. There are hundreds of skills floating around; most are noise. The ones below are the small set that earns its slot, with the [XP workflow](/docs/skills/xp-workflow/) as the loop everything else hangs off.
 
 ## What's here
 

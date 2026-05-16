@@ -18,7 +18,7 @@ Every long-running agent session hits the same wall: the conversation grows fast
 
 The agent doesn't need its history. It needs its **perception**: a current model of the task, the code, and what it's about to do. Humans don't navigate the world by replaying yesterday. We navigate by carrying a small, dense, continuously updated mental model. Agents should do the same.
 
-What follows is a survey of how current systems compress context, an honest account of where each one breaks, and a design proposal — `perception.md` — for a compression layer that carries *state* instead of *trajectory*.
+What follows is a survey of how current systems compress context, an honest account of where each one breaks, and a design proposal — `perception.md` — for a compression layer that carries *state* instead of *trajectory*. This is the working-memory chapter of the book: where the [foundations diagnosis](/docs/foundations/#the-diagnosis) becomes a design.
 
 {: .note }
 > Most of this page is empirical (the current-systems survey is sourced; the failure modes link out to citable evidence). The `perception.md` design proposal at the end is a contribution, not a literature review — clearly flagged where it crosses from "documented" into "designed."

@@ -8,7 +8,7 @@ permalink: /docs/reference/
 
 # Reference
 
-Quick lookups. Installable skills, format cheat sheets, directive patterns with empirical evidence, and a diagnostic guide for when something's wrong.
+The reference appendices: installable skills, format cheat sheets, directive patterns with empirical evidence, and a diagnostic guide for when something's wrong. Read straight through, or land here from a search.
 
 ## Pages in this section
 
@@ -66,6 +66,3 @@ In any Claude Code session:
 
 You'll see the skill listed by name with its description. If it's not there, check the path and the YAML frontmatter — both `name` and `description` should be present.
 
-## Hire us
-
-If you landed here because one of these skills crossed your feed: the work that produced them is what we do for clients. The site is the resume. Reach us at the GitHub link in the header.
