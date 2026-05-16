@@ -28,7 +28,7 @@ Any honest design has to defend that step, not just the worker steps. Everything
 
 The variant has four moving parts. None of them is novel in isolation. Their composition — and especially the token-as-unit-of-progress move — is the contribution.
 
-### 1. Stories as forward models with token budgets
+### 1. Stories with token budgets
 
 A story in this variant carries an explicit context budget. The familiar fields (acceptance criteria, definition of done) are still there. The new field is a small budget block:
 
@@ -36,7 +36,7 @@ A story in this variant carries an explicit context budget. The familiar fields 
 Story: parse-bearer-tokens
 Context floor:   ~3.4k   (story card + ADR-014 + auth.rs + tests/auth/*)
 Working budget:  ~12k    (3–4× floor — empirical multiplier)
-Ceiling:         ~15.4k  (must fit under smart-zone budget for target model)
+Ceiling:         ~15.4k  (must fit under smart-zone ceiling for target model)
 Target model:    claude-sonnet-4-6
 ADRs in scope:   ADR-014, ADR-007
 ```
@@ -45,10 +45,12 @@ The fields mean:
 
 - **Context floor** — the load-once cost. Story card, in-scope ADRs, files the agent must read to begin. Deterministic; you can measure it before the session starts with a tokenizer.
 - **Working budget** — the empirical multiplier on the floor. What the model will generate (and re-read) during the session. Noisy at first; learned over iterations.
-- **Ceiling** — floor + working. Must fit comfortably under your *smart-zone budget* for the target model, which is the share of context window before measurable [degradation kicks in](/docs/foundations/smart-zone-and-dumb-zone/).
-- **Target model** — non-optional. Sonnet's smart-zone budget is not Opus's is not Haiku's. A budget without a model named is meaningless.
+- **Ceiling** — floor + working. Must fit comfortably under the load that keeps the target model in its [smart zone](/docs/foundations/smart-zone-and-dumb-zone/). There is no published number for this — you measure it locally by watching where your own sessions start to drift, and you re-measure when the model changes.
+- **Target model** — non-optional. Sonnet's smart-zone ceiling is not Opus's is not Haiku's. A ceiling without a model named is meaningless.
 
-The discipline this enforces: **if a story's ceiling exceeds the smart-zone budget, the story is too big.** Slice it, pull fewer files into scope, or compress the ADRs it depends on. The decision is now numerical, not aesthetic.
+The discipline this enforces: **if a story's ceiling pushes past the smart-zone line, the story is too big.** Slice it, pull fewer files into scope, or compress the ADRs it depends on. The decision is now numerical, not aesthetic.
+
+The budget block is the story's small [forward model](/docs/foundations/#the-map) — a predicted resource cost, made explicit so it can be checked against the actual.
 
 ### 2. ADRs as compressed contracts
 
@@ -92,8 +94,8 @@ What changes:
 
 This also collapses the "should we parallelize this?" question into arithmetic:
 
-- If `floor(A) + floor(B) > smart-zone budget` → split into separate worktrees.
-- If `floor(A) + floor(B) << smart-zone budget` → do sequentially in one session. Worktree overhead isn't worth it.
+- If `floor(A) + floor(B) > smart-zone ceiling` → split into separate worktrees.
+- If `floor(A) + floor(B) << smart-zone ceiling` → do sequentially in one session. Worktree overhead isn't worth it.
 
 ### 4. The integrator as token-burn watcher
 
@@ -111,7 +113,7 @@ What the integrator never does: read any agent's diffs in detail, hold an opinio
 
 The loop, end-to-end:
 
-1. **Plan in one session.** Customer writes stories. The planning agent (separate from the implementation agents) drafts ADRs as decisions surface. Each ADR is compressed before it lands. Stories get budget blocks; budget blocks reference the ADRs they depend on. Output: a small set of stories that can be implemented in parallel, each with a known ceiling under the smart-zone budget.
+1. **Plan in one session.** Customer writes stories. The planning agent (separate from the implementation agents) drafts ADRs as decisions surface. Each ADR is compressed before it lands. Stories get budget blocks; budget blocks reference the ADRs they depend on. Output: a small set of stories that can be implemented in parallel, each with a known ceiling under the smart-zone line.
 2. **Fan out.** One worktree per parallel story. Each implementation session loads exactly the floor declared on its story card. No sibling diffs, no full repo scans.
 3. **Implement in the smart zone.** Each slice is sized to finish before degradation. Tests first, runner-judged, atomic commit, reset. Same 12-point invariant list as [`xp-with-ai`](/docs/skills/xp-with-ai/#the-skill-a-one-page-invariant-list).
 4. **Merge through the integrator.** Worktrees fold back in dependency order. The integrator runs the suite, posts diagnostics, logs actual token consumption against the estimates.

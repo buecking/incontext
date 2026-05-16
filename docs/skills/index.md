@@ -18,7 +18,7 @@ This is the [procedural-memory layer](/docs/foundations/#the-map) the manifesto 
 
 - **[The XP workflow](/docs/skills/xp-workflow/)** — a faithful summary of Kent Beck's *Extreme Programming Explained* (1999). The values, the principles, the twelve practices, the lifecycle, the roles. The source the AI variant is built on.
 - **[XP with an AI on the team](/docs/skills/xp-with-ai/)** — the spinoff. What changes (and what doesn't) when one of the seats at the table is an AI coding agent. Adapts each practice, names the new failure modes, and ends with a 12-point invariant list you can install as a skill.
-- **[Parallel XP with token budgets](/docs/skills/parallel-xp/)** — the N-agent variant. Stories carry token budgets; ADRs carry compressed contracts; velocity is measured in tokens; the integrator stays in the smart zone too.
+- **[Parallel XP with token budgets](/docs/skills/parallel-xp/)** — the N-agent variant of the loop, and the chapter that puts the first deliberate move into the episodic and forward-model slots the foundations page calls empty.
 - **[Supporting skills](/docs/skills/supporting-skills/)** — the short list of skills that earn their keep alongside the XP loop: `improve-codebase-architecture`, `grill-me`, `simplify`.
 
 ## When a skill is the right shape

@@ -188,7 +188,7 @@ The full SKILL.md file — written to the [Agent Skills](https://agentskills.io)
 
 The first ten are XP turned up to ten on a workflow that includes an agent. The last two are the ones the AI variant adds, and they are the ones that fail first when teams skip them.
 
-These twelve land hard because they operate the slot the manifesto called [*procedural memory*](/docs/foundations/#the-map) — the layer of the apparatus closest to deployed today. The other slots are still open. Working memory has [a proposal](/docs/foundations/perception-over-history/). Episodic memory and forward models don't, yet. When they do, the XP loop will need another revision.
+These twelve land hard because they operate the slot the manifesto called [*procedural memory*](/docs/foundations/#the-map) — the layer of the apparatus closest to deployed today. The other slots are still open. Working memory has [a proposal](/docs/foundations/perception-over-history/). Episodic memory and forward models get a partial answer in the [parallel variant](/docs/skills/parallel-xp/) — ADRs as load-once consolidations, story budgets as predicted consequence — but only inside the XP loop, not as general-purpose layers of the apparatus. When the general versions arrive, the loop will need another revision.
 
 ## Related
 
