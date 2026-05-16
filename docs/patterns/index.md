@@ -18,10 +18,11 @@ Recurring shapes for organizing context that earn their keep across tools and mo
 - **[Retrieve before generate](/docs/patterns/retrieve-before-generate/)** — when retrieval beats stuffing, and the empirical state of the art (Anthropic Contextual Retrieval, 49–67% top-20 failure reduction).
 - **[Cite, don't summarize](/docs/patterns/cite-dont-summarize/)** — point at the file instead of paraphrasing it. Citations stay fresh; paraphrases go stale.
 - **[Negative examples](/docs/patterns/negative-examples/)** — counter-examples work only when paired with the positive alternative. The empirical case against bare prohibitions.
+- **[CRAFT framework (review)](/docs/patterns/craft-framework/)** — an outside acronym framework (Context · Request · Actions · Frame · Template), annotated against the evidence on persona, specificity, negation, and few-shot.
 
 ## How these compose
 
-The six patterns aren't independent — they pull on each other:
+The six compositional patterns aren't independent — they pull on each other (CRAFT, above, is a *review* of an outside framework, not a composing primitive):
 
 - **Scope by directory** is a special case of **layered context**: directory depth is one axis of layering, alongside global/project/task.
 - **Role + task + constraints** maps onto **layered context**: role and constraints in the project layer (CLAUDE.md), task in the task layer (user message or perception working set).
