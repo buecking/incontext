@@ -241,7 +241,7 @@
 <ol id="markdown-toc">
   <li><a href="#the-motivating-failure" id="markdown-toc-the-motivating-failure">The motivating failure</a></li>
   <li><a href="#four-pieces" id="markdown-toc-four-pieces">Four pieces</a>    <ol>
-      <li><a href="#1-stories-as-forward-models-with-token-budgets" id="markdown-toc-1-stories-as-forward-models-with-token-budgets">1. Stories as forward models with token budgets</a></li>
+      <li><a href="#1-stories-with-token-budgets" id="markdown-toc-1-stories-with-token-budgets">1. Stories with token budgets</a></li>
       <li><a href="#2-adrs-as-compressed-contracts" id="markdown-toc-2-adrs-as-compressed-contracts">2. ADRs as compressed contracts</a></li>
       <li><a href="#3-velocity-in-tokens-not-points" id="markdown-toc-3-velocity-in-tokens-not-points">3. Velocity in tokens, not points</a></li>
       <li><a href="#4-the-integrator-as-token-burn-watcher" id="markdown-toc-4-the-integrator-as-token-burn-watcher">4. The integrator as token-burn watcher</a></li>
@@ -280,10 +280,10 @@
     
 
 <p>The variant has four moving parts. None of them is novel in isolation. Their composition — and especially the token-as-unit-of-progress move — is the contribution.</p>
-<h3 id="1-stories-as-forward-models-with-token-budgets">
+<h3 id="1-stories-with-token-budgets">
   
   
-    <a href="#1-stories-as-forward-models-with-token-budgets" class="anchor-heading" aria-labelledby="1-stories-as-forward-models-with-token-budgets"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. Stories as forward models with token budgets
+    <a href="#1-stories-with-token-budgets" class="anchor-heading" aria-labelledby="1-stories-with-token-budgets"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. Stories with token budgets
   
   
 </h3>
@@ -294,7 +294,7 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Story: parse-bearer-tokens
 Context floor:   ~3.4k   (story card + ADR-014 + auth.rs + tests/auth/*)
 Working budget:  ~12k    (3–4× floor — empirical multiplier)
-Ceiling:         ~15.4k  (must fit under smart-zone budget for target model)
+Ceiling:         ~15.4k  (must fit under smart-zone ceiling for target model)
 Target model:    claude-sonnet-4-6
 ADRs in scope:   ADR-014, ADR-007
 </code></pre></div></div>
@@ -304,11 +304,13 @@ ADRs in scope:   ADR-014, ADR-007
 <ul>
   <li><strong>Context floor</strong> — the load-once cost. Story card, in-scope ADRs, files the agent must read to begin. Deterministic; you can measure it before the session starts with a tokenizer.</li>
   <li><strong>Working budget</strong> — the empirical multiplier on the floor. What the model will generate (and re-read) during the session. Noisy at first; learned over iterations.</li>
-  <li><strong>Ceiling</strong> — floor + working. Must fit comfortably under your <em>smart-zone budget</em> for the target model, which is the share of context window before measurable <a href="/docs/foundations/smart-zone-and-dumb-zone/">degradation kicks in</a>.</li>
-  <li><strong>Target model</strong> — non-optional. Sonnet’s smart-zone budget is not Opus’s is not Haiku’s. A budget without a model named is meaningless.</li>
+  <li><strong>Ceiling</strong> — floor + working. Must fit comfortably under the load that keeps the target model in its <a href="/docs/foundations/smart-zone-and-dumb-zone/">smart zone</a>. There is no published number for this — you measure it locally by watching where your own sessions start to drift, and you re-measure when the model changes.</li>
+  <li><strong>Target model</strong> — non-optional. Sonnet’s smart-zone ceiling is not Opus’s is not Haiku’s. A ceiling without a model named is meaningless.</li>
 </ul>
 
-<p>The discipline this enforces: <strong>if a story’s ceiling exceeds the smart-zone budget, the story is too big.</strong> Slice it, pull fewer files into scope, or compress the ADRs it depends on. The decision is now numerical, not aesthetic.</p>
+<p>The discipline this enforces: <strong>if a story’s ceiling pushes past the smart-zone line, the story is too big.</strong> Slice it, pull fewer files into scope, or compress the ADRs it depends on. The decision is now numerical, not aesthetic.</p>
+
+<p>The budget block is the story’s small <a href="/docs/foundations/#the-map">forward model</a> — a predicted resource cost, made explicit so it can be checked against the actual.</p>
 <h3 id="2-adrs-as-compressed-contracts">
   
   
@@ -368,8 +370,8 @@ Locked in by: tests/auth/integration_test.rs::{bearer_round_trip, expired_reject
 <p>This also collapses the “should we parallelize this?” question into arithmetic:</p>
 
 <ul>
-  <li>If <code class="language-plaintext highlighter-rouge">floor(A) + floor(B) &gt; smart-zone budget</code> → split into separate worktrees.</li>
-  <li>If <code class="language-plaintext highlighter-rouge">floor(A) + floor(B) &lt;&lt; smart-zone budget</code> → do sequentially in one session. Worktree overhead isn’t worth it.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">floor(A) + floor(B) &gt; smart-zone ceiling</code> → split into separate worktrees.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">floor(A) + floor(B) &lt;&lt; smart-zone ceiling</code> → do sequentially in one session. Worktree overhead isn’t worth it.</li>
 </ul>
 <h3 id="4-the-integrator-as-token-burn-watcher">
   
@@ -403,7 +405,7 @@ Locked in by: tests/auth/integration_test.rs::{bearer_round_trip, expired_reject
 <p>The loop, end-to-end:</p>
 
 <ol>
-  <li><strong>Plan in one session.</strong> Customer writes stories. The planning agent (separate from the implementation agents) drafts ADRs as decisions surface. Each ADR is compressed before it lands. Stories get budget blocks; budget blocks reference the ADRs they depend on. Output: a small set of stories that can be implemented in parallel, each with a known ceiling under the smart-zone budget.</li>
+  <li><strong>Plan in one session.</strong> Customer writes stories. The planning agent (separate from the implementation agents) drafts ADRs as decisions surface. Each ADR is compressed before it lands. Stories get budget blocks; budget blocks reference the ADRs they depend on. Output: a small set of stories that can be implemented in parallel, each with a known ceiling under the smart-zone line.</li>
   <li><strong>Fan out.</strong> One worktree per parallel story. Each implementation session loads exactly the floor declared on its story card. No sibling diffs, no full repo scans.</li>
   <li><strong>Implement in the smart zone.</strong> Each slice is sized to finish before degradation. Tests first, runner-judged, atomic commit, reset. Same 12-point invariant list as <a href="/docs/skills/xp-with-ai/#the-skill-a-one-page-invariant-list"><code class="language-plaintext highlighter-rouge">xp-with-ai</code></a>.</li>
   <li><strong>Merge through the integrator.</strong> Worktrees fold back in dependency order. The integrator runs the suite, posts diagnostics, logs actual token consumption against the estimates.</li>
