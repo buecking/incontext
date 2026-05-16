@@ -135,4 +135,5 @@ If you're already maintaining a perception file, the three-part frame is a sanit
 - [Perception over history](/docs/foundations/perception-over-history/) — how the three layers map to perception layers
 - [Directives that work](/docs/reference/directives/) — empirical evidence on imperatives, role, negation
 - [Crafting a CLAUDE.md](/docs/per-tool/claude-md/) — how the frame translates into a CLAUDE.md file
+- [CRAFT framework (review)](/docs/patterns/craft-framework/) — an outside acronym frame that compresses into this one
 - [Failure modes §5 — aspirational rules](/docs/reference/failure-modes/#5-aspirational-rules)

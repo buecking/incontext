@@ -11,8 +11,10 @@ permalink: /
 A working reference on the craft of context for AI — the files, patterns, and small choices that decide whether a model is useful or useless on your problem.
 {: .fs-5 .fw-300 }
 
-[Start with foundations](/docs/foundations/what-is-a-context-resource/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[View on GitHub](https://github.com/YOUR-USER/incontext){: .btn .fs-5 }
+[Start with foundations](/docs/foundations/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[View on GitHub](https://github.com/buecking/incontext){: .btn .fs-5 }
+
+> **The bet:** the unit of intelligence is not the model — it's the model plus its context apparatus. A better apparatus on the same model beats a better model on a worse apparatus, and the gap is widening. [More →](/docs/foundations/)
 
 ---
 

@@ -7,12 +7,6 @@ permalink: /docs/foundations/
 ---
 
 # Foundations
-{: .no_toc }
-
-1. TOC
-{:toc}
-
----
 
 The vocabulary and the underlying ideas. Most of the per-tool, pattern, and skill pages assume the framing on this page; read it first if anything later doesn't make sense.
 

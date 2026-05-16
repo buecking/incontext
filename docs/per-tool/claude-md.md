@@ -1,6 +1,6 @@
 ---
-layout: default
 title: Crafting a CLAUDE.md
+layout: default
 parent: Per-tool
 nav_order: 1
 permalink: /docs/per-tool/claude-md/

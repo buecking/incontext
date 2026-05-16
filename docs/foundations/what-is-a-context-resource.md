@@ -1,6 +1,6 @@
 ---
-layout: default
 title: What is a context resource?
+layout: default
 parent: Foundations
 nav_order: 1
 permalink: /docs/foundations/what-is-a-context-resource/

@@ -1,6 +1,6 @@
 ---
-layout: default
 title: Context is a budget, not a bucket
+layout: default
 parent: Foundations
 nav_order: 2
 permalink: /docs/foundations/context-is-a-budget/

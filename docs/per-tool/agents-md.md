@@ -1,6 +1,6 @@
 ---
-layout: default
 title: AGENTS.md and the convergence
+layout: default
 parent: Per-tool
 nav_order: 2
 permalink: /docs/per-tool/agents-md/
