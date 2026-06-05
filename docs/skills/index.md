@@ -20,6 +20,7 @@ This is the [procedural-memory layer](/docs/foundations/#the-map) the manifesto 
 - **[XP with an AI on the team](/docs/skills/xp-with-ai/)** — the spinoff. What changes (and what doesn't) when one of the seats at the table is an AI coding agent. Adapts each practice, names the new failure modes, and ends with a 12-point invariant list you can install as a skill.
 - **[Parallel XP with token budgets](/docs/skills/parallel-xp/)** — the N-agent variant of the loop, and the chapter that puts the first deliberate move into the episodic and forward-model slots the foundations page calls empty.
 - **[Supporting skills](/docs/skills/supporting-skills/)** — the short list of skills that earn their keep alongside the XP loop: `improve-codebase-architecture`, `grill-me`, `simplify`.
+- **[The ./Test convention](/docs/skills/dot-slash-test/)** — a top-level executable shell script that bootstraps, installs, and runs all verification in a single idempotent command. Language-agnostic, self-contained, and safe for agents to run without understanding your stack.
 
 ## When a skill is the right shape
 
