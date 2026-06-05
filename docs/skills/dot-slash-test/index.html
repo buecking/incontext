@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(5)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(5) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(5) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(5) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>The ./Test convention | InContext</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="The ./Test convention" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<meta name="twitter:description" property="og:description" content="A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems." />
+<link rel="canonical" href="https://incontext.info/docs/skills/dot-slash-test/" />
+<meta property="og:url" content="https://incontext.info/docs/skills/dot-slash-test/" />
+<meta property="og:site_name" content="InContext" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="The ./Test convention" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A resource site on the craft of context for AI: CLAUDE.md, AGENTS.md, Cursor rules, prompt scaffolds, and the patterns that make models actually work on real problems.","headline":"The ./Test convention","url":"https://incontext.info/docs/skills/dot-slash-test/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  InContext
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Foundations submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/foundations/" class="nav-list-link">Foundations</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/foundations/what-is-a-context-resource/" class="nav-list-link">What is a context resource?</a></li><li class="nav-list-item"><a href="/docs/foundations/context-is-a-budget/" class="nav-list-link">Context is a budget, not a bucket</a></li><li class="nav-list-item"><a href="/docs/foundations/long-context-degradation/" class="nav-list-link">Long-context degradation</a></li><li class="nav-list-item"><a href="/docs/foundations/smart-zone-and-dumb-zone/" class="nav-list-link">The smart zone and the dumb zone</a></li><li class="nav-list-item"><a href="/docs/foundations/perception-over-history/" class="nav-list-link">Perception over history</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Per-tool submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/per-tool/" class="nav-list-link">Per-tool</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/per-tool/claude-md/" class="nav-list-link">Crafting a CLAUDE.md</a></li><li class="nav-list-item"><a href="/docs/per-tool/agents-md/" class="nav-list-link">AGENTS.md and the convergence</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Patterns submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/patterns/" class="nav-list-link">Patterns</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/patterns/scope-by-directory/" class="nav-list-link">Scope by directory</a></li><li class="nav-list-item"><a href="/docs/patterns/layered-context/" class="nav-list-link">Layered context</a></li><li class="nav-list-item"><a href="/docs/patterns/role-task-constraints/" class="nav-list-link">Role + task + constraints</a></li><li class="nav-list-item"><a href="/docs/patterns/retrieve-before-generate/" class="nav-list-link">Retrieve before generate</a></li><li class="nav-list-item"><a href="/docs/patterns/cite-dont-summarize/" class="nav-list-link">Cite, don't summarize</a></li><li class="nav-list-item"><a href="/docs/patterns/negative-examples/" class="nav-list-link">Negative examples</a></li><li class="nav-list-item"><a href="/docs/patterns/craft-framework/" class="nav-list-link">CRAFT framework (review)</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Skills submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/skills/" class="nav-list-link">Skills</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/skills/xp-workflow/" class="nav-list-link">The XP workflow</a></li><li class="nav-list-item"><a href="/docs/skills/xp-with-ai/" class="nav-list-link">XP with an AI on the team</a></li><li class="nav-list-item"><a href="/docs/skills/parallel-xp/" class="nav-list-link">Parallel XP with token budgets</a></li><li class="nav-list-item"><a href="/docs/skills/supporting-skills/" class="nav-list-link">Supporting skills</a></li><li class="nav-list-item"><a href="/docs/skills/dot-slash-test/" class="nav-list-link">The ./Test convention</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/docs/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/reference/front-matter/" class="nav-list-link">Front matter cheat sheet</a></li><li class="nav-list-item"><a href="/docs/reference/directives/" class="nav-list-link">Directives that work</a></li><li class="nav-list-item"><a href="/docs/reference/failure-modes/" class="nav-list-link">Failure modes</a></li></ul></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search InContext" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search InContext</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/buecking/incontext" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/skills/">Skills</a></li>
+    <li class="breadcrumb-nav-list-item"><span>The ./Test convention</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="the-test-convention">
+  
+  
+    <a href="#the-test-convention" class="anchor-heading" aria-labelledby="the-test-convention"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The <code class="language-plaintext highlighter-rouge">./Test</code> convention
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#what-it-does" id="markdown-toc-what-it-does">What it does</a></li>
+  <li><a href="#the-environment-model" id="markdown-toc-the-environment-model">The environment model</a></li>
+  <li><a href="#the-isolation-model" id="markdown-toc-the-isolation-model">The isolation model</a></li>
+  <li><a href="#key-patterns" id="markdown-toc-key-patterns">Key patterns</a></li>
+  <li><a href="#language-agnostic" id="markdown-toc-language-agnostic">Language-agnostic</a></li>
+  <li><a href="#when-to-reach-for-it" id="markdown-toc-when-to-reach-for-it">When to reach for it</a></li>
+  <li><a href="#when-not-to" id="markdown-toc-when-not-to">When not to</a></li>
+  <li><a href="#agent-integration" id="markdown-toc-agent-integration">Agent integration</a></li>
+  <li><a href="#related" id="markdown-toc-related">Related</a></li>
+</ol><hr />
+
+<p>Put a <strong>top-level executable shell script named <code class="language-plaintext highlighter-rouge">Test</code></strong> (capital T, no extension) at the root of every repo. Running <code class="language-plaintext highlighter-rouge">./Test</code> on a fresh clone goes from zero to pass/fail with no manual setup — no README step, no “make sure you have X installed first.” It works or it doesn’t, and if it doesn’t, the output says why.</p>
+
+<p>This is the convention that makes repos safe for agents. An agent that can run <code class="language-plaintext highlighter-rouge">./Test</code> doesn’t need to understand your stack. It runs the script, reads the output, and knows whether the change broke something.</p>
+<h2 id="what-it-does">
+  
+  
+    <a href="#what-it-does" class="anchor-heading" aria-labelledby="what-it-does"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What it does
+  
+  
+</h2>
+    
+
+<p>Three phases, in order:</p>
+
+<ol>
+  <li><strong>Bootstrap</strong> — create an isolated environment: virtualenv, toolchain, build directory. Everything goes into <code class="language-plaintext highlighter-rouge">.build/</code>, which is gitignored and disposable.</li>
+  <li><strong>Install</strong> — pull in all dependencies needed to build and test.</li>
+  <li><strong>Test</strong> — run the full verification suite: lint, unit tests, integration tests, build checks.</li>
+</ol>
+
+<p>The script is <strong>idempotent</strong>. Deleting <code class="language-plaintext highlighter-rouge">.build/</code> and re-running produces the same result as running it fresh. The <code class="language-plaintext highlighter-rouge">-C</code> flag does the delete for you; <code class="language-plaintext highlighter-rouge">-t</code> runs a single named phase:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./Test           <span class="c"># normal run (incremental if .build/ exists)</span>
+./Test <span class="nt">-C</span>        <span class="c"># clean run (rm -rf .build/ first, then full rebuild)</span>
+./Test <span class="nt">-t</span> lint   <span class="c"># run a single phase, e.g. lint</span>
+</code></pre></div></div>
+
+<p>The first two must produce the same outcome.</p>
+<h2 id="the-environment-model">
+  
+  
+    <a href="#the-environment-model" class="anchor-heading" aria-labelledby="the-environment-model"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The environment model
+  
+  
+</h2>
+    
+
+<p>The project runs in one of three environments. <code class="language-plaintext highlighter-rouge">./Test</code> always runs in <code class="language-plaintext highlighter-rouge">test</code>, never in <code class="language-plaintext highlighter-rouge">devl</code>.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Environment</th>
+      <th>Set by</th>
+      <th>What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">devl</code></td>
+      <td>Default when the program runs directly</td>
+      <td>Developer’s local state, hot reload, relaxed constraints</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">test</code></td>
+      <td><code class="language-plaintext highlighter-rouge">./Test</code>, automatically</td>
+      <td>Clean build, full verification: lint, unit, integration</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">prod</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ENV=prod ./Test</code>, or path contains <code class="language-plaintext highlighter-rouge">prod</code></td>
+      <td>Read-only smoke tests — never creates, never writes</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The script picks <code class="language-plaintext highlighter-rouge">RUNTIME_ENV</code> from the first rule that matches, highest priority first:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">ENV=prod ./Test</code> is set → <code class="language-plaintext highlighter-rouge">prod</code></li>
+  <li>The checkout path contains <code class="language-plaintext highlighter-rouge">prod</code> → <code class="language-plaintext highlighter-rouge">prod</code></li>
+  <li>Running via <code class="language-plaintext highlighter-rouge">./Test</code> → <code class="language-plaintext highlighter-rouge">test</code></li>
+  <li>Program running normally (no <code class="language-plaintext highlighter-rouge">./Test</code>) → <code class="language-plaintext highlighter-rouge">devl</code></li>
+</ol>
+
+<p>It then exports <code class="language-plaintext highlighter-rouge">RUNTIME_ENV</code> so the program knows which config set to load. Config files follow the same pattern: <code class="language-plaintext highlighter-rouge">.env.devl</code>, <code class="language-plaintext highlighter-rouge">.env.test</code>, <code class="language-plaintext highlighter-rouge">.env.prod</code> and <code class="language-plaintext highlighter-rouge">config/devl.yaml</code>, <code class="language-plaintext highlighter-rouge">config/test.yaml</code>, <code class="language-plaintext highlighter-rouge">config/prod.yaml</code>. <code class="language-plaintext highlighter-rouge">./Test</code> controls the environment; the program responds to it.</p>
+<h2 id="the-isolation-model">
+  
+  
+    <a href="#the-isolation-model" class="anchor-heading" aria-labelledby="the-isolation-model"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The isolation model
+  
+  
+</h2>
+    
+
+<p>Isolation is the <strong>checkout</strong>, not the user. Every developer has their own clone; <code class="language-plaintext highlighter-rouge">.build/</code> lives inside it and is never shared:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/alice/projects/myapp/.build/   ← Alice's artifacts
+/home/bob/projects/myapp/.build/     ← Bob's artifacts
+</code></pre></div></div>
+
+<p>Two people running <code class="language-plaintext highlighter-rouge">./Test</code> simultaneously in different checkouts never conflict. CI gets its own checkout too. <code class="language-plaintext highlighter-rouge">.build/</code> is safe to delete at any time — the next <code class="language-plaintext highlighter-rouge">./Test</code> rebuilds it from source.</p>
+<h2 id="key-patterns">
+  
+  
+    <a href="#key-patterns" class="anchor-heading" aria-labelledby="key-patterns"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Key patterns
+  
+  
+</h2>
+    
+
+<p><strong>Trap-based pass/fail</strong> — use this in every <code class="language-plaintext highlighter-rouge">Test</code> script:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">PASSED</span><span class="o">=</span><span class="nb">false
+trap</span> <span class="s1">'ec=$?; $PASSED || echo 1&gt;&amp;2 "FAILED (exitcode=$ec)"; exit $ec'</span> 0
+<span class="c"># ... all work ...</span>
+<span class="nv">PASSED</span><span class="o">=</span><span class="nb">true
+echo</span> <span class="s2">"OK (</span><span class="si">$(</span>elapsed<span class="si">)</span><span class="s2">s)"</span>
+</code></pre></div></div>
+
+<p>The trap fires on <code class="language-plaintext highlighter-rouge">set -e</code> exits, signals, and unexpected termination. Nothing passes silently.</p>
+
+<p><strong>Elapsed timing</strong> — so the closing <code class="language-plaintext highlighter-rouge">OK</code> line tells you how long the run took:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">elapsed_start</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span> +%s<span class="si">)</span>
+elapsed<span class="o">()</span> <span class="o">{</span> <span class="nb">echo</span> <span class="k">$((</span> <span class="si">$(</span><span class="nb">date</span> +%s<span class="si">)</span> <span class="o">-</span> <span class="nv">$elapsed_start</span> <span class="k">))</span><span class="p">;</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Non-fatal error accumulation</strong> — continue testing after soft failures, report everything at the end:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">errorlist</span><span class="o">=()</span>
+adderror<span class="o">()</span> <span class="o">{</span> <span class="nb">echo </span>1&gt;&amp;2 <span class="s1">'***** ERROR:'</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span> errorlist+<span class="o">=(</span><span class="s2">"</span><span class="nv">$*</span><span class="s2">"</span><span class="o">)</span><span class="p">;</span> <span class="o">}</span>
+some_check <span class="o">||</span> adderror <span class="s2">"check failed for </span><span class="nv">$item</span><span class="s2">"</span>
+<span class="o">[[</span> <span class="k">${#</span><span class="nv">errorlist</span><span class="p">[@]</span><span class="k">}</span> <span class="nt">-gt</span> 0 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span> <span class="nb">printf</span> <span class="s1">'%s\n'</span> <span class="s2">"</span><span class="k">${</span><span class="nv">errorlist</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="nb">exit </span>1<span class="p">;</span> <span class="o">}</span>
+</code></pre></div></div>
+<h2 id="language-agnostic">
+  
+  
+    <a href="#language-agnostic" class="anchor-heading" aria-labelledby="language-agnostic"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Language-agnostic
+  
+  
+</h2>
+    
+
+<p>The structure is the same regardless of stack. Only the bootstrap and test commands change:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Stack</th>
+      <th>Bootstrap + test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Python</td>
+      <td><code class="language-plaintext highlighter-rouge">. ./pactivate -q &amp;&amp; pytest -qq</code></td>
+    </tr>
+    <tr>
+      <td>Go</td>
+      <td><code class="language-plaintext highlighter-rouge">go test ./...</code></td>
+    </tr>
+    <tr>
+      <td>Rust</td>
+      <td><code class="language-plaintext highlighter-rouge">cargo test</code></td>
+    </tr>
+    <tr>
+      <td>Node.js</td>
+      <td><code class="language-plaintext highlighter-rouge">npm ci &amp;&amp; npm test</code></td>
+    </tr>
+    <tr>
+      <td>Haskell</td>
+      <td><code class="language-plaintext highlighter-rouge">stack build --test</code></td>
+    </tr>
+  </tbody>
+</table></div>
+<h2 id="when-to-reach-for-it">
+  
+  
+    <a href="#when-to-reach-for-it" class="anchor-heading" aria-labelledby="when-to-reach-for-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When to reach for it
+  
+  
+</h2>
+    
+
+<ul>
+  <li><strong>New project.</strong> Scaffold <code class="language-plaintext highlighter-rouge">Test</code> before writing the first line of application code. Having it forces you to define “done” up front.</li>
+  <li><strong>Inheriting a repo.</strong> If there’s no <code class="language-plaintext highlighter-rouge">Test</code>, add one. A repo without it is a repo where you can’t verify anything quickly.</li>
+  <li><strong>CI onboarding.</strong> If your CI script and your local test command have diverged, <code class="language-plaintext highlighter-rouge">Test</code> closes the gap. CI runs <code class="language-plaintext highlighter-rouge">./Test -C</code>; so do you.</li>
+</ul>
+<h2 id="when-not-to">
+  
+  
+    <a href="#when-not-to" class="anchor-heading" aria-labelledby="when-not-to"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When not to
+  
+  
+</h2>
+    
+
+<ul>
+  <li><strong>Partial phase needed.</strong> Use <code class="language-plaintext highlighter-rouge">./Test -t lint</code> to run one phase rather than skipping the script entirely.</li>
+  <li><strong>Required tooling is genuinely unavailable.</strong> If there’s no graceful fallback, <code class="language-plaintext highlighter-rouge">Test</code> should print a clear warning and skip the affected phase, not fail silently. An agent needs to know what ran and what didn’t.</li>
+</ul>
+<h2 id="agent-integration">
+  
+  
+    <a href="#agent-integration" class="anchor-heading" aria-labelledby="agent-integration"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Agent integration
+  
+  
+</h2>
+    
+
+<p>An agent in a repo with a <code class="language-plaintext highlighter-rouge">Test</code> script should run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /path/to/repo <span class="o">&amp;&amp;</span> ./Test <span class="nt">-C</span> 2&gt;&amp;1 | <span class="nb">tee </span>test-output.log
+<span class="nb">tail</span> <span class="nt">-1</span> test-output.log | <span class="nb">grep</span> <span class="nt">-q</span> <span class="s1">'^OK ('</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"PASS"</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">"FAIL"</span>
+</code></pre></div></div>
+
+<p>For prod smoke tests:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">ENV</span><span class="o">=</span>prod ./Test 2&gt;&amp;1 | <span class="nb">tee </span>smoke-output.log
+</code></pre></div></div>
+
+<p>When an agent <strong>creates</strong> a new project, scaffold <code class="language-plaintext highlighter-rouge">Test</code> as part of initialization:</p>
+
+<ol>
+  <li>Create <code class="language-plaintext highlighter-rouge">Test</code> at repo root, <code class="language-plaintext highlighter-rouge">chmod +x</code></li>
+  <li>Add <code class="language-plaintext highlighter-rouge">set -euo pipefail</code> and the trap-based pass/fail boilerplate</li>
+  <li>Add environment detection (prod path/ENV var, else test), export <code class="language-plaintext highlighter-rouge">RUNTIME_ENV</code></li>
+  <li>Set <code class="language-plaintext highlighter-rouge">PROJDIR</code> and <code class="language-plaintext highlighter-rouge">cd "$PROJDIR"</code> at the top</li>
+  <li>Add isolation: <code class="language-plaintext highlighter-rouge">mkdir -p .build/</code>, support <code class="language-plaintext highlighter-rouge">-C</code> for clean rebuilds</li>
+  <li>Add bootstrap step (venv, toolchain, dep install)</li>
+  <li>Add test phases with <code class="language-plaintext highlighter-rouge">echo "===== Phase Name"</code> headers</li>
+  <li>Add prod branch for read-only smoke tests</li>
+  <li>End with <code class="language-plaintext highlighter-rouge">PASSED=true</code> and <code class="language-plaintext highlighter-rouge">echo "OK ($(elapsed)s)"</code></li>
+</ol>
+<h2 id="related">
+  
+  
+    <a href="#related" class="anchor-heading" aria-labelledby="related"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Related
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="/docs/skills/xp-workflow/">The XP workflow</a> — where <code class="language-plaintext highlighter-rouge">./Test</code> fits in the red-green-refactor loop</li>
+  <li><a href="/docs/skills/parallel-xp/">Parallel XP with token budgets</a> — the N-agent variant that depends on <code class="language-plaintext highlighter-rouge">./Test</code> as its verification primitive</li>
+  <li><a href="/docs/skills/supporting-skills/">Supporting skills</a> — other skills that compose with the XP loop</li>
+</ul>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">InContext &middot; <a href="https://github.com/buecking/incontext">Source on GitHub</a></p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+        <p class="text-small mb-0">
+          <a href="https://github.com/buecking/incontext/tree/main/docs/skills/dot-slash-test.md" id="edit-this-page">Edit this page on GitHub</a>
+        </p>
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+
