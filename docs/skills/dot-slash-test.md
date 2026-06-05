@@ -14,7 +14,7 @@ permalink: /docs/skills/dot-slash-test/
 
 ---
 
-A **top-level executable shell script named `Test`** (capital T, no extension) at the root of every repo. Running `./Test` on a fresh clone goes from zero to pass/fail with no manual setup — no README step, no "make sure you have X installed first." It works or it doesn't, and if it doesn't, the output says why.
+Put a **top-level executable shell script named `Test`** (capital T, no extension) at the root of every repo. Running `./Test` on a fresh clone goes from zero to pass/fail with no manual setup — no README step, no "make sure you have X installed first." It works or it doesn't, and if it doesn't, the output says why.
 
 This is the convention that makes repos safe for agents. An agent that can run `./Test` doesn't need to understand your stack. It runs the script, reads the output, and knows whether the change broke something.
 
@@ -26,37 +26,34 @@ Three phases, in order:
 2. **Install** — pull in all dependencies needed to build and test.
 3. **Test** — run the full verification suite: lint, unit tests, integration tests, build checks.
 
-The script is **idempotent**. Deleting `.build/` and re-running produces the same result as running it fresh. The `-C` flag does the delete for you:
+The script is **idempotent**. Deleting `.build/` and re-running produces the same result as running it fresh. The `-C` flag does the delete for you; `-t` runs a single named phase:
 
 ```bash
-./Test       # normal run (incremental if .build/ exists)
-./Test -C    # clean run (rm -rf .build/ first, then full rebuild)
+./Test           # normal run (incremental if .build/ exists)
+./Test -C        # clean run (rm -rf .build/ first, then full rebuild)
+./Test -t lint   # run a single phase, e.g. lint
 ```
 
-Both must produce the same outcome.
+The first two must produce the same outcome.
 
 ## The environment model
 
 The project runs in one of three environments. `./Test` always runs in `test`, never in `devl`.
 
-| Environment | Who sets it | What it does |
+| Environment | Set by | What it does |
 |---|---|---|
-| `devl` | Default when the program runs | Developer's local state, hot reload, relaxed constraints |
-| `test` | `./Test` sets this automatically | Clean build, full verification: lint + unit + integration |
-| `prod` | `ENV=prod ./Test` or path contains `prod` | Read-only smoke tests only — never creates, never writes |
+| `devl` | Default when the program runs directly | Developer's local state, hot reload, relaxed constraints |
+| `test` | `./Test`, automatically | Clean build, full verification: lint, unit, integration |
+| `prod` | `ENV=prod ./Test`, or path contains `prod` | Read-only smoke tests — never creates, never writes |
 
-The script exports `RUNTIME_ENV` so the program knows which config set to load:
+The script picks `RUNTIME_ENV` from the first rule that matches, highest priority first:
 
-```bash
-# priority order (highest → lowest)
-# 1. ENV=prod ./Test        → runtime_env=prod
-# 2. path contains "prod"   → runtime_env=prod
-# 3. running via ./Test     → runtime_env=test
-# 4. program running normally → runtime_env=devl
-export RUNTIME_ENV=$runtime_env
-```
+1. `ENV=prod ./Test` is set → `prod`
+2. The checkout path contains `prod` → `prod`
+3. Running via `./Test` → `test`
+4. Program running normally (no `./Test`) → `devl`
 
-Config files follow the same pattern: `.env.devl`, `.env.test`, `.env.prod` and `config/devl.yaml`, `config/test.yaml`, `config/prod.yaml`. Test controls the environment; the program responds to it.
+It then exports `RUNTIME_ENV` so the program knows which config set to load. Config files follow the same pattern: `.env.devl`, `.env.test`, `.env.prod` and `config/devl.yaml`, `config/test.yaml`, `config/prod.yaml`. `./Test` controls the environment; the program responds to it.
 
 ## The isolation model
 
@@ -83,7 +80,7 @@ echo "OK ($(elapsed)s)"
 
 The trap fires on `set -e` exits, signals, and unexpected termination. Nothing passes silently.
 
-**Elapsed timing:**
+**Elapsed timing** — so the closing `OK` line tells you how long the run took:
 
 ```bash
 elapsed_start=$(date +%s)
