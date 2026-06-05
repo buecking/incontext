@@ -91,7 +91,7 @@ elapsed() { echo $(( $(date +%s) - $elapsed_start )); }
 
 ```bash
 errorlist=()
-adderror() { echo 2>&1 '***** ERROR:' "$@"; errorlist+=("$*"); }
+adderror() { echo 1>&2 '***** ERROR:' "$@"; errorlist+=("$*"); }
 some_check || adderror "check failed for $item"
 [[ ${#errorlist[@]} -gt 0 ]] && { printf '%s\n' "${errorlist[@]}"; exit 1; }
 ```
@@ -149,4 +149,5 @@ When an agent **creates** a new project, scaffold `Test` as part of initializati
 ## Related
 
 - [The XP workflow](/docs/skills/xp-workflow/) — where `./Test` fits in the red-green-refactor loop
+- [Parallel XP with token budgets](/docs/skills/parallel-xp/) — the N-agent variant that depends on `./Test` as its verification primitive
 - [Supporting skills](/docs/skills/supporting-skills/) — other skills that compose with the XP loop

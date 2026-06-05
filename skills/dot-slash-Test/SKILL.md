@@ -168,7 +168,7 @@ Catches `set -e` exits, signals, and any unexpected termination. Nothing passes 
 ```bash
 errorlist=()
 adderror() {
-    echo 2>&1 '***** ERROR:' "$@"
+    echo 1>&2 '***** ERROR:' "$@"
     errorlist+=("$*")
 }
 # Continue testing after non-fatal failures
