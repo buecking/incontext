@@ -53,6 +53,7 @@ Or describe the task — the skill's `description` field tells the agent when to
 | Skill | What it does | Install |
 |---|---|---|
 | [`xp-programming-workflow`](/skills/xp-programming-workflow/SKILL.md) | Runs one XP loop: story → failing test → minimal impl → refactor → atomic commit → reset. Defends against the dumb zone by design. | `curl -fsSL https://incontext.info/skills/xp-programming-workflow/SKILL.md` |
+| [`dot-slash-Test`](/skills/dot-slash-Test/SKILL.md) | Enforce a single entry point for building, testing, deploying your project | `curl -fsSL https://incontext.info/skills/dot-slash-Test/SKILL.md` |
 
 Explainers for each skill live under [Skills](/docs/skills/). The XP workflow has its own page for the [Beck source](/docs/skills/xp-workflow/) and the [AI-team adaptation](/docs/skills/xp-with-ai/).
 
